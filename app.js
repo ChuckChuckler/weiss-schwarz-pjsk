@@ -9,7 +9,7 @@ let uri = MONGO_URI;
 const client = new MongoClient(uri);
 client.connect();
 let db = client.db(DB_NAME);
-let coll = db.collection(CLUSTER_NAME);
+let coll = db.collection(COLL_NAME);
 
 let username;
 let password;
@@ -17,7 +17,43 @@ let password;
 app.post("/signup", async(req, res)=>{
     let user = req.body.user;
     let pass = req.body.pass;
-    res.send({msg:`User: ${user}; Pass: ${pass}`});
+
+    try{
+        if(await coll.findOne({username:user})){
+            console.log(coll.findOne({username:user}));
+            res.send({msg:"This username already exists"});
+        }else{
+            let hash = crypto.createHash("sha256");
+            coll.insertOne({
+                username:user,
+                password:hash.update(pass).digest("hex"),
+                inventory:{}
+            });
+            username=user;
+            res.send({msg:"Success! Loading..."});
+        }
+    }catch(e){
+        res.send({msg:`Error: ${e}`});
+    }
+});
+
+app.post("/login", async(req, res)=>{
+    let user = req.body.user;
+    let pass = req.body.pass;
+    try{
+        if(await coll.findOne({username:user})){
+            let hash = crypto.createHash("sha256");
+            if(await coll.findOne({username:user, password:hash.update(pass).digest("hex")})){
+                res.send({msg:`Success! Loading...`});
+            }else{
+                res.send({msg:`Incorrect password`});
+            }
+        }else{
+            res.send({msg:`No such username found`});
+        }
+    }catch(e){
+        res.send({msg:`Error: ${e}`});
+    }
 });
 
 

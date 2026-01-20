@@ -44,7 +44,7 @@ export async function signupLogic(username, password){
         
         let returnval = "";
 
-        let userdata = await axios.post("/login", {
+        let userdata = await axios.post("/signup", {
             user:username,
             pass:password
         })
