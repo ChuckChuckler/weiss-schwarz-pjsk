@@ -7,10 +7,16 @@
 
     async function signup(){
         tryMsgSignup = await signupLogic(document.getElementById("signupuser").value, document.getElementById("signuppassword").value);
+        if(tryMsgLogin=="Success! Loading..."){
+            window.location.href = "/home";
+        }
     }
 
     async function login(){
         tryMsgLogin = await loginLogic(document.getElementById("loginuser").value, document.getElementById("loginpassword").value);
+        if(tryMsgLogin=="Success! Loading..."){
+            window.location.href = "/home";
+        }
     }
 </script>
 
