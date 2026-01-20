@@ -5,13 +5,12 @@
     let tryMsgSignup = $state("");
     let tryMsgLogin = $state("");
 
-    function signup(){
-        tryMsgSignup = signupLogic(document.getElementById("signupuser").value, document.getElementById("signuppassword").value);
+    async function signup(){
+        tryMsgSignup = await signupLogic(document.getElementById("signupuser").value, document.getElementById("signuppassword").value);
     }
 
-    function login(){
-        tryMsgLogin = loginLogic(document.getElementById("loginuser").value, document.getElementById("loginpassword").value);
-        console.log(loginLogic(document.getElementById("loginuser").value, document.getElementById("loginpassword").value));
+    async function login(){
+        tryMsgLogin = await loginLogic(document.getElementById("loginuser").value, document.getElementById("loginpassword").value);
     }
 </script>
 

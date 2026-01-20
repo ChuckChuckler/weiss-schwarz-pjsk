@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function loginLogic(username, password){
+export async function loginLogic(username, password){
     if(username==""){
         return "No username provided";
     }else if(password==""){
@@ -12,26 +12,25 @@ export function loginLogic(username, password){
             return "Password must be at least 5 characters.";
         }
 
-        let returnvalue = "";
+        let returnval = "";
 
-        axios.post("/signup", {
+        let userdata = await axios.post("/login", {
             user:username,
             pass:password
         })
         .then((response)=>{
             console.log(response.data.msg);
-            returnvalue = "hi";
+            returnval = response.data.msg;
         })
         .catch((e)=>{
-            console.log("E: " + e);
-            returnvalue = e;
+            return(`Err: ${e}`);
         });
 
-        return returnvalue;
+        return returnval;
     }
 }
 
-export function signupLogic(username, password){
+export async function signupLogic(username, password){
     if(username==""){
         return "No username provided";
     }else if(password==""){
@@ -42,6 +41,21 @@ export function signupLogic(username, password){
         }else if(password.length<5){
             return "Password must be at least 5 characters.";
         }
-        return "Success!";
+        
+        let returnval = "";
+
+        let userdata = await axios.post("/login", {
+            user:username,
+            pass:password
+        })
+        .then((response)=>{
+            console.log(response.data.msg);
+            returnval = response.data.msg;
+        })
+        .catch((e)=>{
+            return(`Err: ${e}`);
+        });
+
+        return returnval;
     }
 }
