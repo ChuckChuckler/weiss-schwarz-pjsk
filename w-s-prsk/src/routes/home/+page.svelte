@@ -1,4 +1,13 @@
 <script>
+    import {onMount} from "svelte";
+
+    let vs_container;
+    let ln_container;
+    let mmj_container;
+    let vbs_container;
+    let wxs_container;
+    let n25_container;
+
     let cards = {
         //VOCALOIDS
         S91PE02SPR: {
@@ -71,26 +80,6 @@
             group: "Virtual Singer",
             groupId: 1
         },
-        S91E107:{
-            name: "Severed Thread",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E107.png",
-            rarity: "CC",
-            rarityId: 3,
-            character: "Hatsune Miku",
-            characterId: 1,
-            group: "Virtual Singer",
-            groupId: 1
-        },
-        S91E107:{
-            name: "Severed Thread",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E107.png",
-            rarity: "CC",
-            rarityId: 3,
-            character: "Hatsune Miku",
-            characterId: 1,
-            group: "Virtual Singer",
-            groupId: 1
-        },
         S91E040:{
             name: "All to See You Smile",
             photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E040.png",
@@ -143,7 +132,7 @@
         },
         S91E084:{
             name: "A View to Share With Someone Special",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E084.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E084R.png",
             rarity: "R",
             rarityId: 5,
             character: "Hatsune Miku",
@@ -153,7 +142,7 @@
         },
         S91E032:{
             name: "To the Stage!",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E032.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E032R.png",
             rarity: "R",
             rarityId: 5,
             character: "Hatsune Miku",
@@ -163,7 +152,7 @@
         },
         S91E007:{
             name: "Snow, Sleigh, Reindeer, Santa!",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E007.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E007R.png",
             rarity: "R",
             rarityId: 5,
             character: "Hatsune Miku",
@@ -173,7 +162,7 @@
         },
         S91E005:{
             name: "Go! Go! Go ♪",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E005.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E005R.png",
             rarity: "R",
             rarityId: 5,
             character: "Hatsune Miku",
@@ -183,7 +172,7 @@
         },
         S91E088:{
             name: "Discover More",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E088.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E088R.png",
             rarity: "R",
             rarityId: 5,
             character: "Hatsune Miku",
@@ -193,7 +182,7 @@
         },
         S91E033:{
             name: "Shining Rainbow ♪",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E033.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E033R.png",
             rarity: "R",
             rarityId: 5,
             character: "Kagamine Rin",
@@ -203,7 +192,7 @@
         },
         S91E059:{
             name: "Absolute Strongest Duo",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E059.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E059R.png",
             rarity: "R",
             rarityId: 5,
             character: "Kagamine Len",
@@ -213,7 +202,7 @@
         },
         S91E086:{
             name: "Tears for You",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E086.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E086R.png",
             rarity: "R",
             rarityId: 5,
             character: "Megurine Luka",
@@ -223,7 +212,7 @@
         },
         S91E004:{
             name: "Wonderful Idea!",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E004.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E004R.png",
             rarity: "R",
             rarityId: 5,
             character: "MEIKO",
@@ -233,7 +222,7 @@
         },
         S91E008:{
             name: "A Guiding Hand",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E008.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E008R.png",
             rarity: "R",
             rarityId: 5,
             character: "KAITO",
@@ -341,16 +330,6 @@
             group: "Virtual Singer",
             groupId: 1
         },
-        S91E107R:{
-            name: "Severed Thread",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E107R.png",
-            rarity: "RRR",
-            rarityId: 8,
-            character: "Hatsune Miku",
-            characterId: 1,
-            group: "Virtual Singer",
-            groupId: 1
-        },
         S91E088SSP:{
             name: "Discover More",
             photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E088SSP.png",
@@ -411,7 +390,27 @@
             group: "Virtual Singer",
             groupId: 1
         },
-        //LEONEED
+        S91E107:{
+            name: "Severed Thread",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E107.png",
+            rarity: "CC",
+            rarityId: 3,
+            character: "Hatsune Miku",
+            characterId: 1,
+            group: "Virtual Singer",
+            groupId: 1
+        },
+        S91E107R:{
+            name: "Severed Thread",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E107R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Hatsune Miku",
+            characterId: 1,
+            group: "Virtual Singer",
+            groupId: 1
+        },
+        //LN
         S91E098:{
             name: "Distant Yet Caring",
             photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E098.png",
@@ -459,6 +458,16 @@
             rarityId: 3,
             character: "Hoshino Ichika",
             characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E029:{
+            name: "100 Things I Want to Do",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E029.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Tenma Saki",
+            characterId: 2,
             group: "Leo/need",
             groupId: 2
         },
@@ -544,7 +553,7 @@
         },
         S91E058:{
             name: "Grateful for Courage",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E058.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E058R.png",
             rarity: "R",
             rarityId: 5,
             character: "Mochizuki Honami",
@@ -554,7 +563,7 @@
         },
         S91E036:{
             name: "Recognizable Passion",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E036.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E036R.png",
             rarity: "R",
             rarityId: 5,
             character: "Hinomori Shiho",
@@ -682,7 +691,7 @@
             group: "Leo/need",
             groupId: 2
         },
-        //MOREMOREJUMP
+        //MMJ
         S91E046:{
             name:"Aiming to Be an Idol!",
             photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E046.png",
@@ -815,7 +824,7 @@
         },
         S91E035:{
             name:"Blessings Abound",
-            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E035.png",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E035R.png",
             rarity:"R",
             rarityId:5,
             character:"Kiritani Haruka",
@@ -835,7 +844,7 @@
         },
         S91E034:{
             name:`I'm Not Just Anyone, I'm "Me"`,
-            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E034.png",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E034R.png",
             rarity:"R",
             rarityId:5,
             character:"Hinomori Shizuku",
@@ -1096,7 +1105,7 @@
         },
         S91E060:{
             name:"Despite Being Partners",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E060.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E060R.png",
             rarity: "R",
             rarityId: 5,
             character: "Shiraishi An",
@@ -1116,7 +1125,7 @@
         },
         S91E057:{
             name:"Maybe Someday",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E057.png",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E057R.png",
             rarity: "R",
             rarityId: 5,
             character: "Aoyagi Toya",
@@ -1378,7 +1387,7 @@
         },
         S91E009:{
             name:"Sprint! Relay Anchor☆",
-            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E009.png",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E009R.png",
             rarity: "R",
             rarityId: 5,
             character: "Otori Emu",
@@ -1398,7 +1407,7 @@
         },
         S91E006:{
             name:"Unexpected Happenings",
-            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E006.png",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E006R.png",
             rarity: "R",
             rarityId: 5,
             character: "Kamishiro Rui",
@@ -1659,7 +1668,7 @@
         },
         S91E087:{
             name:"Captive Masquerade",
-            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E087.png",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E087R.png",
             rarity:"R",
             rarityId:5,
             character:"Asahina Mafuyu",
@@ -1669,7 +1678,7 @@
         },
         S91E085:{
             name:"New Year's Together",
-            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E085.png",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E085R.png",
             rarity:"R",
             rarityId:5,
             character:"Shinonome Ena",
@@ -1808,8 +1817,67 @@
             groupId: 6
         }
     }
+
+    onMount(()=>{
+        for(let i in cards){
+            let img = document.createElement("img");
+            img.src=cards[i].photo;
+            img.alt=cards[i].name;
+            img.className = "card";
+            if(cards[i].group=="Virtual Singer"){
+                vs_container.appendChild(img);
+            }else if(cards[i].group=="Leo/need"){
+                ln_container.appendChild(img);
+            }else if(cards[i].group=="MORE MORE JUMP!"){
+                mmj_container.appendChild(img);
+            }else if(cards[i].group=="Vivid Bad Squad"){
+                vbs_container.appendChild(img);
+            }else if(cards[i].group=="Wonderlands X Showtime"){
+                wxs_container.appendChild(img);
+            }else{
+                n25_container.appendChild(img);
+            }
+        }
+    });
+
 </script>
 
 <h1>AHH AHHHHHHHHHHH AHHH AHH AHHHHHHHHHHHHHHH AHHHA HA HA AHHH</h1>
-<img src={cards.S91PE02SPR.photo} alt="powerful-smile-hatsune-miku">
 
+<div bind:this={vs_container} class="grid vs-grid">
+</div>
+<br>
+<br>
+<div bind:this={ln_container} id="Leo/need" class="grid ln-grid">
+</div>
+<br>
+<br>
+<div bind:this={mmj_container} id="MORE MORE JUMP!" class="grid mmj-grid">
+</div>
+<br>
+<br>
+<div bind:this={vbs_container} id="Vivid Bad Squad" class="grid vbs-grid">
+</div>
+<br>
+<br>
+<div bind:this={wxs_container} id="Wonderlands x Showtime" class="grid wxs-grid">
+</div>
+<br>
+<br>
+<div bind:this={n25_container} id="Nightcord at 25:00" class="grid n25-grid">
+</div>
+
+<style>
+    :global(.card){
+        width: 12vw;
+    }
+    .grid{
+        display: grid;
+        width: 100%;
+        height: 500px;
+        background-color: rgb(152, 152, 227);
+        grid-template-columns: auto auto auto auto;
+        overflow: auto;
+        row-gap: 50px;
+    }
+</style>
