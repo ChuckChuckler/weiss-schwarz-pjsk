@@ -410,6 +410,277 @@
             group: "Virtual Singer",
             groupId: 1
         },
+
+        S91E098:{
+            name: "Distant Yet Caring",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E098.png",
+            rarity: "C",
+            rarityId: 2,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E017:{
+            name: "The Ever Cheerful One",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E017.png",
+            rarity: "C",
+            rarityId: 2,
+            character: "Tenma Saki",
+            characterId: 2,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E072:{
+            name: "The Kind Honor Student",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E072.png",
+            rarity: "C",
+            rarityId: 2,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E045:{
+            name: "Distant Loner",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E045.png",
+            rarity: "C",
+            rarityId: 2,
+            character: "Hinomori Shiho",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E108:{
+            name: "Beyond the Sky",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E108.png",
+            rarity: "CC",
+            rarityId: 3,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E080:{
+            name: "Unchanging Flavor",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E080.png",
+            rarity: "CC",
+            rarityId: 3,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E053:{
+            name: "Lingering Melody",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E053.png",
+            rarity: "CC",
+            rarityId: 3,
+            character: "Hinomori Shizuku",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E092:{
+            name: "One Step Forward",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E092.png",
+            rarity: "U",
+            rarityId: 4,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E015:{
+            name: "Now and Forever",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E015.png",
+            rarity: "U",
+            rarityId: 4,
+            character: "Tenma Saki",
+            characterId: 2,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E062:{
+            name: "So Close Yet So Far",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E062.png",
+            rarity: "U",
+            rarityId: 4,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E038:{
+            name: "Fond Memories",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E038.png",
+            rarity: "U",
+            rarityId: 4,
+            character: "Hinomori Shiho",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E081:{
+            name: "Words Before Dawn",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E081.png",
+            rarity: "RR",
+            rarityId: 6,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E002:{
+            name: "Rainy Distance",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E002.png",
+            rarity: "RR",
+            rarityId: 6,
+            character: "Tenma Saki",
+            characterId: 2,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E058:{
+            name: "Grateful for Courage",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E058.png",
+            rarity: "R",
+            rarityId: 5,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E036:{
+            name: "Recognizable Passion",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E036.png",
+            rarity: "R",
+            rarityId: 5,
+            character: "Hinomori Shiho",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E092S:{
+            name: "One Step Forward",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E092S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E015S:{
+            name: "Now and Forever",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E015S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Tenma Saki",
+            characterId: 2,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E062S:{
+            name: "So Close Yet So Far",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E062S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E038S:{
+            name: "Fond Memories",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E038S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Hinomori Shiho",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E108R:{
+            name: "Beyond the Sky",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E108R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E029R:{
+            name: "100 Things I Want to Do",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E029R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Tenma Saki",
+            characterId: 2,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E080R:{
+            name: "Unchanging Flavor",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E080R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E053R:{
+            name: "Lingering Melody",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E053R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Hinomori Shiho",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E081SSP:{
+            name: "Words Before Dawn",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E081SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Hoshino Ichika",
+            characterId: 1,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E002SSP:{
+            name: "Rainy Distance",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E002SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Tenma Saki",
+            characterId: 2,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E058SSP:{
+            name: "Grateful for Courage",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E058SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Mochizuki Honami",
+            characterId: 3,
+            group: "Leo/need",
+            groupId: 2
+        },
+        S91E036SSP:{
+            name: "Recognizable Passion",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E036SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Hinomori Shiho",
+            characterId: 4,
+            group: "Leo/need",
+            groupId: 2
+        },
     }
 </script>
 
