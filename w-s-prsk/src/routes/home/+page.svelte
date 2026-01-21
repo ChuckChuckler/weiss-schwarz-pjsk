@@ -1204,40 +1204,40 @@
             group: "Vivid Bad Squad",
             groupId: 4
         },
-        S91E056SSR:{
+        S91E056SSP:{
             name:"Once More Together",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E056SSR.png",
-            rarity: "SSR",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E056SSP.png",
+            rarity: "SSP",
             rarityId: 9,
             character: "Azusawa Kohane",
             characterId: 1,
             group: "Vivid Bad Squad",
             groupId: 4
         },
-        S91E060SSR:{
+        S91E060SSP:{
             name:"Despite Being Partners",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E060SSR.png",
-            rarity: "SSR",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E060SSP.png",
+            rarity: "SSP",
             rarityId: 9,
             character: "Shiraishi An",
             characterId: 2,
             group: "Vivid Bad Squad",
             groupId: 4
         },
-        S91E054SSR:{
+        S91E054SSP:{
             name:"Because We're Partners",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E054SSR.png",
-            rarity: "SSR",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E054SSP.png",
+            rarity: "SSP",
             rarityId: 9,
             character: "Shinonome Akito",
             characterId: 3,
             group: "Vivid Bad Squad",
             groupId: 4
         },
-        S91E057SSR:{
+        S91E057SSP:{
             name:"Maybe Someday",
-            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E057SSR.png",
-            rarity: "SSR",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E057SSP.png",
+            rarity: "SSP",
             rarityId: 9,
             character: "Aoyagi Toya",
             characterId: 4,
@@ -1527,6 +1527,286 @@
             groupId: 5
         },
         //N25
+        S91E095:{
+            name:"Loved by Music",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E095.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E096:{
+            name:"The Honor Student",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E096.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E097:{
+            name:"Social Media Obsessed Artist",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E097.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E100:{
+            name:"Obsessed With Cuteness",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E100.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E103:{
+            name:"Beyond the Screen...",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E103.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E104:{
+            name:`The "Good" Me`,
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E104.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E105:{
+            name:"The Best Angle",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E105.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E106:{
+            name:"Unyielding Obsession",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E106.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E091:{
+            name:"Why I Keep Composing",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E091.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E090:{
+            name:"Where Is the Self?",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E090.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E094:{
+            name:"I Just Want to Disappear Forever",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E094.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E089:{
+            name:"It's So Stupid",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E089.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E082:{
+            name:"Lifelike",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E082.png",
+            rarity:"RR",
+            rarityId:6,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E087:{
+            name:"Captive Masquerade",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E087.png",
+            rarity:"R",
+            rarityId:5,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E085:{
+            name:"New Year's Together",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E085.png",
+            rarity:"R",
+            rarityId:5,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E083:{
+            name:"Rooftop Friendship",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E083.png",
+            rarity:"RR",
+            rarityId:6,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E091S:{
+            name:"Why I Keep Composing",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E091S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E090S:{
+            name:"Where Is the Self?",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E090S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E094S:{
+            name:"I Just Want to Disappear Forever",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E094S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E089S:{
+            name:"It's So Stupid",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E089S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E103R:{
+            name:"Beyond the Screen...",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E103R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E104R:{
+            name:`The "Good" Me`,
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E104R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E105R:{
+            name:"The Best Angle",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E105R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E106R:{
+            name:"Unyielding Obsession",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E106R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E082SSP:{
+            name:"Lifelike",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E082SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Yoisaki Kanade",
+            characterId:1,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E087SSP:{
+            name:"Captive Masquerade",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E087SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Asahina Mafuyu",
+            characterId:2,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E085SSP:{
+            name:"New Year's Together",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E085SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Shinonome Ena",
+            characterId:3,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        },
+        S91E083SSP:{
+            name:"Rooftop Friendship",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E083SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Akiyama Mizuki",
+            characterId:4,
+            group: "Nightcord at 25:00",
+            groupId: 6
+        }
     }
 </script>
 
