@@ -963,6 +963,570 @@
             group:"MORE MORE JUMP!",
             groupId:3
         },
+        //VBS
+        S91E069:{
+            name:"Tiny Timid Creature",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E069.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E070:{
+            name:"Charismatic Singer",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E070.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E074:{
+            name:"Well-Known Big Shot",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E074.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E071:{
+            name:"Classical Prodigy",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E071.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E076:{
+            name:"A Quick Breather",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E076.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E077:{
+            name:"Top-Notch Server!",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E077.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E078:{
+            name:"Bristling Irritation",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E078.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E079:{
+            name:"Broken Bonds",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E079.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E063:{
+            name:"Heart-Pounding Song",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E063.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E061:{
+            name:"Together We Can Do Anything!",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E061.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E064:{
+            name:"In Order to Surpass RAD WEEKEND",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E064.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E066:{
+            name:"Next to You",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E066.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E056:{
+            name:"Once More Together",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E056.png",
+            rarity: "RR",
+            rarityId: 6,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E060:{
+            name:"Despite Being Partners",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E060.png",
+            rarity: "R",
+            rarityId: 5,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E054:{
+            name:"Because We're Partners",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E054.png",
+            rarity: "RR",
+            rarityId: 6,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E057:{
+            name:"Maybe Someday",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E057.png",
+            rarity: "R",
+            rarityId: 5,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E063S:{
+            name:"Heart-Pounding Song",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E063S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E061S:{
+            name:"Together We Can Do Anything!",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E061S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E064S:{
+            name:"In Order to Surpass RAD WEEKEND",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E064S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E066S:{
+            name:"Next to You",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E066S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E076R:{
+            name:"A Quick Breather",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E076R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E077R:{
+            name:"Top-Notch Server!",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E077R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E078R:{
+            name:"Bristling Irritation",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E078R.png",
+            rarity: "RRR",
+            rarityId: 7,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E079R:{
+            name:"Broken Bonds",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E079R.png",
+            rarity: "RRR",
+            rarityId: 2,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E056SSR:{
+            name:"Once More Together",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E056SSR.png",
+            rarity: "SSR",
+            rarityId: 9,
+            character: "Azusawa Kohane",
+            characterId: 1,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E060SSR:{
+            name:"Despite Being Partners",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E060SSR.png",
+            rarity: "SSR",
+            rarityId: 9,
+            character: "Shiraishi An",
+            characterId: 2,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E054SSR:{
+            name:"Because We're Partners",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E054SSR.png",
+            rarity: "SSR",
+            rarityId: 9,
+            character: "Shinonome Akito",
+            characterId: 3,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        S91E057SSR:{
+            name:"Maybe Someday",
+            photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E057SSR.png",
+            rarity: "SSR",
+            rarityId: 9,
+            character: "Aoyagi Toya",
+            characterId: 4,
+            group: "Vivid Bad Squad",
+            groupId: 4
+        },
+        //WXS
+        
+        S91E018:{
+            name:"Headed For Stardom!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E018.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E021:{
+            name:"Hyper★Positive",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E021.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E020:{
+            name:"Sharp-Tongued and Unsociable",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E020.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E016:{
+            name:"Carefree Prodigy",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E016.png",
+            rarity: "C",
+            rarityId: 1,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E025:{
+            name:"Mascot Greeting",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E025.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E026:{
+            name:"Time for a Strategy Meeting!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E026.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E027:{
+            name:"Backstage Operator",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E027.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E028:{
+            name:"Evasive Entertainer",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E028.png",
+            rarity: "CC",
+            rarityId: 2,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E010:{
+            name:"Bring Smiles to Everyone",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E010.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E011:{
+            name:"A Big Welcome!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E011.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E014:{
+            name:"Delightfully Ridiculous",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E014.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E013:{
+            name:"Let's Give 'Em a Show",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E013.png",
+            rarity: "U",
+            rarityId: 3,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E003:{
+            name:"Zombies?! Time to Panic!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E003.png",
+            rarity: "RR",
+            rarityId: 6,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E009:{
+            name:"Sprint! Relay Anchor☆",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E009.png",
+            rarity: "R",
+            rarityId: 5,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E001:{
+            name:"Gift From Above",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E001.png",
+            rarity: "RR",
+            rarityId: 6,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E006:{
+            name:"Unexpected Happenings",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E006.png",
+            rarity: "R",
+            rarityId: 5,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E010S:{
+            name:"Bring Smiles to Everyone",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E010S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E011S:{
+            name:"A Big Welcome!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E011S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E014S:{
+            name:"Delightfully Ridiculous",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E014S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E013S:{
+            name:"Let's Give 'Em a Show",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E013S.png",
+            rarity: "SR",
+            rarityId: 7,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E025R:{
+            name:"Mascot Greeting",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E025R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E026R:{
+            name:"Time for a Strategy Meeting!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E026R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E027R:{
+            name:"Backstage Operator",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E027R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E028R:{
+            name:"Evasive Entertainer",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E028R.png",
+            rarity: "RRR",
+            rarityId: 8,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E003SSP:{
+            name:"Zombies?! Time to Panic!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E003SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Tenma Tsukasa",
+            characterId: 1,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E009SSP:{
+            name:"Sprint! Relay Anchor☆",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E009SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Otori Emu",
+            characterId: 2,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E001SSP:{
+            name:"Gift From Above",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E001SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Kusanagi Nene",
+            characterId: 3,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        S91E006SSP:{
+            name:"Unexpected Happenings",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E006SSP.png",
+            rarity: "SSP",
+            rarityId: 9,
+            character: "Kamishiro Rui",
+            characterId: 4,
+            group: "Wonderlands X Showtime",
+            groupId: 5
+        },
+        //N25
     }
 </script>
 
