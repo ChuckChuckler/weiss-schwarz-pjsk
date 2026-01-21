@@ -1,5 +1,6 @@
 <script>
     let cards = {
+        //VOCALOIDS
         S91PE02SPR: {
             name: "Powerful Smile",
             photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-PE02SPR.png",
@@ -410,7 +411,7 @@
             group: "Virtual Singer",
             groupId: 1
         },
-
+        //LEONEED
         S91E098:{
             name: "Distant Yet Caring",
             photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E098.png",
@@ -680,6 +681,287 @@
             characterId: 4,
             group: "Leo/need",
             groupId: 2
+        },
+        //MOREMOREJUMP
+        S91E046:{
+            name:"Aiming to Be an Idol!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E046.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E043:{
+            name:"Former National Idol",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E043.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E048:{
+            name:"Unyielding Idol Spirit",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E048.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E047:{
+            name:"Beautiful Active Idol",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E047.png",
+            rarity:"C",
+            rarityId:1,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E049:{
+            name:"Pre-show Prep",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E049.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E050:{
+            name:"The Non-idol Me",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E050.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E051:{
+            name:"Follow Your Dreams!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E051.png",
+            rarity:"CC",
+            rarityId:2,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E052:{
+            name:"On a Flashy Stage",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E052.png",
+            rarity:"CC",
+            rarityId:3,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E042:{
+            name:"From My Heart to Yours!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E042.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E039:{
+            name:"That View That I Loved So Much",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E039.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E037:{
+            name:"The Secret to Being an Idol!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E037.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E041:{
+            name:"The Idol I Want to Be",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E041.png",
+            rarity:"U",
+            rarityId:3,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E031:{
+            name:"Wh-Wh-Wh-What?!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E031.png",
+            rarity:"RR",
+            rarityId:6,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E035:{
+            name:"Blessings Abound",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E035.png",
+            rarity:"R",
+            rarityId:5,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E030:{
+            name:"Always Looking Ahead",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E030.png",
+            rarity:"RR",
+            rarityId:6,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E034:{
+            name:`I'm Not Just Anyone, I'm "Me"`,
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E034.png",
+            rarity:"R",
+            rarityId:5,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E042S:{
+            name:"From My Heart to Yours!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E042S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E039S:{
+            name:"That View That I Loved So Much",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E039S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E037S:{
+            name:"The Secret to Being an Idol!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E037S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E041S:{
+            name:"The Idol I Want to Be",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E041S.png",
+            rarity:"SR",
+            rarityId:7,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E049R:{
+            name:"Pre-show Prep",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E049R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E050R:{
+            name:"The Non-idol Me",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E050R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E051R:{
+            name:"Follow Your Dreams!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E051R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E052R:{
+            name:"On a Flashy Stage",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E052R.png",
+            rarity:"RRR",
+            rarityId:8,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E031SSP:{
+            name:"Wh-Wh-Wh-What?!",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E031SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Hanasato Minori",
+            characterId:1,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E035SSP:{
+            name:"Blessings Abound",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E035SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Kiritani Haruka",
+            characterId:2,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E030SSP:{
+            name:"Always Looking Ahead",
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E030SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Momoi Airi",
+            characterId:3,
+            group:"MORE MORE JUMP!",
+            groupId:3
+        },
+        S91E034SSP:{
+            name:`I'm Not Just Anyone, I'm "Me"`,
+            photo:"https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E034SSP.png",
+            rarity:"SSP",
+            rarityId:9,
+            character:"Hinomori Shizuku",
+            characterId:4,
+            group:"MORE MORE JUMP!",
+            groupId:3
         },
     }
 </script>
