@@ -1844,40 +1844,38 @@
 
 <h1>AHH AHHHHHHHHHHH AHHH AHH AHHHHHHHHHHHHHHH AHHHA HA HA AHHH</h1>
 
-<div bind:this={vs_container} class="grid vs-grid">
-</div>
-<br>
-<br>
-<div bind:this={ln_container} id="Leo/need" class="grid ln-grid">
-</div>
-<br>
-<br>
-<div bind:this={mmj_container} id="MORE MORE JUMP!" class="grid mmj-grid">
-</div>
-<br>
-<br>
-<div bind:this={vbs_container} id="Vivid Bad Squad" class="grid vbs-grid">
-</div>
-<br>
-<br>
-<div bind:this={wxs_container} id="Wonderlands x Showtime" class="grid wxs-grid">
-</div>
-<br>
-<br>
-<div bind:this={n25_container} id="Nightcord at 25:00" class="grid n25-grid">
+<div class="grid-container">
+    <div bind:this={vs_container} class="grid vs-grid">
+    </div>
+    <div bind:this={ln_container} id="Leo/need" class="grid ln-grid">
+    </div>
+    <div bind:this={mmj_container} id="MORE MORE JUMP!" class="grid mmj-grid">
+    </div>
+    <div bind:this={vbs_container} id="Vivid Bad Squad" class="grid vbs-grid">
+    </div>
+    <div bind:this={wxs_container} id="Wonderlands x Showtime" class="grid wxs-grid">
+    </div>
+    <div bind:this={n25_container} id="Nightcord at 25:00" class="grid n25-grid">
+    </div>
 </div>
 
 <style>
     :global(.card){
-        width: 12vw;
+        width: 18vw;
     }
     .grid{
         display: grid;
         width: 100%;
-        height: 500px;
         background-color: rgb(152, 152, 227);
         grid-template-columns: auto auto auto auto;
-        overflow: auto;
         row-gap: 50px;
+        box-sizing: border-box;
+        padding: 50px;
+    }
+
+    .grid-container{
+        overflow-y: auto;
+        height: 90vh;
+        display: grid;
     }
 </style>
