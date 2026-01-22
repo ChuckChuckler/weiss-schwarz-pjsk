@@ -9,10 +9,10 @@ let uri = MONGO_URI;
 const client = new MongoClient(uri);
 client.connect();
 let db = client.db(DB_NAME);
-let coll = db.collection(COLL_NAME);
+let coll = db.collection(COLLECTION_NAME);
 
-let username;
-let password;
+let username="";
+let password="";
 
 app.post("/signup", async(req, res)=>{
     let user = req.body.user;
@@ -30,7 +30,10 @@ app.post("/signup", async(req, res)=>{
                 inventory:{}
             });
             username=user;
-            res.send({msg:"Success! Loading..."});
+            res.send({
+                msg:"Success! Loading...",
+                username:user
+            });
         }
     }catch(e){
         res.send({msg:`Error: ${e}`});
@@ -44,7 +47,11 @@ app.post("/login", async(req, res)=>{
         if(await coll.findOne({username:user})){
             let hash = crypto.createHash("sha256");
             if(await coll.findOne({username:user, password:hash.update(pass).digest("hex")})){
-                res.send({msg:`Success! Loading...`});
+                username=user;
+                res.send({
+                    msg:`Success! Loading...`,
+                    username: user
+                });
             }else{
                 res.send({msg:`Incorrect password`});
             }
@@ -56,6 +63,16 @@ app.post("/login", async(req, res)=>{
     }
 });
 
+app.get("/get-data", async(req, res)=>{
+    if(username!=""){
+        let userInfo = await coll.findOne({username:username});
+        res.send({
+            msg:"success",
+            inventory:userInfo.inventory,
+        });
+    }
+    res.send({msg:"Error!"});
+});
 
 app.listen(3000, ()=>{
     console.log("successfully listening");

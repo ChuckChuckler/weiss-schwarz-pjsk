@@ -1,4 +1,5 @@
 <script>
+    import axios from "axios";
     import {onMount} from "svelte";
 
     let vs_container;
@@ -20,7 +21,7 @@
             group: "Virtual Singer",
             groupId: 1
         },
-        S91PE01:{
+        S91PE01PR:{
             name: "The Big Debut",
             photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-PE01PR.png",
             rarity: "PR",
@@ -1818,12 +1819,24 @@
         }
     }
 
-    onMount(()=>{
+    onMount(async ()=>{
+        let userInventory;
+        await axios.get("/get-data")
+        .then((response)=>{
+            userInventory=response.data.inventory;
+        })
+        .catch((e)=>{
+            console.log(e);
+        });
+
         for(let i in cards){
             let img = document.createElement("img");
             img.src=cards[i].photo;
             img.alt=cards[i].name;
-            img.className = "card";
+            img.classList.add("card");
+            if(!Object.keys(userInventory).includes(i)){
+                img.classList.add("card-grayscale");
+            }
             if(cards[i].group=="Virtual Singer"){
                 vs_container.appendChild(img);
             }else if(cards[i].group=="Leo/need"){
@@ -1863,6 +1876,11 @@
     :global(.card){
         width: 18vw;
     }
+
+    :global(.card-grayscale){
+        filter: grayscale(100%);
+    }
+    
     .grid{
         display: grid;
         width: 100%;
