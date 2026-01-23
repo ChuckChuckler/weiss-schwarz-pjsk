@@ -74,6 +74,30 @@ app.get("/get-data", async(req, res)=>{
     res.send({msg:"Error!"});
 });
 
+app.post("/add-card", async(req, res)=>{
+    let cardId = req.body.cardId;
+    let add = req.body.add;
+    if(username!=""){
+        let userData = await coll.findOne({username:username});
+        let userInventory = userData.inventory;
+        console.log(add);
+        console.log(JSON.parse(add));
+        if(add){
+            userInventory[cardId] = {
+                number:0,
+                favorite: false
+            }
+        }else{
+            delete userInventory[cardId];
+        }
+        coll.updateOne({username:username},{
+            $set:{
+                inventory:userInventory
+            }
+        });
+    }
+})
+
 app.listen(3000, ()=>{
     console.log("successfully listening");
 });
