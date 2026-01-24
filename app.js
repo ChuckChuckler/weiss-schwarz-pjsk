@@ -12,7 +12,6 @@ let db = client.db(DB_NAME);
 let coll = db.collection(COLL_NAME);
 
 let username="";
-let password="";
 
 app.post("/signup", async(req, res)=>{
     let user = req.body.user;
@@ -110,6 +109,11 @@ app.post("/addCard", async(req, res)=>{
                     number:0,
                     favorite: false
                 }
+                coll.updateOne({username:username},{
+                    $pull:{
+                        wishlist:cardId
+                    }
+                });
             }else{
                 delete userInventory[cardId];
             }
