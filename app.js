@@ -9,7 +9,7 @@ let uri = MONGO_URI;
 const client = new MongoClient(uri);
 client.connect();
 let db = client.db(DB_NAME);
-let coll = db.collection(COLLECTION_NAME);
+let coll = db.collection(COLL_NAME);
 
 let username="";
 let password="";
@@ -20,14 +20,14 @@ app.post("/signup", async(req, res)=>{
 
     try{
         if(await coll.findOne({username:user})){
-            console.log(coll.findOne({username:user}));
             res.send({msg:"This username already exists"});
         }else{
             let hash = crypto.createHash("sha256");
             coll.insertOne({
                 username:user,
                 password:hash.update(pass).digest("hex"),
-                inventory:{}
+                inventory:{},
+                wishlist:[]
             });
             username=user;
             res.send({
@@ -66,10 +66,10 @@ app.post("/login", async(req, res)=>{
 app.get("/getData", async(req, res)=>{
     if(username!=""){
         let userInfo = await coll.findOne({username:username});
-        console.log(userInfo);
         res.send({
             msg:"success",
             inventory:userInfo.inventory,
+            wishlist:userInfo.wishlist,
         });
     }else{
         res.send({msg:"Error!"});
@@ -80,16 +80,20 @@ app.post("/fetchCardData", async(req, res)=>{
     let cardId = req.body.cardId;
     let isObtained=false;
     let isFavorite = false;
+    let onWishlist = false;
     if(username!=""){
         let userdata = await coll.findOne({username:username});
         let cardData = userdata.inventory;
         if(Object.keys(cardData).includes(cardId)){
             isObtained=true;
             isFavorite=cardData[cardId].favorite;
+        }else if(userdata.wishlist.includes(cardId)){
+            onWishlist=true;
         }
         res.send({
             isFavorite:isFavorite,
-            isObtained:isObtained
+            isObtained:isObtained,
+            onWishlist:onWishlist,
         });
     }
 })
@@ -138,7 +142,33 @@ app.post("/setFavorite", async(req, res)=>{
             res.send({error: e});
         }
     }
-})
+});
+
+app.post("/addToWishlist", async(req, res)=>{
+    let cardId = req.body.id;
+    let onWishlist = req.body.onWishlist;
+    if(username!=""){
+        try{
+            if(onWishlist){ //remove from wishlist if so
+                coll.updateOne({username:username},{
+                    $pull:{
+                        wishlist:cardId
+                    }
+                });
+            }else{ //add to wishlist
+                coll.updateOne({username:username},{
+                    $push:{
+                        wishlist: cardId
+                    }
+                });
+            }
+        
+            res.send({msg:"success"});
+        }catch(e){
+            res.send({err:e})
+        }
+    }
+});
 
 app.listen(3000, ()=>{
     console.log("successfully listening");

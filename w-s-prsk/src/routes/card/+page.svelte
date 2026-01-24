@@ -12,12 +12,14 @@
     let cardGroup = $state("");
     let obtainedText = $state("");
     let favoriteText = $state("");
+    let wishlistText = $state("");
     let favoriteDisplay = $state("none");
     let wishlistDisplay = $state("none");
 
     let cardId;
     let isObtained;
     let isFavorite;
+    let onWishlist;
 
     onMount(async ()=>{
         let searchParams = new URLSearchParams(window.location.search);
@@ -35,6 +37,7 @@
         .then((response)=>{
             isObtained = response.data.isObtained;
             isFavorite = response.data.isFavorite;
+            onWishlist = response.data.onWishlist;
         })
         .catch((e)=>{
             console.log(e);
@@ -60,6 +63,12 @@
             favoriteText = "Unfavorite";
         }else{
             favoriteText = "Favorite";
+        }
+
+        if(onWishlist){
+            wishlistText = "Remove from Wishlist";
+        }else{
+            wishlistText = "Add to Wishlist";
         }
     }
 
@@ -93,6 +102,24 @@
             console.log(e);
         });
     }
+
+    async function addWishlist(){
+        await axios.post("/addToWishlist", {
+            id:cardId,
+            onWishlist:onWishlist
+        })
+        .catch((e)=>{
+            console.log(e);
+        });
+
+        if(wishlistText=="Add to Wishlist"){
+            wishlistText="Remove from Wishlist";
+            onWishlist = true;
+        }else{
+            wishlistText="Add to Wishlist";
+            onWishlist = false;
+        }
+    }
 </script>
 
 <button onclick={goHome}>Back to Home</button>
@@ -109,7 +136,7 @@
         <button onclick={update}>Trigger</button>
         <br>
         <button onclick={setFavorite} style={`display:${favoriteDisplay}`}>{favoriteText}</button>
-        <button style={`display:${wishlistDisplay}`}>Add to wishlist</button>
+        <button onclick={addWishlist} style={`display:${wishlistDisplay}`}>{wishlistText}</button>
     </div>
 </div>
 
