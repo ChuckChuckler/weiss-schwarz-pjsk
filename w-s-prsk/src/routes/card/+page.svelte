@@ -11,14 +11,17 @@
     let cardChar = $state("");
     let cardGroup = $state("");
     let obtainedText = $state("");
+    let favoriteText = $state("");
+    let favoriteDisplay = $state("none");
+    let wishlistDisplay = $state("none");
 
     let cardId;
     let isObtained;
+    let isFavorite;
 
-    onMount(()=>{
+    onMount(async ()=>{
         let searchParams = new URLSearchParams(window.location.search);
         cardId = searchParams.get("id");
-        isObtained = JSON.parse(searchParams.get("obtained"));
 
         cardName = cards[cardId].name;
         cardPhoto = cards[cardId].photo;
@@ -26,23 +29,68 @@
         cardChar = cards[cardId].character;
         cardGroup = cards[cardId].group;
 
+        await axios.post("/fetchCardData",{
+            cardId:cardId
+        })
+        .then((response)=>{
+            isObtained = response.data.isObtained;
+            isFavorite = response.data.isFavorite;
+        })
+        .catch((e)=>{
+            console.log(e);
+        });
+
+        changeDisplays(isObtained);
+    });
+
+    function changeDisplays(isObtained){
         if(!isObtained){
             document.getElementById("card-img").classList.add("card-grayscale");
             obtainedText = "Not Obtained";
+            wishlistDisplay="block";
+            favoriteDisplay="none";
         }else{
+            document.getElementById("card-img").classList.remove("card-grayscale");
             obtainedText = "Obtained";
+            wishlistDisplay="none";
+            favoriteDisplay="block";
         }
-    });
+
+        if(isFavorite){
+            favoriteText = "Unfavorite";
+        }else{
+            favoriteText = "Favorite";
+        }
+    }
 
     function goHome(){
         goto("/home");
     }
 
     function update(){
-        console.log(isObtained)
-        axios.post("/add-card", {
+        axios.post("/addCard", {
             cardId:cardId,
             add:!isObtained
+        });
+        isObtained=!isObtained;
+        changeDisplays(isObtained);
+    }
+    
+    async function setFavorite(){
+        if(favoriteText=="Unfavorite"){
+            favoriteText="Favorite";
+            isFavorite=false;
+        }else{
+            favoriteText="Unfavorite";
+            isFavorite=true;
+        }
+
+        await axios.post("/setFavorite", {
+            id:cardId,
+            favorite:isFavorite
+        })
+        .catch((e)=>{
+            console.log(e);
         });
     }
 </script>
@@ -59,6 +107,9 @@
     <div class="inner-flex">
         <h1>{obtainedText}</h1>
         <button onclick={update}>Trigger</button>
+        <br>
+        <button onclick={setFavorite} style={`display:${favoriteDisplay}`}>{favoriteText}</button>
+        <button style={`display:${wishlistDisplay}`}>Add to wishlist</button>
     </div>
 </div>
 
