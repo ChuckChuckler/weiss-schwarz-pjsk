@@ -63,38 +63,80 @@ app.post("/login", async(req, res)=>{
     }
 });
 
-app.get("/get-data", async(req, res)=>{
+app.get("/getData", async(req, res)=>{
     if(username!=""){
         let userInfo = await coll.findOne({username:username});
+        console.log(userInfo);
         res.send({
             msg:"success",
             inventory:userInfo.inventory,
         });
+    }else{
+        res.send({msg:"Error!"});
     }
-    res.send({msg:"Error!"});
 });
 
-app.post("/add-card", async(req, res)=>{
+app.post("/fetchCardData", async(req, res)=>{
+    let cardId = req.body.cardId;
+    let isObtained=false;
+    let isFavorite = false;
+    if(username!=""){
+        let userdata = await coll.findOne({username:username});
+        let cardData = userdata.inventory;
+        if(Object.keys(cardData).includes(cardId)){
+            isObtained=true;
+            isFavorite=cardData[cardId].favorite;
+        }
+        res.send({
+            isFavorite:isFavorite,
+            isObtained:isObtained
+        });
+    }
+})
+
+app.post("/addCard", async(req, res)=>{
     let cardId = req.body.cardId;
     let add = req.body.add;
     if(username!=""){
-        let userData = await coll.findOne({username:username});
-        let userInventory = userData.inventory;
-        console.log(add);
-        console.log(JSON.parse(add));
-        if(add){
-            userInventory[cardId] = {
-                number:0,
-                favorite: false
+        try{
+            let userData = await coll.findOne({username:username});
+            let userInventory = userData.inventory;
+            if(add){
+                userInventory[cardId] = {
+                    number:0,
+                    favorite: false
+                }
+            }else{
+                delete userInventory[cardId];
             }
-        }else{
-            delete userInventory[cardId];
+            coll.updateOne({username:username},{
+                $set:{
+                    inventory:userInventory
+                }
+            });
+        }catch(e){
+            res.send({error:e});
         }
-        coll.updateOne({username:username},{
-            $set:{
-                inventory:userInventory
-            }
-        });
+    }
+});
+
+app.post("/setFavorite", async(req, res)=>{
+    let cardId = req.body.id;
+    let favorite=req.body.favorite;
+    if(username!=""){
+        try{
+            let userdata = await coll.findOne({username:username});
+            let userInventory = userdata.inventory;
+            userInventory[cardId].favorite=favorite;
+            await coll.updateOne({username:username},{
+                $set:{
+                    inventory:userInventory
+                }
+            });
+            res.send({msg:"success"});
+        }catch(e){
+            res.send({error: e});
+        }
     }
 })
 

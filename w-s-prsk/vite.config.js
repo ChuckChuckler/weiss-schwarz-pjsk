@@ -18,12 +18,22 @@ export default defineConfig({
 				changeOrigin: true,
 				secure: false
 			},
-			"/get-data":{
+			"/getData":{
 				target:"http://localhost:3000",
 				changeOrigin:true,
 				secure:false
 			},
-			"/add-card":{
+			"/addCard":{
+				target:"http://localhost:3000",
+				changeOrigin: true,
+				secure: false
+			},
+			"/fetchCardData":{
+				target:"http://localhost:3000",
+				changeOrigin: true,
+				secure: false
+			},
+			"/setFavorite":{
 				target:"http://localhost:3000",
 				changeOrigin: true,
 				secure: false

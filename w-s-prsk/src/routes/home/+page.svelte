@@ -12,7 +12,7 @@
 
     onMount(async ()=>{
         let userInventory;
-        await axios.get("/get-data")
+        await axios.get("/getData")
         .then((response)=>{
             userInventory=response.data.inventory;
         })
@@ -28,7 +28,6 @@
             img.onclick = function(){
                 let url = new URL(window.location.href.replace("/home", "/card"));
                 url.searchParams.set("id", i);
-                url.searchParams.set("obtained", Object.keys(userInventory).includes(i));
                 window.location.href=url;
             };
             if(!Object.keys(userInventory).includes(i)){
