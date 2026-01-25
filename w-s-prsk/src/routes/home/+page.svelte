@@ -3,6 +3,10 @@
     import {onMount} from "svelte";
     import {cards} from "./../scripts/cardData"; 
 
+    function randint(min, max){
+        return Math.ceil(Math.random()*(max-min))+min;
+    }
+
     let vs_container;
     let ln_container;
     let mmj_container;
@@ -308,133 +312,223 @@
             i.checked = document.getElementById("allSelected").checked;
         });
     }
+
+    function showInventory(){
+        document.getElementById("cardInventory").style.display = "block";
+        document.getElementById("packSimulator").style.display = "none";
+    }
+
+    function showSimulator(){
+        document.getElementById("cardInventory").style.display = "none";
+        document.getElementById("packSimulator").style.display = "block";
+    }
+
+    function simulate(){
+        let value = document.querySelector("input[name='openUntil']:checked").value;
+        if(value=="manual"){
+            console.log(openPack());
+        }else if(value=="quantityMet"){
+            if(document.getElementById("quantity").value==0 || document.getElementById("quantity").value==null){
+                console.log("select a quantity first");
+            }else{
+                console.log(document.getElementById("quantity").value);
+            }
+        }
+    }
+
+    function openPack(){
+        let cardsOpened = [];
+        for(let i = 0; i < 7; i++){
+            cardsOpened.push(pullCard());
+        }
+            
+        if(!cardsOpened.includes("R") && !cardsOpened.includes("RR") && !cardsOpened.includes("SR") && !cardsOpened.includes("RRR") && !cardsOpened.includes("SSR")){
+            cardsOpened.push("R");
+        }else{
+            cardsOpened.push(pullCard());
+        }
+
+        return cardsOpened;
+    }
+
+    function pullCard(){
+        let cardChosen = randint(0, 2304);
+        if(cardChosen<=2){
+            return "SSR";
+        }else if(cardChosen>=2 && cardChosen<7){
+            return "RRR";
+        }else if(cardChosen>=7 && cardChosen<17){
+            return "SR";
+        }else if(cardChosen>=17 && cardChosen<113){
+            return "RR";
+        }else if(cardChosen>=113 && cardChosen<473){
+            return "R";
+        }else if(cardChosen>=473 && cardChosen<1049){
+            return "U";
+        }else if(cardChosen>=1049 && cardChosen<2201){
+            return "C";
+        }else{
+            return "CC";
+        }
+    }
+
+    function showQuantityPicker(){
+        document.getElementById("quantityPicker").style.display = "block";
+    }
+
+    function hideQuantityPicker(){
+        document.getElementById("quantityPicker").style.display = "none";
+    }
 </script>
 
-<div class="nav-flex">
-    <div>
-        <button onclick={cardsDisplay}>Cards</button>
-        <button onclick={favoritesDisplay}>Favorites</button>
-        <button onclick={wishlistDisplay}>Wishlist</button>
+<div class="web-container">
+    <div class="navbar">
+        <button onclick={showInventory}>Inventory</button>
+        <button onclick={showSimulator}>Pack Simulator</button>
     </div>
-    <div>
-        <button onclick={toggleFilter}>Filter</button>
-    </div>
-</div>
-<div class="grid-container allCards" id="allCardsDiv">
-    <div bind:this={vs_container} class="grid vs-grid">
-    </div>
-    <div bind:this={ln_container} id="Leo/need" class="grid ln-grid">
-    </div>
-    <div bind:this={mmj_container} id="MORE MORE JUMP!" class="grid mmj-grid">
-    </div>
-    <div bind:this={vbs_container} id="Vivid Bad Squad" class="grid vbs-grid">
-    </div>
-    <div bind:this={wxs_container} id="Wonderlands x Showtime" class="grid wxs-grid">
-    </div>
-    <div bind:this={n25_container} id="Nightcord at 25:00" class="grid n25-grid">
-    </div>
-</div>
-<div class="grid-container grid favorites" id="favoritesDiv">
-</div>
-<div class="grid-container grid wishlist" id="wishlistDiv">
-</div>
+    <div class="page card-inventory" id="cardInventory">
+        <div class="nav-flex">
+            <div>
+                <button onclick={cardsDisplay}>Cards</button>
+                <button onclick={favoritesDisplay}>Favorites</button>
+                <button onclick={wishlistDisplay}>Wishlist</button>
+            </div>
+            <div>
+                <button onclick={toggleFilter}>Filter</button>
+            </div>
+        </div>
+        <div class="grid-container allCards" id="allCardsDiv">
+            <div bind:this={vs_container} class="grid vs-grid">
+            </div>
+            <div bind:this={ln_container} id="Leo/need" class="grid ln-grid">
+            </div>
+            <div bind:this={mmj_container} id="MORE MORE JUMP!" class="grid mmj-grid">
+            </div>
+            <div bind:this={vbs_container} id="Vivid Bad Squad" class="grid vbs-grid">
+            </div>
+            <div bind:this={wxs_container} id="Wonderlands x Showtime" class="grid wxs-grid">
+            </div>
+            <div bind:this={n25_container} id="Nightcord at 25:00" class="grid n25-grid">
+            </div>
+        </div>
+        <div class="grid-container grid favorites" id="favoritesDiv">
+        </div>
+        <div class="grid-container grid wishlist" id="wishlistDiv">
+        </div>
 
-<div class="filter-options" id="filterOptions">
-    <div class="option-holder">
-        <h3>Status</h3>
-        <input type="radio" name="obtained-or-not" id="all" value="all" checked="true">
-        <label for="all">All</label>
-        <br>
-        <input type="radio" name="obtained-or-not" id="obtained" value="obtained">
-        <label for="obtained">Obtained only</label>
-        <br>
-        <input type="radio" name="obtained-or-not" id="unobtained" value="unobtained">
-        <label for="obtained">Unobtained only</label>
-        <br>
-        <br>
-        <h3>Characters</h3>
-        <input type="checkbox" id="allSelected" checked="true" value="all" onclick={selectAll}>
-        <label for="allSelected">Select All</label>
-        <br>
-        <br>
-        <input type="checkbox" name="character-group" id="vs" value="Virtual Singer" checked="true" onchange={checkAllVS}>
-        <label for="vs">Virtual Singer</label>
-        <input type="checkbox" name="character-group" id="miku" value="Hatsune Miku" checked="true">
-        <label for="miku">Hatsune Miku</label>
-        <input type="checkbox" name="character-group" id="rin" value="Kagamine Rin" checked="true">
-        <label for="rin">Kagamine Rin</label>
-        <input type="checkbox" name="character-group" id="len" value="Kagamine Len" checked="true">
-        <label for="len">Kagamine Len</label>
-        <input type="checkbox" name="character-group" id="luka" value="Megurine Luka" checked="true">
-        <label for="luka">Megurine Luka</label>
-        <input type="checkbox" name="character-group" id="meiko" value="MEIKO" checked="true">
-        <label for="meiko">MEIKO</label>
-        <input type="checkbox" name="character-group" id="kaito" value="KAITO" checked="true">
-        <label for="kaito">KAITO</label>
-        <br>
-        <br>
-        <input type="checkbox" name="character-group" id="ln" value="Leo/need" onchange={checkAllLn} checked="true">
-        <label for="ln">Leo/need</label>
-        <input type="checkbox" name="character-group" id="ichika" value="Hoshino Ichika" checked="true">
-        <label for="ichika">Hoshino Ichika</label>
-        <input type="checkbox" name="character-group" id="saki" value="Tenma Saki" checked="true">
-        <label for="saki">Tenma Saki</label>
-        <input type="checkbox" name="character-group" id="honami" value="Mochizuki Honami" checked="true">
-        <label for="honami">Mochizuki Honami</label>
-        <input type="checkbox" name="character-group" id="shiho" value="Hinomori Shiho" checked="true">
-        <label for="shiho">Hinomori Shiho</label>
-        <br>
-        <br>
-        <input type="checkbox" name="character-group" id="mmj" value="MORE MORE JUMP!" onchange={checkAllMMJ} checked="true">
-        <label for="mmj">MORE MORE JUMP!</label>
-        <input type="checkbox" name="character-group" id="minori" value="Hanasato Minori" checked="true">
-        <label for="ichika">Hanasato Minori</label>
-        <input type="checkbox" name="character-group" id="haruka" value="Kiritani Haruka" checked="true">
-        <label for="haruka">Kiritani Haruka</label>
-        <input type="checkbox" name="character-group" id="airi" value="Momoi Airi" checked="true">
-        <label for="airi">Momoi Airi</label>
-        <input type="checkbox" name="character-group" id="shizuku" value="Hinomori Shizuku" checked="true">
-        <label for="shizuku">Hinomori Shizuku</label>
-        <br>
-        <br>
-        <input type="checkbox" name="character-group" id="vbs" value="Vivid Bad Squad"  onchange={checkAllVBS} checked="true">
-        <label for="vbs">Vivid Bad Squad</label>
-        <input type="checkbox" name="character-group" id="kohane" value="Azusawa Kohane" checked="true">
-        <label for="kohane">Azusawa Kohane</label>
-        <input type="checkbox" name="character-group" id="an" value="Shiraishi An" checked="true">
-        <label for="an">Shiraishi An</label>
-        <input type="checkbox" name="character-group" id="akito" value="Shinonome Akito" checked="true">
-        <label for="akito">Shinonome Akito</label>
-        <input type="checkbox" name="character-group" id="toya" value="Aoyagi Toya" checked="true">
-        <label for="toya">Aoyagi Toya</label>
-        <br>
-        <br>
-        <input type="checkbox" name="character-group" id="wxs" value="Wonderlands X Showtime"  onchange={checkAllWxS} checked="true">
-        <label for="wxs">Wonderlands X Showtime</label>
-        <input type="checkbox" name="character-group" id="tsukasa" value="Tenma Tsukasa" checked="true">
-        <label for="tsukasa">Tenma Tsukasa</label>
-        <input type="checkbox" name="character-group" id="emu" value="Otori Emu" checked="true">
-        <label for="emu">Otori Emu</label>
-        <input type="checkbox" name="character-group" id="nene" value="Kusanagi Nene" checked="true">
-        <label for="nene">Kusanagi Nene</label>
-        <input type="checkbox" name="character-group" id="mybbg" value="Kamishiro Rui" checked="true">
-        <label for="mybbg">Kamishiro Rui</label>
-        <br>
-        <br>
-        <input type="checkbox" name="character-group" id="n25" value="Nightcord at 25:00"  onchange={checkAllN25} checked="true">
-        <label for="n25">Nightcord at 25:00</label>
-        <input type="checkbox" name="character-group" id="kanade" value="Yoisaki Kanade" checked="true">
-        <label for="kanade">Yoisaki Kanade</label>
-        <input type="checkbox" name="character-group" id="mafuyu" value="Asahina Mafuyu" checked="true">
-        <label for="mafuyu">Asahina Mafuyu</label>
-        <input type="checkbox" name="character-group" id="ena" value="Shinonome Ena" checked="true">
-        <label for="ena">Shinonome Ena</label>
-        <input type="checkbox" name="character-group" id="mizuki" value="Akiyama Mizuki" checked="true">
-        <label for="mizuku">Akiyama Mizuki</label>
+        <div class="filter-options" id="filterOptions">
+            <div class="option-holder">
+                <h3>Status</h3>
+                <input type="radio" name="obtained-or-not" id="all" value="all" checked="true">
+                <label for="all">All</label>
+                <br>
+                <input type="radio" name="obtained-or-not" id="obtained" value="obtained">
+                <label for="obtained">Obtained only</label>
+                <br>
+                <input type="radio" name="obtained-or-not" id="unobtained" value="unobtained">
+                <label for="obtained">Unobtained only</label>
+                <br>
+                <br>
+                <h3>Characters</h3>
+                <input type="checkbox" id="allSelected" checked="true" value="all" onclick={selectAll}>
+                <label for="allSelected">Select All</label>
+                <br>
+                <br>
+                <input type="checkbox" name="character-group" id="vs" value="Virtual Singer" checked="true" onchange={checkAllVS}>
+                <label for="vs">Virtual Singer</label>
+                <input type="checkbox" name="character-group" id="miku" value="Hatsune Miku" checked="true">
+                <label for="miku">Hatsune Miku</label>
+                <input type="checkbox" name="character-group" id="rin" value="Kagamine Rin" checked="true">
+                <label for="rin">Kagamine Rin</label>
+                <input type="checkbox" name="character-group" id="len" value="Kagamine Len" checked="true">
+                <label for="len">Kagamine Len</label>
+                <input type="checkbox" name="character-group" id="luka" value="Megurine Luka" checked="true">
+                <label for="luka">Megurine Luka</label>
+                <input type="checkbox" name="character-group" id="meiko" value="MEIKO" checked="true">
+                <label for="meiko">MEIKO</label>
+                <input type="checkbox" name="character-group" id="kaito" value="KAITO" checked="true">
+                <label for="kaito">KAITO</label>
+                <br>
+                <br>
+                <input type="checkbox" name="character-group" id="ln" value="Leo/need" onchange={checkAllLn} checked="true">
+                <label for="ln">Leo/need</label>
+                <input type="checkbox" name="character-group" id="ichika" value="Hoshino Ichika" checked="true">
+                <label for="ichika">Hoshino Ichika</label>
+                <input type="checkbox" name="character-group" id="saki" value="Tenma Saki" checked="true">
+                <label for="saki">Tenma Saki</label>
+                <input type="checkbox" name="character-group" id="honami" value="Mochizuki Honami" checked="true">
+                <label for="honami">Mochizuki Honami</label>
+                <input type="checkbox" name="character-group" id="shiho" value="Hinomori Shiho" checked="true">
+                <label for="shiho">Hinomori Shiho</label>
+                <br>
+                <br>
+                <input type="checkbox" name="character-group" id="mmj" value="MORE MORE JUMP!" onchange={checkAllMMJ} checked="true">
+                <label for="mmj">MORE MORE JUMP!</label>
+                <input type="checkbox" name="character-group" id="minori" value="Hanasato Minori" checked="true">
+                <label for="ichika">Hanasato Minori</label>
+                <input type="checkbox" name="character-group" id="haruka" value="Kiritani Haruka" checked="true">
+                <label for="haruka">Kiritani Haruka</label>
+                <input type="checkbox" name="character-group" id="airi" value="Momoi Airi" checked="true">
+                <label for="airi">Momoi Airi</label>
+                <input type="checkbox" name="character-group" id="shizuku" value="Hinomori Shizuku" checked="true">
+                <label for="shizuku">Hinomori Shizuku</label>
+                <br>
+                <br>
+                <input type="checkbox" name="character-group" id="vbs" value="Vivid Bad Squad"  onchange={checkAllVBS} checked="true">
+                <label for="vbs">Vivid Bad Squad</label>
+                <input type="checkbox" name="character-group" id="kohane" value="Azusawa Kohane" checked="true">
+                <label for="kohane">Azusawa Kohane</label>
+                <input type="checkbox" name="character-group" id="an" value="Shiraishi An" checked="true">
+                <label for="an">Shiraishi An</label>
+                <input type="checkbox" name="character-group" id="akito" value="Shinonome Akito" checked="true">
+                <label for="akito">Shinonome Akito</label>
+                <input type="checkbox" name="character-group" id="toya" value="Aoyagi Toya" checked="true">
+                <label for="toya">Aoyagi Toya</label>
+                <br>
+                <br>
+                <input type="checkbox" name="character-group" id="wxs" value="Wonderlands X Showtime"  onchange={checkAllWxS} checked="true">
+                <label for="wxs">Wonderlands X Showtime</label>
+                <input type="checkbox" name="character-group" id="tsukasa" value="Tenma Tsukasa" checked="true">
+                <label for="tsukasa">Tenma Tsukasa</label>
+                <input type="checkbox" name="character-group" id="emu" value="Otori Emu" checked="true">
+                <label for="emu">Otori Emu</label>
+                <input type="checkbox" name="character-group" id="nene" value="Kusanagi Nene" checked="true">
+                <label for="nene">Kusanagi Nene</label>
+                <input type="checkbox" name="character-group" id="mybbg" value="Kamishiro Rui" checked="true">
+                <label for="mybbg">Kamishiro Rui</label>
+                <br>
+                <br>
+                <input type="checkbox" name="character-group" id="n25" value="Nightcord at 25:00"  onchange={checkAllN25} checked="true">
+                <label for="n25">Nightcord at 25:00</label>
+                <input type="checkbox" name="character-group" id="kanade" value="Yoisaki Kanade" checked="true">
+                <label for="kanade">Yoisaki Kanade</label>
+                <input type="checkbox" name="character-group" id="mafuyu" value="Asahina Mafuyu" checked="true">
+                <label for="mafuyu">Asahina Mafuyu</label>
+                <input type="checkbox" name="character-group" id="ena" value="Shinonome Ena" checked="true">
+                <label for="ena">Shinonome Ena</label>
+                <input type="checkbox" name="character-group" id="mizuki" value="Akiyama Mizuki" checked="true">
+                <label for="mizuku">Akiyama Mizuki</label>
+            </div>
+            <div class="select-cancel">
+                <button class="select-btn" onclick={selectFilter}>Select</button>
+                <button class="select-btn" onclick={cancelFilter}>Cancel</button>
+            </div>
+        </div>
     </div>
-    <div class="select-cancel">
-        <button class="select-btn" onclick={selectFilter}>Select</button>
-        <button class="select-btn" onclick={cancelFilter}>Cancel</button>
+    <div class="page pack-simulator" id="packSimulator">
+        <h1>Booster Pack Simulator</h1>
+        <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideQuantityPicker}>
+        <label for="manual">Manual</label>
+        <br>
+        <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={showQuantityPicker}>
+        <label for="quantityMet">Specific Quantity</label>
+        <br>
+        <div id="quantityPicker" style="display:none">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity">
+        </div>
+        <br>
+        <button onclick={simulate}>Simulate</button>
     </div>
 </div>
 
@@ -501,5 +595,13 @@
     .select-btn{
         width: 48%;
         background-color: white;
+    }
+
+    .page{
+        height: 90vh;
+    }
+
+    .card-inventory{
+        display: none;
     }
 </style>
