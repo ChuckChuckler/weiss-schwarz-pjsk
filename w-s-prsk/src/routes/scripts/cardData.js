@@ -476,7 +476,7 @@ export const cards = {
         photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E053.png",
         rarity: "CC",
         rarityId: 3,
-        character: "Hinomori Shizuku",
+        character: "Hinomori Shiho",
         characterId: 4,
         group: "Leo/need",
         groupId: 2

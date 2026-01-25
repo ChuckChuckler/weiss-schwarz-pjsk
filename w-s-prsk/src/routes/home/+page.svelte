@@ -98,9 +98,12 @@
 
         if(document.cookie){
             let allSelected = true;
-            let arrCookie = document.cookie.split(";")
+            let arrCookie = document.cookie.split(";").sort((a,b)=>{
+                return a.localeCompare(b);
+            });
             let isObtained = arrCookie[1].split("=")[1];
             let characters = arrCookie[0].split("=")[1].split(",");
+            console.log(isObtained);
             document.getElementById("filterOptions").querySelector(`input[value='${isObtained}']`).checked = true;
 
             document.getElementById("filterOptions").querySelectorAll("input[name='character-group']").forEach(i=>{
