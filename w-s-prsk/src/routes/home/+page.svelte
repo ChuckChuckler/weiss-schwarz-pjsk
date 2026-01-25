@@ -84,8 +84,6 @@
             }
         }
 
-        console.log(cardStatus);
-
         if(favoritesIsEmpty){
             let message = document.createElement("h1");
             message.innerText = "Nothing in your favorites yet!";
@@ -96,6 +94,27 @@
             let message = document.createElement("h1");
             message.innerText = "Nothing in your wishlist yet!";
             wishlistContainer.appendChild(message);
+        }
+
+        if(document.cookie){
+            let allSelected = true;
+            let arrCookie = document.cookie.split(";")
+            let isObtained = arrCookie[1].split("=")[1];
+            let characters = arrCookie[0].split("=")[1].split(",");
+            document.getElementById("filterOptions").querySelector(`input[value='${isObtained}']`).checked = true;
+
+            document.getElementById("filterOptions").querySelectorAll("input[name='character-group']").forEach(i=>{
+                if(!characters.includes(i.value)){
+                    i.checked = false;
+                    allSelected = false;
+                }
+            });
+
+            if(!allSelected){
+                    document.getElementById("allSelected").checked = false;
+            }
+
+            selectFilter();
         }
     });
 
@@ -137,10 +156,15 @@
         document.getElementById("wishlistDiv").replaceChildren();
 
         let obtainedOrNot = document.getElementById("filterOptions").querySelector("input[name='obtained-or-not']:checked").value;
+        let includedCharacters = [];
+        let nodelist = document.getElementById("filterOptions").querySelectorAll("input[name='character-group']:checked");
+        nodelist.forEach(i => {
+            includedCharacters.push(i.value);
+        });
 
         if(obtainedOrNot=="obtained"){
             for(let i in cards){
-                if(cardStatus[i].isObtained){
+                if(cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
                     let img = createCard(i);
                     if(cardStatus[i].isFavorite){
                         let dupeImg = img.cloneNode(true);
@@ -151,7 +175,7 @@
             }
         }else if(obtainedOrNot=="unobtained"){
             for(let i in cards){
-                if(!cardStatus[i].isObtained){
+                if(!cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
                     let img = createCard(i);
                     img.classList.add("card-grayscale");
                     if(cardStatus[i].isWishlist){
@@ -163,24 +187,123 @@
             }
         }else{
             for(let i in cards){
-                let img = createCard(i);
-                if(!cardStatus[i].isObtained){
-                    img.classList.add("card-grayscale");
-                }
-                if(cardStatus[i].isFavorite){
+                if(includedCharacters.includes(cards[i].character)){
+                    let img = createCard(i);
+                    if(!cardStatus[i].isObtained){
+                        img.classList.add("card-grayscale");
+                    }
+                    if(cardStatus[i].isFavorite){
                         let dupeImg = img.cloneNode(true);
                         dupeImg.onclick = img.onclick;
                         document.getElementById("favoritesDiv").appendChild(dupeImg);
-                }
-                if(cardStatus[i].isWishlist){
+                    }
+                    if(cardStatus[i].isWishlist){
                         let dupeImg = img.cloneNode(true);
                         dupeImg.onclick = img.onclick;
                         document.getElementById("wishlistDiv").appendChild(dupeImg);
+                    }
                 }
             }
         }
 
+        document.cookie = `obtainedOrNot=${obtainedOrNot}`;
+        document.cookie = `includedCharacters=${includedCharacters}`;
+
         document.getElementById("filterOptions").style.display = "none";
+    }
+
+    function checkAllVS(){
+        if(document.getElementById("vs").checked){
+            document.getElementById("miku").checked = true;
+            document.getElementById("rin").checked = true;
+            document.getElementById("len").checked = true;
+            document.getElementById("luka").checked = true;
+            document.getElementById("meiko").checked = true;
+            document.getElementById("kaito").checked = true;
+        }else{
+                document.getElementById("miku").checked = false;
+                document.getElementById("rin").checked = false;
+                document.getElementById("len").checked = false;
+                document.getElementById("luka").checked = false;
+                document.getElementById("meiko").checked = false;
+                document.getElementById("kaito").checked = false;
+        }
+    }
+
+    function checkAllLn(){
+        if(document.getElementById("ln").checked){
+            document.getElementById("ichika").checked = true;
+            document.getElementById("saki").checked = true;
+            document.getElementById("honami").checked = true;
+            document.getElementById("shiho").checked = true;
+        }else{
+            document.getElementById("ichika").checked = false;
+            document.getElementById("saki").checked = false;
+            document.getElementById("honami").checked = false;
+            document.getElementById("shiho").checked = false;
+        }
+    }
+
+    function checkAllMMJ(){
+        if(document.getElementById("mmj").checked){
+            document.getElementById("minori").checked = true;
+            document.getElementById("haruka").checked = true;
+            document.getElementById("airi").checked = true;
+            document.getElementById("shizuku").checked = true;
+        }else{
+            document.getElementById("minori").checked = false;
+            document.getElementById("haruka").checked = false;
+            document.getElementById("airi").checked = false;
+            document.getElementById("shizuku").checked = false;
+        }
+    }
+
+    function checkAllVBS(){
+        if(document.getElementById("vbs").checked){
+            document.getElementById("kohane").checked = true;
+            document.getElementById("an").checked = true;
+            document.getElementById("akito").checked = true;
+            document.getElementById("toya").checked = true;
+        }else{
+            document.getElementById("kohane").checked = false;
+            document.getElementById("an").checked = false;
+            document.getElementById("akito").checked = false;
+            document.getElementById("toya").checked = false;
+        }
+    }
+
+    function checkAllWxS(){
+        if(document.getElementById("wxs").checked){
+            document.getElementById("tsukasa").checked = true;
+            document.getElementById("emu").checked = true;
+            document.getElementById("nene").checked = true;
+            document.getElementById("mybbg").checked = true;
+        }else{
+            document.getElementById("tsukasa").checked = false;
+            document.getElementById("emu").checked = false;
+            document.getElementById("nene").checked = false;
+            document.getElementById("mybbg").checked = false;
+        }
+    }
+
+    function checkAllN25(){
+        if(document.getElementById("n25").checked){
+            document.getElementById("kanade").checked = true;
+            document.getElementById("mafuyu").checked = true;
+            document.getElementById("ena").checked = true;
+            document.getElementById("mizuki").checked = true;
+        }else{
+            document.getElementById("kanade").checked = false;
+            document.getElementById("mafuyu").checked = false;
+            document.getElementById("ena").checked = false;
+            document.getElementById("mizuki").checked = false;
+        }
+    }
+
+    function selectAll(){
+        document.getElementById("filterOptions").querySelectorAll("input[name='character-group']").forEach(i => {
+            i.checked = document.getElementById("allSelected").checked;
+        });
     }
 </script>
 
@@ -214,7 +337,8 @@
 </div>
 
 <div class="filter-options" id="filterOptions">
-    <div>
+    <div class="option-holder">
+        <h3>Status</h3>
         <input type="radio" name="obtained-or-not" id="all" value="all" checked="true">
         <label for="all">All</label>
         <br>
@@ -224,6 +348,86 @@
         <input type="radio" name="obtained-or-not" id="unobtained" value="unobtained">
         <label for="obtained">Unobtained only</label>
         <br>
+        <br>
+        <h3>Characters</h3>
+        <input type="checkbox" id="allSelected" checked="true" value="all" onclick={selectAll}>
+        <label for="allSelected">Select All</label>
+        <br>
+        <br>
+        <input type="checkbox" name="character-group" id="vs" value="Virtual Singer" checked="true" onchange={checkAllVS}>
+        <label for="vs">Virtual Singer</label>
+        <input type="checkbox" name="character-group" id="miku" value="Hatsune Miku" checked="true">
+        <label for="miku">Hatsune Miku</label>
+        <input type="checkbox" name="character-group" id="rin" value="Kagamine Rin" checked="true">
+        <label for="rin">Kagamine Rin</label>
+        <input type="checkbox" name="character-group" id="len" value="Kagamine Len" checked="true">
+        <label for="len">Kagamine Len</label>
+        <input type="checkbox" name="character-group" id="luka" value="Megurine Luka" checked="true">
+        <label for="luka">Megurine Luka</label>
+        <input type="checkbox" name="character-group" id="meiko" value="MEIKO" checked="true">
+        <label for="meiko">MEIKO</label>
+        <input type="checkbox" name="character-group" id="kaito" value="KAITO" checked="true">
+        <label for="kaito">KAITO</label>
+        <br>
+        <br>
+        <input type="checkbox" name="character-group" id="ln" value="Leo/need" onchange={checkAllLn} checked="true">
+        <label for="ln">Leo/need</label>
+        <input type="checkbox" name="character-group" id="ichika" value="Hoshino Ichika" checked="true">
+        <label for="ichika">Hoshino Ichika</label>
+        <input type="checkbox" name="character-group" id="saki" value="Tenma Saki" checked="true">
+        <label for="saki">Tenma Saki</label>
+        <input type="checkbox" name="character-group" id="honami" value="Mochizuki Honami" checked="true">
+        <label for="honami">Mochizuki Honami</label>
+        <input type="checkbox" name="character-group" id="shiho" value="Hinomori Shiho" checked="true">
+        <label for="shiho">Hinomori Shiho</label>
+        <br>
+        <br>
+        <input type="checkbox" name="character-group" id="mmj" value="MORE MORE JUMP!" onchange={checkAllMMJ} checked="true">
+        <label for="mmj">MORE MORE JUMP!</label>
+        <input type="checkbox" name="character-group" id="minori" value="Hanasato Minori" checked="true">
+        <label for="ichika">Hanasato Minori</label>
+        <input type="checkbox" name="character-group" id="haruka" value="Kiritani Haruka" checked="true">
+        <label for="haruka">Kiritani Haruka</label>
+        <input type="checkbox" name="character-group" id="airi" value="Momoi Airi" checked="true">
+        <label for="airi">Momoi Airi</label>
+        <input type="checkbox" name="character-group" id="shizuku" value="Hinomori Shizuku" checked="true">
+        <label for="shizuku">Hinomori Shizuku</label>
+        <br>
+        <br>
+        <input type="checkbox" name="character-group" id="vbs" value="Vivid Bad Squad"  onchange={checkAllVBS} checked="true">
+        <label for="vbs">Vivid Bad Squad</label>
+        <input type="checkbox" name="character-group" id="kohane" value="Azusawa Kohane" checked="true">
+        <label for="kohane">Azusawa Kohane</label>
+        <input type="checkbox" name="character-group" id="an" value="Shiraishi An" checked="true">
+        <label for="an">Shiraishi An</label>
+        <input type="checkbox" name="character-group" id="akito" value="Shinonome Akito" checked="true">
+        <label for="akito">Shinonome Akito</label>
+        <input type="checkbox" name="character-group" id="toya" value="Aoyagi Toya" checked="true">
+        <label for="toya">Aoyagi Toya</label>
+        <br>
+        <br>
+        <input type="checkbox" name="character-group" id="wxs" value="Wonderlands X Showtime"  onchange={checkAllWxS} checked="true">
+        <label for="wxs">Wonderlands X Showtime</label>
+        <input type="checkbox" name="character-group" id="tsukasa" value="Tenma Tsukasa" checked="true">
+        <label for="tsukasa">Tenma Tsukasa</label>
+        <input type="checkbox" name="character-group" id="emu" value="Otori Emu" checked="true">
+        <label for="emu">Otori Emu</label>
+        <input type="checkbox" name="character-group" id="nene" value="Kusanagi Nene" checked="true">
+        <label for="nene">Kusanagi Nene</label>
+        <input type="checkbox" name="character-group" id="mybbg" value="Kamishiro Rui" checked="true">
+        <label for="mybbg">Kamishiro Rui</label>
+        <br>
+        <br>
+        <input type="checkbox" name="character-group" id="n25" value="Nightcord at 25:00"  onchange={checkAllN25} checked="true">
+        <label for="n25">Nightcord at 25:00</label>
+        <input type="checkbox" name="character-group" id="kanade" value="Yoisaki Kanade" checked="true">
+        <label for="kanade">Yoisaki Kanade</label>
+        <input type="checkbox" name="character-group" id="mafuyu" value="Asahina Mafuyu" checked="true">
+        <label for="mafuyu">Asahina Mafuyu</label>
+        <input type="checkbox" name="character-group" id="ena" value="Shinonome Ena" checked="true">
+        <label for="ena">Shinonome Ena</label>
+        <input type="checkbox" name="character-group" id="mizuki" value="Akiyama Mizuki" checked="true">
+        <label for="mizuku">Akiyama Mizuki</label>
     </div>
     <div class="select-cancel">
         <button class="select-btn" onclick={selectFilter}>Select</button>
@@ -276,16 +480,19 @@
         padding: 15px;
     }
 
+    .option-holder{
+        height: 80%;
+        overflow: auto;
+    }
+
     .select-cancel{
         display: flex;
         width: 90%;
-        position: fixed;
-        bottom:0;
-        left:50%;
-        transform: translateX(-50%);
+        position: sticky;
         justify-content: space-between;
         box-sizing: border-box;
         padding: 15px;
+        height: 15%;
     }
 
     .select-btn{
