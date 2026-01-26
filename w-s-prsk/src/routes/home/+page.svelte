@@ -3,8 +3,11 @@
     import {onMount} from "svelte";
     import {cards} from "./../scripts/cardData"; 
 
-    function randint(min, max){
-        return Math.ceil(Math.random()*(max-min))+min;
+    function randint(max){
+        const array = new Uint16Array(1);
+        crypto.getRandomValues(array);
+        const randNum = array[0]%(max);
+        return randNum;
     }
 
     let vs_container;
@@ -18,6 +21,15 @@
     let wishlistIsEmpty=true;
 
     let cardStatus = {};
+
+    let SSRs = [];
+    let RRRs = [];
+    let SRs = [];
+    let RRs = [];
+    let Rs = [];
+    let Us = [];
+    let Cs = [];
+    let CCs = [];
 
     function createCard(cardId){
         let img = document.createElement("img");
@@ -85,6 +97,24 @@
                 isObtained: Object.keys(userInventory).includes(i),
                 isFavorite: Object.keys(userInventory).includes(i)? userInventory[i].favorite:false,
                 isWishlist: userWishlist.includes(i)
+            }
+
+            if(cards[i].rarity == "SSR"){
+                SSRs.push(i);
+            }else if(cards[i].rarity == "RRR"){
+                RRRs.push(i);
+            }else if(cards[i].rarity == "SR"){
+                SRs.push(i);
+            }else if(cards[i].rarity == "RR"){
+                RRs.push(i);
+            }else if(cards[i].rarity == "R"){
+                Rs.push(i);
+            }else if(cards[i].rarity == "U"){
+                Us.push(i);
+            }else if(cards[i].rarity == "C"){
+                Cs.push(i);
+            }else{
+                CCs.push(i);
             }
         }
 
@@ -326,7 +356,11 @@
     function simulate(){
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
-            console.log(openPack());
+            let arrOfCards = openPack();
+            arrOfCards.forEach(i => {
+                let img = createCard(i);
+                document.getElementById("pulledCards").prepend(img);
+            });
         }else if(value=="quantityMet"){
             if(document.getElementById("quantity").value==0 || document.getElementById("quantity").value==null){
                 console.log("select a quantity first");
@@ -343,7 +377,7 @@
         }
             
         if(!cardsOpened.includes("R") && !cardsOpened.includes("RR") && !cardsOpened.includes("SR") && !cardsOpened.includes("RRR") && !cardsOpened.includes("SSR")){
-            cardsOpened.push("R");
+            cardsOpened.push(pullCard(true));
         }else{
             cardsOpened.push(pullCard());
         }
@@ -351,24 +385,27 @@
         return cardsOpened;
     }
 
-    function pullCard(){
-        let cardChosen = randint(0, 2304);
-        if(cardChosen<=2){
-            return "SSR";
-        }else if(cardChosen>=2 && cardChosen<7){
-            return "RRR";
-        }else if(cardChosen>=7 && cardChosen<17){
-            return "SR";
-        }else if(cardChosen>=17 && cardChosen<113){
-            return "RR";
-        }else if(cardChosen>=113 && cardChosen<473){
-            return "R";
-        }else if(cardChosen>=473 && cardChosen<1049){
-            return "U";
-        }else if(cardChosen>=1049 && cardChosen<2201){
-            return "C";
-        }else{
-            return "CC";
+    function pullCard(R){
+        if(R){
+            return Rs[randint(Rs.length)];
+        }
+        let cardChosen = randint(2304);
+        if(cardChosen<=2){ //SSR
+            return SSRs[randint(SSRs.length)];
+        }else if(cardChosen<7){ //RRR
+            return RRRs[randint(RRRs.length)];
+        }else if(cardChosen<17){ //SR
+            return SRs[randint(SRs.length)];
+        }else if(cardChosen<113){ //RR
+            return RRs[randint(RRs.length)];
+        }else if(cardChosen<473){ //R
+            return Rs[randint(Rs.length)];
+        }else if(cardChosen<1049){ //U
+            return Us[randint(Us.length)];
+        }else if(cardChosen<2201){ //C
+            return Cs[randint(Cs.length)];
+        }else{ //CC
+            return CCs[randint(CCs.length)];
         }
     }
 
@@ -529,6 +566,10 @@
         </div>
         <br>
         <button onclick={simulate}>Simulate</button>
+        <br>
+        <br>
+        <div class="grid" id="pulledCards">
+        </div>
     </div>
 </div>
 
