@@ -77,7 +77,7 @@
         });
 
         for(let i in cards){
-            let img = createCard(i);
+            let img = createCard(i, true);
             if(!Object.keys(userInventory).includes(i)){
                 img.classList.add("card-grayscale");
                 if(userWishlist.includes(i)){
@@ -203,7 +203,7 @@
         if(obtainedOrNot=="obtained"){
             for(let i in cards){
                 if(cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i);
+                    let img = createCard(i, true);
                     if(cardStatus[i].isFavorite){
                         let dupeImg = img.cloneNode(true);
                         dupeImg.onclick = img.onclick;
@@ -214,7 +214,7 @@
         }else if(obtainedOrNot=="unobtained"){
             for(let i in cards){
                 if(!cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i);
+                    let img = createCard(i, true);
                     img.classList.add("card-grayscale");
                     if(cardStatus[i].isWishlist){
                         let dupeImg = img.cloneNode(true);
@@ -226,7 +226,7 @@
         }else{
             for(let i in cards){
                 if(includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i);
+                    let img = createCard(i, true);
                     if(!cardStatus[i].isObtained){
                         img.classList.add("card-grayscale");
                     }
@@ -364,7 +364,7 @@
         if(value=="manual"){
             let arrOfCards = openPack();
             arrOfCards.forEach(i => {
-                let img = createCard(i);
+                let img = createCard(i, false);
                 document.getElementById("pulledCards").prepend(img);
             });
         }else if(value=="quantityMet"){
