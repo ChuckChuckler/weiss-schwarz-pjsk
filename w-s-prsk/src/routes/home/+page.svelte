@@ -22,7 +22,7 @@
 
     let cardStatus = {};
 
-    let SSRs = [];
+    let SSPs = [];
     let RRRs = [];
     let SRs = [];
     let RRs = [];
@@ -31,16 +31,18 @@
     let Cs = [];
     let CCs = [];
 
-    function createCard(cardId){
+    function createCard(cardId, sendToLink){
         let img = document.createElement("img");
         img.src=cards[cardId].photo;
         img.alt=cards[cardId].name;
         img.classList.add("card");
-        img.onclick = function(){
-            let url = new URL(window.location.href.replace("/home", "/card"));
-            url.searchParams.set("id", cardId);
-            window.location.href=url;
-        };
+        if(sendToLink){
+            img.onclick = function(){
+                let url = new URL(window.location.href.replace("/home", "/card"));
+                url.searchParams.set("id", cardId);
+                window.location.href=url;
+            };
+        }
 
         if(cards[cardId].group=="Virtual Singer"){
             vs_container.appendChild(img);
@@ -99,8 +101,8 @@
                 isWishlist: userWishlist.includes(i)
             }
 
-            if(cards[i].rarity == "SSR"){
-                SSRs.push(i);
+            if(cards[i].rarity == "SSP"){
+                SSPs.push(i);
             }else if(cards[i].rarity == "RRR"){
                 RRRs.push(i);
             }else if(cards[i].rarity == "SR"){
@@ -137,7 +139,6 @@
             });
             let isObtained = arrCookie[1].split("=")[1];
             let characters = arrCookie[0].split("=")[1].split(",");
-            console.log(isObtained);
             document.getElementById("filterOptions").querySelector(`input[value='${isObtained}']`).checked = true;
 
             document.getElementById("filterOptions").querySelectorAll("input[name='character-group']").forEach(i=>{
@@ -353,6 +354,11 @@
         document.getElementById("packSimulator").style.display = "block";
     }
 
+    let totalOpened=0;
+    let sspCount = 0;
+    let rrrCount = 0;
+    let srCount = 0;
+
     function simulate(){
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
@@ -376,10 +382,18 @@
             cardsOpened.push(pullCard());
         }
             
-        if(!cardsOpened.includes("R") && !cardsOpened.includes("RR") && !cardsOpened.includes("SR") && !cardsOpened.includes("RRR") && !cardsOpened.includes("SSR")){
+        if(!cardsOpened.includes("R") && !cardsOpened.includes("RR") && !cardsOpened.includes("SR") && !cardsOpened.includes("RRR") && !cardsOpened.includes("SSP")){
             cardsOpened.push(pullCard(true));
         }else{
             cardsOpened.push(pullCard());
+        }
+
+        totalOpened+=8;
+
+        if(totalOpened>=2304){
+            sspCount=0;
+            rrrCount=0;
+            srCount=0;
         }
 
         return cardsOpened;
@@ -390,11 +404,17 @@
             return Rs[randint(Rs.length)];
         }
         let cardChosen = randint(2304);
-        if(cardChosen<=2){ //SSR
-            return SSRs[randint(SSRs.length)];
-        }else if(cardChosen<7){ //RRR
+        if(cardChosen<1 && sspCount!=1){ //SSP
+            sspCount+=1;
+            console.log(sspCount);
+            return SSPs[randint(SSPs.length)];
+        }else if(cardChosen<7 && rrrCount!=4){ //RRR
+            rrrCount+=1;
+            console.log(rrrCount);
             return RRRs[randint(RRRs.length)];
-        }else if(cardChosen<17){ //SR
+        }else if(cardChosen<17 && srCount!=10){ //SR
+            srCount+=1;
+            console.log(srCount);
             return SRs[randint(SRs.length)];
         }else if(cardChosen<113){ //RR
             return RRs[randint(RRs.length)];
