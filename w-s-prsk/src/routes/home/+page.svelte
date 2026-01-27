@@ -358,15 +358,23 @@
     let sspCount = 0;
     let rrrCount = 0;
     let srCount = 0;
+    let packCount = $state(0);
+
+    let sspObtained = [];
+    let rrrObtained = [];
+    let srObtained = [];
+    let rrObtained = [];
+    let rObtained = [];
+    let uObtained = [];
+    let ccObtained = [];
+    let cObtained = [];
 
     function simulate(){
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
-            let arrOfCards = openPack();
-            arrOfCards.forEach(i => {
-                let img = createCard(i, false);
-                document.getElementById("pulledCards").prepend(img);
-            });
+            document.getElementById("manualControls").style.display = "block";
+            document.getElementById("openingOptions").style.display = "none";
+            openPack();
         }else if(value=="quantityMet"){
             if(document.getElementById("quantity").value==0 || document.getElementById("quantity").value==null){
                 console.log("select a quantity first");
@@ -396,7 +404,12 @@
             srCount=0;
         }
 
-        return cardsOpened;
+        cardsOpened.forEach(i => {
+            let img = createCard(i, false);
+            document.getElementById("pulledCards").prepend(img);
+        });
+
+        packCount++;
     }
 
     function pullCard(R){
@@ -406,27 +419,72 @@
         let cardChosen = randint(2304);
         if(cardChosen<1 && sspCount!=1){ //SSP
             sspCount+=1;
-            console.log(sspCount);
-            return SSPs[randint(SSPs.length)];
+            let chosenIndex = randint(SSPs.length);
+            if(!sspObtained.includes(SSPs[chosenIndex])){
+                sspObtained.push(SSPs[chosenIndex]);
+                document.getElementById("sspResults").appendChild(createCard(SSPs[chosenIndex], true));
+            }
+            return SSPs[chosenIndex];
         }else if(cardChosen<7 && rrrCount!=4){ //RRR
             rrrCount+=1;
-            console.log(rrrCount);
-            return RRRs[randint(RRRs.length)];
+            let chosenIndex = randint(RRRs.length);
+            if(!rrrObtained.includes(RRRs[chosenIndex])){
+                rrrObtained.push(RRRs[chosenIndex]);
+                document.getElementById("rrrResults").appendChild(createCard(RRRs[chosenIndex], true));
+            }
+            return RRRs[chosenIndex];
         }else if(cardChosen<17 && srCount!=10){ //SR
             srCount+=1;
-            console.log(srCount);
+            let chosenIndex = randint(SRs.length);
+            if(!srObtained.includes(SRs[chosenIndex])){
+                srObtained.push(SRs[chosenIndex]);
+                document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true));
+            }
             return SRs[randint(SRs.length)];
         }else if(cardChosen<113){ //RR
-            return RRs[randint(RRs.length)];
+            let chosenIndex = randint(RRs.length);
+            if(!rrObtained.includes(RRs[chosenIndex])){
+                rrObtained.push(RRs[chosenIndex]);
+                document.getElementById("rrResults").appendChild(createCard(RRs[chosenIndex], true));
+            }
+            return RRs[chosenIndex];
         }else if(cardChosen<473){ //R
-            return Rs[randint(Rs.length)];
+            let chosenIndex = randint(Rs.length);
+            if(!rObtained.includes(Rs[chosenIndex])){
+                rObtained.push(Rs[chosenIndex]);
+                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true));
+            }
+            return Rs[chosenIndex];
         }else if(cardChosen<1049){ //U
-            return Us[randint(Us.length)];
+            let chosenIndex = randint(Us.length);
+            if(!uObtained.includes(Us[chosenIndex])){
+                uObtained.push(Us[chosenIndex]);
+                document.getElementById("uResults").appendChild(createCard(Us[chosenIndex], true));
+            }
+            return Us[chosenIndex];
         }else if(cardChosen<2201){ //C
-            return Cs[randint(Cs.length)];
+            let chosenIndex = randint(Cs.length);
+            if(!cObtained.includes(Cs[chosenIndex])){
+                cObtained.push(Cs[chosenIndex]);
+                document.getElementById("cResults").appendChild(createCard(Cs[chosenIndex], true));
+            }
+            return Cs[chosenIndex];
         }else{ //CC
-            return CCs[randint(CCs.length)];
+            let chosenIndex = randint(CCs.length);
+            if(!ccObtained.includes(CCs[chosenIndex])){
+                rObtained.push(CCs[chosenIndex]);
+                document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true));
+            }
+            return CCs[chosenIndex];
         }
+    }
+
+    function stopSimulate(){
+        document.getElementById("pulledCards").replaceChildren();
+        document.getElementById("openingOptions").style.display = "block";
+        document.getElementById("manualControls").style.display = "none";
+         document.getElementById("simulatorResults").style.display = "block";
+        packCount = 0;
     }
 
     function showQuantityPicker(){
@@ -435,6 +493,10 @@
 
     function hideQuantityPicker(){
         document.getElementById("quantityPicker").style.display = "none";
+    }
+
+    function closeResults(){
+        document.getElementById("simulatorResults").style.display = "none";
     }
 </script>
 
@@ -573,22 +635,51 @@
         </div>
     </div>
     <div class="page pack-simulator" id="packSimulator">
-        <h1>Booster Pack Simulator</h1>
-        <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideQuantityPicker}>
-        <label for="manual">Manual</label>
-        <br>
-        <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={showQuantityPicker}>
-        <label for="quantityMet">Specific Quantity</label>
-        <br>
-        <div id="quantityPicker" style="display:none">
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity">
+        <div class="opening-options" id="openingOptions">
+            <h1>Booster Pack Simulator</h1>
+            <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideQuantityPicker}>
+            <label for="manual">Manual</label>
+            <br>
+            <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={showQuantityPicker}>
+            <label for="quantityMet">Specific Quantity</label>
+            <br>
+            <div id="quantityPicker" style="display:none">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity">
+            </div>
+            <br>
+            <button onclick={simulate}>Simulate</button>
         </div>
         <br>
-        <button onclick={simulate}>Simulate</button>
-        <br>
+        <div class="manual-controls" id="manualControls">
+            <button onclick={simulate}>Open Another</button>
+            <button onclick={stopSimulate}>Stop</button>
+            <h3>Pack count: {packCount}</h3>
+        </div>
         <br>
         <div class="grid" id="pulledCards">
+        </div>
+        <div class="simulator-results" id="simulatorResults">
+            <h1>Results</h1>
+            <div class="results-cards">
+                <h3>SSP</h3>
+                <div id="sspResults" class="grid"></div>
+                <h3>RRR</h3>
+                <div id="rrrResults" class="grid"></div>
+                <h3>SR</h3>
+                <div id="srResults" class="grid"></div>
+                <h3>RR</h3>
+                <div id="rrResults" class="grid"></div>
+                <h3>R</h3>
+                <div id="rResults" class="grid"></div>
+                <h3>U</h3>
+                <div id="uResults" class="grid"></div>
+                <h3>CC</h3>
+                <div id="ccResults" class="grid"></div>
+                <h3>C</h3>
+                <div id="cResults" class="grid"></div>
+            </div>
+            <button class="close-results" onclick={closeResults}>Close and Continue</button>
         </div>
     </div>
 </div>
@@ -664,5 +755,30 @@
 
     .card-inventory{
         display: none;
+    }
+
+    .manual-controls{
+        display: none;
+    }
+
+    .simulator-results{
+        width: 90vw;
+        height: 90vh;
+        background-color: rgb(214, 214, 252);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+    }
+
+    .close-results{
+        position: fixed;
+        bottom: 0;
+    }
+
+    .results-cards{
+        height: 85%;
+        overflow: auto;
     }
 </style>
