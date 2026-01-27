@@ -1,25 +1,5 @@
 export const cards = {
     //VOCALOIDS
-    S91PE02SPR: {
-        name: "Powerful Smile",
-        photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-PE02SPR.png",
-        rarity: "PR",
-        rarityId: 1,
-        character: "Hatsune Miku",
-        characterId: 1,
-        group: "Virtual Singer",
-        groupId: 1
-    },
-    S91PE01PR:{
-        name: "The Big Debut",
-        photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-PE01PR.png",
-        rarity: "PR",
-        rarityId: 1,
-        character: "Hatsune Miku",
-        characterId: 1,
-        group: "Virtual Singer",
-        groupId: 1
-    },
     S91E044:{
         name: "Stage Sekai",
         photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E044.png",

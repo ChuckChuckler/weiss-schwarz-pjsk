@@ -10,6 +10,10 @@
         return randNum;
     }
 
+    function sleep(ms){
+        return new Promise(r=>setTimeout(r, ms));
+    }
+
     let vs_container;
     let ln_container;
     let mmj_container;
@@ -354,11 +358,14 @@
         document.getElementById("packSimulator").style.display = "block";
     }
 
+    import wsCardCover from "$lib/assets/wscard.png";
+
     let totalOpened=0;
     let sspCount = 0;
     let rrrCount = 0;
     let srCount = 0;
     let packCount = $state(0);
+    let errmsg = $state("");
 
     let sspObtained = [];
     let rrrObtained = [];
@@ -369,22 +376,35 @@
     let ccObtained = [];
     let cObtained = [];
 
-    function simulate(){
+    async function simulate(){
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
             document.getElementById("manualControls").style.display = "block";
             document.getElementById("openingOptions").style.display = "none";
-            openPack();
+            openPack(false);
         }else if(value=="quantityMet"){
-            if(document.getElementById("quantity").value==0 || document.getElementById("quantity").value==null){
-                console.log("select a quantity first");
+            if(document.getElementById("quantity").value<3 || document.getElementById("quantity").value==null){
+                errmsg = "Select a quantity (at least 3)";
             }else{
-                console.log(document.getElementById("quantity").value);
+                errmsg = "";
+                let value = document.getElementById("quantity").value;
+                if(document.getElementById("skipOpening").checked){
+                    for(let i = 0; i < value; i++){
+                        openPack(true);
+                    }
+                    stopSimulate();
+                }else{
+                    for(let i = 0; i < value; i++){
+                        openPack(false);
+                        await sleep(4000);
+                    }
+                    stopSimulate();
+                }
             }
         }
     }
 
-    function openPack(){
+    async function openPack(skip){
         let cardsOpened = [];
         for(let i = 0; i < 7; i++){
             cardsOpened.push(pullCard());
@@ -404,10 +424,26 @@
             srCount=0;
         }
 
-        cardsOpened.forEach(i => {
-            let img = createCard(i, false);
-            document.getElementById("pulledCards").prepend(img);
-        });
+        if(!skip){
+            for(let i = 0; i < 8; i++){
+                let cardCover = document.createElement("img");
+                cardCover.classList.add("card");
+                cardCover.name = "cardCover";
+                cardCover.src = wsCardCover;
+                document.getElementById("pulledCards").prepend(cardCover);
+            }
+            await sleep(1500);
+
+            cardsOpened.forEach(i => {
+                let img = createCard(i, false);
+                document.querySelector("img[name='cardCover']").replaceWith(img);
+            });
+        }else{
+            cardsOpened.forEach(i => {
+                let img = createCard(i, false);
+                document.getElementById("pulledCards").prepend(img);
+            });
+        }
 
         packCount++;
     }
@@ -472,7 +508,7 @@
         }else{ //CC
             let chosenIndex = randint(CCs.length);
             if(!ccObtained.includes(CCs[chosenIndex])){
-                rObtained.push(CCs[chosenIndex]);
+                ccObtained.push(CCs[chosenIndex]);
                 document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true));
             }
             return CCs[chosenIndex];
@@ -483,19 +519,41 @@
         document.getElementById("pulledCards").replaceChildren();
         document.getElementById("openingOptions").style.display = "block";
         document.getElementById("manualControls").style.display = "none";
-         document.getElementById("simulatorResults").style.display = "block";
+        document.getElementById("simulatorResults").style.display = "block";
         packCount = 0;
     }
 
-    function showQuantityPicker(){
+    function quantityPickerUI(){
         document.getElementById("quantityPicker").style.display = "block";
     }
 
-    function hideQuantityPicker(){
+    function hideUIs(){
+        document.getElementById("quantityPicker").style.display = "none";
+    }
+
+    function specificCardUI(){
         document.getElementById("quantityPicker").style.display = "none";
     }
 
     function closeResults(){
+        sspObtained = [];
+        rrrObtained = [];
+        srObtained = [];
+        rrObtained = [];
+        rObtained = [];
+        uObtained = [];
+        ccObtained = [];
+        cObtained = [];
+
+        document.getElementById("sspResults").replaceChildren();
+        document.getElementById("rrrResults").replaceChildren();
+        document.getElementById("srResults").replaceChildren();
+        document.getElementById("rrResults").replaceChildren();
+        document.getElementById("rResults").replaceChildren();
+        document.getElementById("uResults").replaceChildren();
+        document.getElementById("ccResults").replaceChildren();
+        document.getElementById("cResults").replaceChildren();
+
         document.getElementById("simulatorResults").style.display = "none";
     }
 </script>
@@ -637,17 +695,22 @@
     <div class="page pack-simulator" id="packSimulator">
         <div class="opening-options" id="openingOptions">
             <h1>Booster Pack Simulator</h1>
-            <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideQuantityPicker}>
+            <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideUIs}>
             <label for="manual">Manual</label>
             <br>
-            <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={showQuantityPicker}>
+            <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={quantityPickerUI}>
             <label for="quantityMet">Specific Quantity</label>
             <br>
             <div id="quantityPicker" style="display:none">
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantity">
+                <input type="checkbox" id="skipOpening">
+                <label for="skipOpening">Skip opening (show results only)</label>
+                <br>
             </div>
-            <br>
+            <input type="radio" name="openUntil" id="specificCard" value="specificCard" onclick={specificCardUI}>
+            <label for="specificCard">Specific Card(s)</label>
+            <p>{errmsg}</p>
             <button onclick={simulate}>Simulate</button>
         </div>
         <br>
