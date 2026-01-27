@@ -1,21 +1,28 @@
 <script>
     import {signupLogic} from "./scripts/signin";
     import {loginLogic} from "./scripts/signin";
+    import {goto} from "$app/navigation";
 
     let tryMsgSignup = $state("");
     let tryMsgLogin = $state("");
 
+    function sleep(ms){
+        return new Promise(r=>setTimeout(r, ms));
+    }
+
     async function signup(){
         tryMsgSignup = await signupLogic(document.getElementById("signupuser").value, document.getElementById("signuppassword").value);
-        if(tryMsgLogin=="Success! Loading..."){
-            window.location.href = "/home";
+        if(tryMsgSignup=="Success! Loading..."){
+            await sleep(2000);
+            goto("/home");
         }
     }
 
     async function login(){
         tryMsgLogin = await loginLogic(document.getElementById("loginuser").value, document.getElementById("loginpassword").value);
         if(tryMsgLogin=="Success! Loading..."){
-            window.location.href = "/home";
+            await sleep(2000);
+            goto("/home");
         }
     }
 </script>

@@ -35,6 +35,8 @@
     let Cs = [];
     let CCs = [];
 
+    let wantedCards = [];
+
     function createCard(cardId, sendToLink){
         let img = document.createElement("img");
         img.src=cards[cardId].photo;
@@ -44,24 +46,36 @@
             img.onclick = function(){
                 let url = new URL(window.location.href.replace("/home", "/card"));
                 url.searchParams.set("id", cardId);
-                window.location.href=url;
+                window.open(url, "_blank");
             };
         }
 
-        if(cards[cardId].group=="Virtual Singer"){
-            vs_container.appendChild(img);
-        }else if(cards[cardId].group=="Leo/need"){
-            ln_container.appendChild(img);
-        }else if(cards[cardId].group=="MORE MORE JUMP!"){
-            mmj_container.appendChild(img);
-        }else if(cards[cardId].group=="Vivid Bad Squad"){
-            vbs_container.appendChild(img);
-        }else if(cards[cardId].group=="Wonderlands X Showtime"){
-            wxs_container.appendChild(img);
-        }else{
-            n25_container.appendChild(img);
-        }
         return img;
+    }
+
+    function createCheckboxCard(cardId){
+        let img = document.createElement("img");
+        img.src=cards[cardId].photo;
+        img.alt=cards[cardId].name;
+        img.classList.add("card-check");
+        img.onclick = function(){checkCard(cardId)};
+        img.classList.add("card-grayscale");
+        img.id = cardId;
+        document.getElementById("cardPicker").append(img);
+        img.dataset.checked = false;
+    }
+
+    function checkCard(cardId){
+        let imgToCheck = document.getElementById(cardId);
+        if(!JSON.parse(imgToCheck.dataset.checked)){
+            imgToCheck.classList.remove("card-grayscale");
+            wantedCards.push(cardId);
+            imgToCheck.dataset.checked = true;
+        }else{
+            imgToCheck.classList.add("card-grayscale");
+            wantedCards.splice(wantedCards.indexOf(cardId),1);
+            imgToCheck.dataset.checked = false;
+        }
     }
 
     onMount(async ()=>{
@@ -82,6 +96,7 @@
 
         for(let i in cards){
             let img = createCard(i, true);
+            
             if(!Object.keys(userInventory).includes(i)){
                 img.classList.add("card-grayscale");
                 if(userWishlist.includes(i)){
@@ -99,11 +114,28 @@
                 }
             }
 
+            if(cards[i].group=="Virtual Singer"){
+                vs_container.appendChild(img);
+            }else if(cards[i].group=="Leo/need"){
+                ln_container.appendChild(img);
+            }else if(cards[i].group=="MORE MORE JUMP!"){
+                mmj_container.appendChild(img);
+            }else if(cards[i].group=="Vivid Bad Squad"){
+                vbs_container.appendChild(img);
+            }else if(cards[i].group=="Wonderlands X Showtime"){
+                wxs_container.appendChild(img);
+            }else{
+                n25_container.appendChild(img);
+            }
+
+
             cardStatus[i] = {
                 isObtained: Object.keys(userInventory).includes(i),
                 isFavorite: Object.keys(userInventory).includes(i)? userInventory[i].favorite:false,
                 isWishlist: userWishlist.includes(i)
             }
+            
+            let cardToPick = createCheckboxCard(i);
 
             if(cards[i].rarity == "SSP"){
                 SSPs.push(i);
@@ -127,13 +159,13 @@
         if(favoritesIsEmpty){
             let message = document.createElement("h1");
             message.innerText = "Nothing in your favorites yet!";
-            favoritesContainer.appendChild(message);
+            document.getElementById("favoritesDiv").appendChild(message);
         }
 
         if(wishlistIsEmpty){
             let message = document.createElement("h1");
             message.innerText = "Nothing in your wishlist yet!";
-            wishlistContainer.appendChild(message);
+            document.getElementById("wishlistDiv").appendChild(message);
         }
 
         if(document.cookie){
@@ -376,6 +408,12 @@
     let ccObtained = [];
     let cObtained = [];
 
+    let stopEarly = false;
+
+    function stopAuto(){
+        stopEarly = true;
+    }
+
     async function simulate(){
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
@@ -394,17 +432,25 @@
                     }
                     stopSimulate();
                 }else{
+                    document.getElementById("autoControls").style.display = "block";
                     for(let i = 0; i < value; i++){
-                        openPack(false);
-                        await sleep(4000);
+                        if(!stopEarly){
+                            openPack(false);
+                            await sleep(4000);
+                        }else{
+                            break;
+                        }
                     }
                     stopSimulate();
                 }
             }
+        }else{
+            console.log("i want to lick ruis wet sloppy pussy");
         }
     }
 
     async function openPack(skip){
+        packCount++;
         let cardsOpened = [];
         for(let i = 0; i < 7; i++){
             cardsOpened.push(pullCard());
@@ -444,8 +490,6 @@
                 document.getElementById("pulledCards").prepend(img);
             });
         }
-
-        packCount++;
     }
 
     function pullCard(R){
@@ -517,8 +561,9 @@
 
     function stopSimulate(){
         document.getElementById("pulledCards").replaceChildren();
-        document.getElementById("openingOptions").style.display = "block";
         document.getElementById("manualControls").style.display = "none";
+        document.getElementById("autoControls").style.display = "none";
+        document.getElementById("openingOptions").style.display = "block";
         document.getElementById("simulatorResults").style.display = "block";
         packCount = 0;
     }
@@ -544,6 +589,8 @@
         uObtained = [];
         ccObtained = [];
         cObtained = [];
+
+        stopEarly = false;
 
         document.getElementById("sspResults").replaceChildren();
         document.getElementById("rrrResults").replaceChildren();
@@ -710,6 +757,9 @@
             </div>
             <input type="radio" name="openUntil" id="specificCard" value="specificCard" onclick={specificCardUI}>
             <label for="specificCard">Specific Card(s)</label>
+            <div id="cardPicker" class="card-picker grid">
+
+            </div>
             <p>{errmsg}</p>
             <button onclick={simulate}>Simulate</button>
         </div>
@@ -718,6 +768,9 @@
             <button onclick={simulate}>Open Another</button>
             <button onclick={stopSimulate}>Stop</button>
             <h3>Pack count: {packCount}</h3>
+        </div>
+        <div class="auto-controls" id="autoControls">
+            <button onclick={stopAuto}>Stop early</button>
         </div>
         <br>
         <div class="grid" id="pulledCards">
@@ -750,6 +803,10 @@
 <style>
     :global(.card){
         width: 18vw;
+    }
+
+    :global(.card-check){
+        width: 10vw;
     }
 
     :global(.card-grayscale){
@@ -820,6 +877,10 @@
         display: none;
     }
 
+    .pack-simulator{
+        display: block;
+    }
+
     .manual-controls{
         display: none;
     }
@@ -842,6 +903,19 @@
 
     .results-cards{
         height: 85%;
+        overflow: auto;
+    }
+
+    .auto-controls{
+        display: none;
+    }
+
+    .card-picker{
+        background-color: rgb(247, 205, 212);
+        height: 60vh;
+        width: 60vw;
+        padding: 3vw;
+        row-gap: 3vw;
         overflow: auto;
     }
 </style>
