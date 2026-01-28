@@ -681,6 +681,8 @@
             createCheckboxCard(i);
         });
 
+        document.getElementById("selectDeselectAll").checked = false;
+
         document.getElementById("simulatorResults").style.display = "none";
     }
 
@@ -695,6 +697,24 @@
             Object.keys(cards).forEach(i=>{
                 if(cards[i].rarity.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].character.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].group.toLowerCase().includes(searchParam.toLowerCase())){
                     createCheckboxCard(i);
+                }
+            });
+        }
+    }
+
+    function selectDeselect(){
+        if(document.getElementById("selectDeselectAll").checked){
+            document.getElementById("cardPicker").childNodes.forEach(i=>{
+                i.classList.remove("card-grayscale");
+                if(!wantedCards.includes(i.id)){
+                    wantedCards.push(i.id);
+                }
+            });
+        }else{
+            document.getElementById("cardPicker").childNodes.forEach(i=>{
+                i.classList.add("card-grayscale");
+                if(wantedCards.includes(i.id)){
+                    wantedCards.splice(wantedCards.indexOf(i.id), 1);
                 }
             });
         }
@@ -858,6 +878,8 @@
                 <button onclick={searchCardPicker}>Search</button>
                 <div id="cardPicker" class="card-picker grid">
                 </div>
+                <input type="checkbox" id="selectDeselectAll" onchange={selectDeselect}>
+                <label for="selectDeselectAll">Select All Shown</label>
                 <p>Open until...</p>
                 <input type="radio" name="oneOrAll" id="one" value="one" checked=true>
                 <label for="one">One obtained</label>
