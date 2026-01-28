@@ -16,6 +16,8 @@
     let favoriteDisplay = $state("none");
     let wishlistDisplay = $state("none");
 
+    let addToInventory = $state("Add to Inventory");
+
     let cardId;
     let isObtained;
     let isFavorite;
@@ -50,11 +52,13 @@
         if(!isObtained){
             document.getElementById("card-img").classList.add("card-grayscale");
             obtainedText = "Not Obtained";
+            addToInventory = "Add to Inventory";
             wishlistDisplay="block";
             favoriteDisplay="none";
         }else{
             document.getElementById("card-img").classList.remove("card-grayscale");
             obtainedText = "Obtained";
+            addToInventory = "Remove from Inventory";
             wishlistDisplay="none";
             favoriteDisplay="block";
         }
@@ -133,7 +137,7 @@
     </div>
     <div class="inner-flex">
         <h1>{obtainedText}</h1>
-        <button onclick={update}>Trigger</button>
+        <button onclick={update}>{addToInventory}</button>
         <br>
         <button onclick={setFavorite} style={`display:${favoriteDisplay}`}>{favoriteText}</button>
         <button onclick={addWishlist} style={`display:${wishlistDisplay}`}>{wishlistText}</button>
