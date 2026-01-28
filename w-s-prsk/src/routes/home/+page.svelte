@@ -37,7 +37,7 @@
 
     let wantedCards = [];
 
-    function createCard(cardId, sendToLink, addToInventory){
+    function createCard(cardId, sendToLink, addToInventory, blankTab){
         let img = document.createElement("img");
         img.src=cards[cardId].photo;
         img.alt=cards[cardId].name;
@@ -46,7 +46,11 @@
             img.onclick = function(){
                 let url = new URL(window.location.href.replace("/home", "/card"));
                 url.searchParams.set("id", cardId);
-                window.open(url, "_blank");
+                if(blankTab){
+                    window.open(url, "_blank");
+                }else{
+                    window.location.href = url;
+                }
             };
         }
 
@@ -113,7 +117,7 @@
         });
 
         for(let i in cards){
-            let img = createCard(i, true, true);
+            let img = createCard(i, true, true, false);
             
             if(!Object.keys(userInventory).includes(i)){
                 img.classList.add("card-grayscale");
@@ -242,7 +246,7 @@
         if(obtainedOrNot=="obtained"){
             for(let i in cards){
                 if(cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i, true, true);
+                    let img = createCard(i, true, true, false);
                     if(cardStatus[i].isFavorite){
                         let dupeImg = img.cloneNode(true);
                         dupeImg.onclick = img.onclick;
@@ -253,7 +257,7 @@
         }else if(obtainedOrNot=="unobtained"){
             for(let i in cards){
                 if(!cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i, true, true);
+                    let img = createCard(i, true, true, false);
                     img.classList.add("card-grayscale");
                     if(cardStatus[i].isWishlist){
                         let dupeImg = img.cloneNode(true);
@@ -265,7 +269,7 @@
         }else{
             for(let i in cards){
                 if(includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i, true, true);
+                    let img = createCard(i, true, true, false);
                     if(!cardStatus[i].isObtained){
                         img.classList.add("card-grayscale");
                     }
@@ -549,12 +553,12 @@
             await sleep(1500);
 
             cardsOpened.forEach(i => {
-                let img = createCard(i, false, false);
+                let img = createCard(i, false, false, false);
                 document.querySelector("img[name='cardCover']").replaceWith(img);
             });
         }else{
             cardsOpened.forEach(i => {
-                let img = createCard(i, false, false);
+                let img = createCard(i, false, false, false);
                 document.getElementById("pulledCards").prepend(img);
             });
         }
@@ -572,7 +576,7 @@
             let chosenIndex = randint(SSPs.length);
             if(!sspObtained.includes(SSPs[chosenIndex])){
                 sspObtained.push(SSPs[chosenIndex]);
-                document.getElementById("sspResults").appendChild(createCard(SSPs[chosenIndex], true, false));
+                document.getElementById("sspResults").appendChild(createCard(SSPs[chosenIndex], true, false, true));
             }
             return SSPs[chosenIndex];
         }else if(cardChosen<7 && rrrCount!=4){ //RRR
@@ -580,7 +584,7 @@
             let chosenIndex = randint(RRRs.length);
             if(!rrrObtained.includes(RRRs[chosenIndex])){
                 rrrObtained.push(RRRs[chosenIndex]);
-                document.getElementById("rrrResults").appendChild(createCard(RRRs[chosenIndex], true, false));
+                document.getElementById("rrrResults").appendChild(createCard(RRRs[chosenIndex], true, false, true));
             }
             return RRRs[chosenIndex];
         }else if(cardChosen<17 && srCount!=10){ //SR
@@ -588,42 +592,42 @@
             let chosenIndex = randint(SRs.length);
             if(!srObtained.includes(SRs[chosenIndex])){
                 srObtained.push(SRs[chosenIndex]);
-                document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true, false));
+                document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true, false, true));
             }
             return SRs[randint(SRs.length)];
         }else if(cardChosen<113){ //RR
             let chosenIndex = randint(RRs.length);
             if(!rrObtained.includes(RRs[chosenIndex])){
                 rrObtained.push(RRs[chosenIndex]);
-                document.getElementById("rrResults").appendChild(createCard(RRs[chosenIndex], true, false));
+                document.getElementById("rrResults").appendChild(createCard(RRs[chosenIndex], true, false, true));
             }
             return RRs[chosenIndex];
         }else if(cardChosen<473){ //R
             let chosenIndex = randint(Rs.length);
             if(!rObtained.includes(Rs[chosenIndex])){
                 rObtained.push(Rs[chosenIndex]);
-                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true, false));
+                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true, false, true));
             }
             return Rs[chosenIndex];
         }else if(cardChosen<1049){ //U
             let chosenIndex = randint(Us.length);
             if(!uObtained.includes(Us[chosenIndex])){
                 uObtained.push(Us[chosenIndex]);
-                document.getElementById("uResults").appendChild(createCard(Us[chosenIndex], true, false));
+                document.getElementById("uResults").appendChild(createCard(Us[chosenIndex], true, false, true));
             }
             return Us[chosenIndex];
         }else if(cardChosen<2201){ //C
             let chosenIndex = randint(Cs.length);
             if(!cObtained.includes(Cs[chosenIndex])){
                 cObtained.push(Cs[chosenIndex]);
-                document.getElementById("cResults").appendChild(createCard(Cs[chosenIndex], true, false));
+                document.getElementById("cResults").appendChild(createCard(Cs[chosenIndex], true, false, true));
             }
             return Cs[chosenIndex];
         }else{ //CC
             let chosenIndex = randint(CCs.length);
             if(!ccObtained.includes(CCs[chosenIndex])){
                 ccObtained.push(CCs[chosenIndex]);
-                document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true, false));
+                document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true, false, true));
             }
             return CCs[chosenIndex];
         }
@@ -960,7 +964,7 @@
 
     .nav-flex{
         display: flex;
-        width: 80vw;
+        width: 90%;
         margin: auto;
         justify-content: space-between;
     }
@@ -1003,11 +1007,11 @@
     }
 
     .card-inventory{
-        display: none;
+        display: block;
     }
 
     .pack-simulator{
-        display: block;
+        display: none;
     }
 
     .manual-controls{
