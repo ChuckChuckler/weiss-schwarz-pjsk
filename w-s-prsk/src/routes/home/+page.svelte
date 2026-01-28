@@ -37,7 +37,7 @@
 
     let wantedCards = [];
 
-    function createCard(cardId, sendToLink){
+    function createCard(cardId, sendToLink, addToInventory){
         let img = document.createElement("img");
         img.src=cards[cardId].photo;
         img.alt=cards[cardId].name;
@@ -50,6 +50,22 @@
             };
         }
 
+        if(addToInventory){
+            if(cards[cardId].group=="Virtual Singer"){
+                vs_container.appendChild(img);
+            }else if(cards[cardId].group=="Leo/need"){
+                ln_container.appendChild(img);
+            }else if(cards[cardId].group=="MORE MORE JUMP!"){
+                mmj_container.appendChild(img);
+            }else if(cards[cardId].group=="Vivid Bad Squad"){
+                vbs_container.appendChild(img);
+            }else if(cards[cardId].group=="Wonderlands X Showtime"){
+                wxs_container.appendChild(img);
+            }else{
+                n25_container.appendChild(img);
+            }
+        }
+
         return img;
     }
 
@@ -59,7 +75,9 @@
         img.alt=cards[cardId].name;
         img.classList.add("card-check");
         img.onclick = function(){checkCard(cardId)};
-        img.classList.add("card-grayscale");
+        if(!wantedCards.includes(cardId)){
+            img.classList.add("card-grayscale");
+        }
         img.id = cardId;
         document.getElementById("cardPicker").append(img);
         img.dataset.checked = false;
@@ -95,7 +113,7 @@
         });
 
         for(let i in cards){
-            let img = createCard(i, true);
+            let img = createCard(i, true, true);
             
             if(!Object.keys(userInventory).includes(i)){
                 img.classList.add("card-grayscale");
@@ -113,21 +131,6 @@
                     favoritesIsEmpty = false;
                 }
             }
-
-            if(cards[i].group=="Virtual Singer"){
-                vs_container.appendChild(img);
-            }else if(cards[i].group=="Leo/need"){
-                ln_container.appendChild(img);
-            }else if(cards[i].group=="MORE MORE JUMP!"){
-                mmj_container.appendChild(img);
-            }else if(cards[i].group=="Vivid Bad Squad"){
-                vbs_container.appendChild(img);
-            }else if(cards[i].group=="Wonderlands X Showtime"){
-                wxs_container.appendChild(img);
-            }else{
-                n25_container.appendChild(img);
-            }
-
 
             cardStatus[i] = {
                 isObtained: Object.keys(userInventory).includes(i),
@@ -218,7 +221,7 @@
         document.getElementById("filterOptions").style.display = "none";
     }
 
-    function selectFilter(){
+    function selectFilter(divToFilter){
         vs_container.replaceChildren();
         ln_container.replaceChildren();
         mmj_container.replaceChildren();
@@ -239,7 +242,7 @@
         if(obtainedOrNot=="obtained"){
             for(let i in cards){
                 if(cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i, true);
+                    let img = createCard(i, true, true);
                     if(cardStatus[i].isFavorite){
                         let dupeImg = img.cloneNode(true);
                         dupeImg.onclick = img.onclick;
@@ -250,7 +253,7 @@
         }else if(obtainedOrNot=="unobtained"){
             for(let i in cards){
                 if(!cardStatus[i].isObtained && includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i, true);
+                    let img = createCard(i, true, true);
                     img.classList.add("card-grayscale");
                     if(cardStatus[i].isWishlist){
                         let dupeImg = img.cloneNode(true);
@@ -262,7 +265,7 @@
         }else{
             for(let i in cards){
                 if(includedCharacters.includes(cards[i].character)){
-                    let img = createCard(i, true);
+                    let img = createCard(i, true, true);
                     if(!cardStatus[i].isObtained){
                         img.classList.add("card-grayscale");
                     }
@@ -436,7 +439,7 @@
                     for(let i = 0; i < value; i++){
                         if(!stopEarly){
                             openPack(false);
-                            await sleep(4000);
+                            await sleep(2000);
                         }else{
                             break;
                         }
@@ -445,7 +448,72 @@
                 }
             }
         }else{
-            console.log("i want to lick ruis wet sloppy pussy");
+            if(wantedCards.length == 0){
+                errmsg = "Please select at least one card";
+            }else{
+                if(document.querySelector("input[name='oneOrAll']:checked").value=="one"){
+                    if(document.getElementById("skipOpening2").checked){
+                        let oneObtained = false;
+                        while(!oneObtained){
+                            let obtaineds = await openPack(true);
+                            obtaineds.forEach(i=>{
+                                if(wantedCards.includes(i)){
+                                    oneObtained = true;
+                                }
+                            });
+                        }
+                        stopSimulate();
+                    }else{
+                        document.getElementById("autoControls").style.display = "block";
+                        let oneObtained = false;
+                        while(!oneObtained){
+                            if(!stopEarly){
+                                let obtaineds = await openPack(false);
+                                await sleep(2000);
+                                obtaineds.forEach(i=>{
+                                    if(wantedCards.includes(i)){
+                                        oneObtained = true;
+                                    }
+                                });
+                            }else{
+                                break;
+                            }
+                        }
+                        stopSimulate();
+
+                    }
+                }else if(document.querySelector("input[name='oneOrAll']:checked").value=="all"){
+                    if(document.getElementById("skipOpening2").checked){
+                        let allObtaineds = [];
+                        while(allObtaineds.length!=wantedCards.length){
+                            let obtaineds = await openPack(true);
+                            obtaineds.forEach(i=>{
+                                if(wantedCards.includes(i) && !allObtaineds.includes(i)){
+                                    allObtaineds.push(i);
+                                }
+                            });
+                        }
+                        stopSimulate();
+                    }else{
+                        document.getElementById("autoControls").style.display = "block";
+                        let allObtaineds = [];
+                        while(allObtaineds.length!=wantedCards.length){
+                            if(!stopEarly){
+                                let obtaineds = await openPack(false);
+                                await sleep(2000);
+                                obtaineds.forEach(i=>{
+                                    if(wantedCards.includes(i) && !allObtaineds.includes(i)){
+                                        allObtaineds.push(i);
+                                    }
+                                });
+                            }else{
+                                break;
+                            }
+                        }
+                        stopSimulate();
+                    }
+                }
+            }
         }
     }
 
@@ -481,15 +549,17 @@
             await sleep(1500);
 
             cardsOpened.forEach(i => {
-                let img = createCard(i, false);
+                let img = createCard(i, false, false);
                 document.querySelector("img[name='cardCover']").replaceWith(img);
             });
         }else{
             cardsOpened.forEach(i => {
-                let img = createCard(i, false);
+                let img = createCard(i, false, false);
                 document.getElementById("pulledCards").prepend(img);
             });
         }
+
+        return cardsOpened;
     }
 
     function pullCard(R){
@@ -502,7 +572,7 @@
             let chosenIndex = randint(SSPs.length);
             if(!sspObtained.includes(SSPs[chosenIndex])){
                 sspObtained.push(SSPs[chosenIndex]);
-                document.getElementById("sspResults").appendChild(createCard(SSPs[chosenIndex], true));
+                document.getElementById("sspResults").appendChild(createCard(SSPs[chosenIndex], true, false));
             }
             return SSPs[chosenIndex];
         }else if(cardChosen<7 && rrrCount!=4){ //RRR
@@ -510,7 +580,7 @@
             let chosenIndex = randint(RRRs.length);
             if(!rrrObtained.includes(RRRs[chosenIndex])){
                 rrrObtained.push(RRRs[chosenIndex]);
-                document.getElementById("rrrResults").appendChild(createCard(RRRs[chosenIndex], true));
+                document.getElementById("rrrResults").appendChild(createCard(RRRs[chosenIndex], true, false));
             }
             return RRRs[chosenIndex];
         }else if(cardChosen<17 && srCount!=10){ //SR
@@ -518,42 +588,42 @@
             let chosenIndex = randint(SRs.length);
             if(!srObtained.includes(SRs[chosenIndex])){
                 srObtained.push(SRs[chosenIndex]);
-                document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true));
+                document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true, false));
             }
             return SRs[randint(SRs.length)];
         }else if(cardChosen<113){ //RR
             let chosenIndex = randint(RRs.length);
             if(!rrObtained.includes(RRs[chosenIndex])){
                 rrObtained.push(RRs[chosenIndex]);
-                document.getElementById("rrResults").appendChild(createCard(RRs[chosenIndex], true));
+                document.getElementById("rrResults").appendChild(createCard(RRs[chosenIndex], true, false));
             }
             return RRs[chosenIndex];
         }else if(cardChosen<473){ //R
             let chosenIndex = randint(Rs.length);
             if(!rObtained.includes(Rs[chosenIndex])){
                 rObtained.push(Rs[chosenIndex]);
-                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true));
+                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true, false));
             }
             return Rs[chosenIndex];
         }else if(cardChosen<1049){ //U
             let chosenIndex = randint(Us.length);
             if(!uObtained.includes(Us[chosenIndex])){
                 uObtained.push(Us[chosenIndex]);
-                document.getElementById("uResults").appendChild(createCard(Us[chosenIndex], true));
+                document.getElementById("uResults").appendChild(createCard(Us[chosenIndex], true, false));
             }
             return Us[chosenIndex];
         }else if(cardChosen<2201){ //C
             let chosenIndex = randint(Cs.length);
             if(!cObtained.includes(Cs[chosenIndex])){
                 cObtained.push(Cs[chosenIndex]);
-                document.getElementById("cResults").appendChild(createCard(Cs[chosenIndex], true));
+                document.getElementById("cResults").appendChild(createCard(Cs[chosenIndex], true, false));
             }
             return Cs[chosenIndex];
         }else{ //CC
             let chosenIndex = randint(CCs.length);
             if(!ccObtained.includes(CCs[chosenIndex])){
                 ccObtained.push(CCs[chosenIndex]);
-                document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true));
+                document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true, false));
             }
             return CCs[chosenIndex];
         }
@@ -565,19 +635,21 @@
         document.getElementById("autoControls").style.display = "none";
         document.getElementById("openingOptions").style.display = "block";
         document.getElementById("simulatorResults").style.display = "block";
-        packCount = 0;
     }
 
     function quantityPickerUI(){
         document.getElementById("quantityPicker").style.display = "block";
+        document.getElementById("cardPickerContainer").style.display = "none";
     }
 
     function hideUIs(){
         document.getElementById("quantityPicker").style.display = "none";
+        document.getElementById("cardPickerContainer").style.display = "none";
     }
 
     function specificCardUI(){
         document.getElementById("quantityPicker").style.display = "none";
+        document.getElementById("cardPickerContainer").style.display = "block";
     }
 
     function closeResults(){
@@ -601,7 +673,31 @@
         document.getElementById("ccResults").replaceChildren();
         document.getElementById("cResults").replaceChildren();
 
+        packCount = 0;
+
+        wantedCards = [];
+        document.getElementById("cardPicker").replaceChildren();
+        Object.keys(cards).forEach(i=>{
+            createCheckboxCard(i);
+        });
+
         document.getElementById("simulatorResults").style.display = "none";
+    }
+
+    function searchCardPicker(){
+        let searchParam = document.getElementById("searchParam").value;
+        document.getElementById("cardPicker").replaceChildren();
+        if(searchParam==""){
+            Object.keys(cards).forEach(i=>{
+                createCheckboxCard(i);
+            });
+        }else{
+            Object.keys(cards).forEach(i=>{
+                if(cards[i].rarity.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].character.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].group.toLowerCase().includes(searchParam.toLowerCase())){
+                    createCheckboxCard(i);
+                }
+            });
+        }
     }
 </script>
 
@@ -618,7 +714,7 @@
                 <button onclick={wishlistDisplay}>Wishlist</button>
             </div>
             <div>
-                <button onclick={toggleFilter}>Filter</button>
+                <button onclick={toggleFilter} class="nav-flex">Filter</button>
             </div>
         </div>
         <div class="grid-container allCards" id="allCardsDiv">
@@ -731,7 +827,7 @@
                 <input type="checkbox" name="character-group" id="ena" value="Shinonome Ena" checked="true">
                 <label for="ena">Shinonome Ena</label>
                 <input type="checkbox" name="character-group" id="mizuki" value="Akiyama Mizuki" checked="true">
-                <label for="mizuku">Akiyama Mizuki</label>
+                <label for="mizuki">Akiyama Mizuki</label>
             </div>
             <div class="select-cancel">
                 <button class="select-btn" onclick={selectFilter}>Select</button>
@@ -757,8 +853,18 @@
             </div>
             <input type="radio" name="openUntil" id="specificCard" value="specificCard" onclick={specificCardUI}>
             <label for="specificCard">Specific Card(s)</label>
-            <div id="cardPicker" class="card-picker grid">
-
+            <div id="cardPickerContainer" class="card-picker-container">
+                <input type="text" id="searchParam">
+                <button onclick={searchCardPicker}>Search</button>
+                <div id="cardPicker" class="card-picker grid">
+                </div>
+                <p>Open until...</p>
+                <input type="radio" name="oneOrAll" id="one" value="one" checked=true>
+                <label for="one">One obtained</label>
+                <input type="radio" name="oneOrAll" id="all" value="all">
+                <label for="all">All obtained</label>
+                <input type="checkbox" id="skipOpening2">
+                <label for="skipOpening2">Skip opening (show results only)</label>
             </div>
             <p>{errmsg}</p>
             <button onclick={simulate}>Simulate</button>
@@ -777,6 +883,7 @@
         </div>
         <div class="simulator-results" id="simulatorResults">
             <h1>Results</h1>
+            <h3>Packs opened: {packCount}</h3>
             <div class="results-cards">
                 <h3>SSP</h3>
                 <div id="sspResults" class="grid"></div>
@@ -917,5 +1024,9 @@
         padding: 3vw;
         row-gap: 3vw;
         overflow: auto;
+    }
+
+    .card-picker-container{
+        display: none;
     }
 </style>
