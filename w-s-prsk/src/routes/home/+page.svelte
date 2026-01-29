@@ -773,7 +773,7 @@
                 <button onclick={wishlistDisplay} class="inventoryNavButtons wishlistNav">Wishlist</button>
             </div>
             <div>
-                <button onclick={toggleFilter} class="nav-flex">Filter</button>
+                <button onclick={toggleFilter} class="inventoryNavButtons pullup-filter-btn">Filter</button>
             </div>
         </div>
         <div class="grid-container allCards" id="allCardsDiv">
@@ -1226,6 +1226,17 @@
     .logo:hover{
         width: 21vw;
         animation: logo-1 0.5s ease-out;
+    }
+
+    .pullup-filter-btn{
+        background-color: white;
+        font-size: 20px;
+        font-family: "Madimi One", sans-serif;
+        width: 10vw;
+    }
+
+    .pullup-filter-btn:hover{
+        background-color: rgb(212, 212, 212);
     }
 
     .filter-label-group{
