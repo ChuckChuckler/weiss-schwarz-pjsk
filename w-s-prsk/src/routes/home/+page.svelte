@@ -465,6 +465,7 @@
             if(document.getElementById("quantity").value<3 || document.getElementById("quantity").value==null){
                 errmsg = "Select a quantity (at least 3)";
             }else{
+                document.getElementById("openingOptions").style.display = "none";
                 errmsg = "";
                 let value = document.getElementById("quantity").value;
                 if(document.getElementById("skipOpening").checked){
@@ -489,6 +490,7 @@
             if(wantedCards.length == 0){
                 errmsg = "Please select at least one card";
             }else{
+                document.getElementById("openingOptions").style.display = "none";
                 if(document.querySelector("input[name='oneOrAll']:checked").value=="one"){
                     if(document.getElementById("skipOpening2").checked){
                         let oneObtained = false;
@@ -671,23 +673,26 @@
         document.getElementById("pulledCards").replaceChildren();
         document.getElementById("manualControls").style.display = "none";
         document.getElementById("autoControls").style.display = "none";
-        document.getElementById("openingOptions").style.display = "block";
+        document.getElementById("openingOptions").style.display = "flex";
         document.getElementById("simulatorResults").style.display = "block";
     }
 
     function quantityPickerUI(){
         document.getElementById("quantityPicker").style.display = "block";
         document.getElementById("cardPickerContainer").style.display = "none";
+        errmsg = "";
     }
 
     function hideUIs(){
         document.getElementById("quantityPicker").style.display = "none";
         document.getElementById("cardPickerContainer").style.display = "none";
+        errmsg = "";
     }
 
     function specificCardUI(){
         document.getElementById("quantityPicker").style.display = "none";
         document.getElementById("cardPickerContainer").style.display = "block";
+        errmsg = "";
     }
 
     function closeResults(){
@@ -733,7 +738,9 @@
             });
         }else{
             Object.keys(cards).forEach(i=>{
-                if(cards[i].rarity.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].character.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].group.toLowerCase().includes(searchParam.toLowerCase())){
+                if(cards[i].rarity.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].character.toLowerCase().includes(searchParam.toLowerCase() + " ") || cards[i].character.toLowerCase().includes(" " + searchParam.toLowerCase()) || cards[i].group.toLowerCase().includes(searchParam.toLowerCase())){
+                    createCheckboxCard(i);
+                }else if(cards[i].character.toLowerCase().includes(searchParam.toLowerCase()) && !cards[i].character.includes(" ")){
                     createCheckboxCard(i);
                 }
             });
@@ -816,6 +823,8 @@
                 <input type="radio" name="obtained-or-not" id="unobtained" value="unobtained" class="filter-radio">
                 <label for="obtained" class="filter-div-labels">Unobtained only</label>
                 <br>
+                <br>
+                <hr class="filter-divider">
                 <br>
                 <h3 class="filter-div-titles">Characters</h3>
                 <input type="checkbox" id="allSelected" checked="true" value="all" onclick={selectAll} class="filter-checkbox">
@@ -980,40 +989,47 @@
         </div>
     </div>
     <div class="page pack-simulator" id="packSimulator">
+        <h1 class="simulator-title">Booster Pack Simulator</h1>
         <div class="opening-options" id="openingOptions">
-            <h1>Booster Pack Simulator</h1>
-            <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideUIs}>
-            <label for="manual">Manual</label>
-            <br>
-            <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={quantityPickerUI}>
-            <label for="quantityMet">Specific Quantity</label>
-            <br>
-            <div id="quantityPicker" style="display:none">
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity">
-                <input type="checkbox" id="skipOpening">
-                <label for="skipOpening">Skip opening (show results only)</label>
+            <div class="options-side-left">
+                <input type="radio" name="openUntil" id="manual" value="manual" checked="true" onclick={hideUIs} class="filter-radio">
+                <label for="manual" class="simulator-labels">Manual</label>
                 <br>
+                <input type="radio" name="openUntil" id="quantityMet" value="quantityMet" onchange={quantityPickerUI} class="filter-radio">
+                <label for="quantityMet" class="simulator-labels">Specific Quantity</label>
+                <br>
+                <input type="radio" name="openUntil" id="specificCard" value="specificCard" onclick={specificCardUI} class="filter-radio">
+                <label for="specificCard" class="simulator-labels">Specific Card(s)</label>
+                <br>
+                <p class="simulator-errmsg">{errmsg}</p>
+                <br>
+                <button onclick={simulate} class="simulate-button">Simulate</button>
             </div>
-            <input type="radio" name="openUntil" id="specificCard" value="specificCard" onclick={specificCardUI}>
-            <label for="specificCard">Specific Card(s)</label>
-            <div id="cardPickerContainer" class="card-picker-container">
-                <input type="text" id="searchParam">
-                <button onclick={searchCardPicker}>Search</button>
-                <div id="cardPicker" class="card-picker grid">
+            <div class="options-side-right">
+                <div id="quantityPicker" style="display:none" >
+                    <label for="quantity" class="picker-labels">Quantity:</label>
+                    <input type="number" id="quantity" class="quantity-input" placeholder="Enter a number (3+)">
+                    <br>
+                    <input type="checkbox" id="skipOpening" class="filter-checkbox">
+                    <label for="skipOpening" class="picker-labels">Skip opening (show results only)</label>
+                    <br>
                 </div>
-                <input type="checkbox" id="selectDeselectAll" onchange={selectDeselect}>
-                <label for="selectDeselectAll">Select All Shown</label>
-                <p>Open until...</p>
-                <input type="radio" name="oneOrAll" id="one" value="one" checked=true>
-                <label for="one">One obtained</label>
-                <input type="radio" name="oneOrAll" id="all" value="all">
-                <label for="all">All obtained</label>
-                <input type="checkbox" id="skipOpening2">
-                <label for="skipOpening2">Skip opening (show results only)</label>
+                <div id="cardPickerContainer" class="card-picker-container">
+                    <input type="text" id="searchParam" class="picker-searcher" placeholder="Search by rarity, character, group...">
+                    <button onclick={searchCardPicker} class="picker-search-btn">Search</button>
+                    <div id="cardPicker" class="card-picker grid">
+                    </div>
+                    <input type="checkbox" id="selectDeselectAll" onchange={selectDeselect} class="card-picker-inputs">
+                    <label for="selectDeselectAll" class="card-picker-labels">Select All Shown</label>
+                    <p class="card-picker-labels">Open until...</p>
+                    <input type="radio" name="oneOrAll" id="one" value="one" checked=true class="card-picker-inputs">
+                    <label for="one" class="card-picker-labels">One obtained</label>
+                    <input type="radio" name="oneOrAll" id="all" value="all" class="card-picker-inputs">
+                    <label for="all" class="card-picker-labels">All obtained</label>
+                    <input type="checkbox" id="skipOpening2" class="card-picker-inputs">
+                    <label for="skipOpening2" class="card-picker-labels">Skip opening (show results only)</label>
+                </div>
             </div>
-            <p>{errmsg}</p>
-            <button onclick={simulate}>Simulate</button>
         </div>
         <br>
         <div class="manual-controls" id="manualControls">
@@ -1082,8 +1098,32 @@
         animation: card-1 0.5s ease-out;
     }
 
+    @keyframes card-check-1{
+        from{
+            width: 9.5vw;
+        }
+        to{
+            width: 10vw;
+        }
+    }
+
+    @keyframes card-check-2{
+        to{
+            width: 9.5vw;
+        }
+        from{
+            width: 10vw;
+        }
+    }
+
     :global(.card-check){
+        width: 9.5vw;
+        animation: card-check-2 0.5s ease-out;
+    }
+
+    :global(.card-check):hover{
         width: 10vw;
+        animation: card-check-1 0.5s ease-out;
     }
 
     :global(.card-grayscale){
@@ -1261,6 +1301,10 @@
     .filter-radio{
         accent-color: rgb(255, 111, 111);
     }
+
+    .filter-divider{
+        border: rgb(255, 111, 111) 0.5px solid;
+    }
     
     .char-checkboxes{
         display: flex;
@@ -1420,19 +1464,135 @@
     }
 
     .card-picker{
-        background-color: rgb(247, 205, 212);
-        height: 60vh;
-        width: 60vw;
-        padding: 3vw;
-        row-gap: 3vw;
+        padding: 2vw;
+        row-gap: 2vw;
         overflow: auto;
+        height: 50vh;
     }
 
     .card-picker-container{
         display: none;
+        background-color: rgb(255, 200, 200);
+        box-sizing: border-box;
+        padding: 10px;
+        border-radius: 30px;
     }
 
-    .pulled-cards{
-        background: rgb(189, 209, 252);
+    .opening-options{
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-around;
+        margin: auto;
+        width: 90%;
+    }
+
+    .options-side-left{
+        padding-top: 20px;
+        width: 39%;
+    }
+
+    .options-side-right{
+        width: 59%;
+    }
+
+    .simulator-title{
+        font-family: "Madimi One", sans-serif;
+        font-size: 50px;
+        text-align: center;
+        color: rgb(51, 51, 90);
+    }
+
+    .simulator-labels{
+        font-family: "Madimi One", sans-serif;
+        font-size: 30px;
+    }
+
+    @keyframes simulate-button-1{
+        from{
+            width: 75%;
+            height: 50px;
+        }
+        to{
+            width: 77%;
+            height: 54px;
+        }
+    }
+
+    @keyframes simulate-button-2{
+        to{
+            width: 75%;
+            height: 50px;
+        }
+        from{
+            width: 77%;
+            height: 54px;
+        }
+    }
+
+    .simulate-button{
+        background-color: #ffe69b;
+        width: 75%;
+        height: 50px;
+        border-radius: 20px;
+        color: #ad891c;
+        font-weight: 600;
+        font-size: 20px;
+        font-family: "Madimi One", sans-serif;
+        animation: simulate-button-2 0.5s ease-out;
+    }
+
+    .simulate-button:hover{
+        background-color: #fcdc7a;
+        width: 77%;
+        height: 54px;
+        animation: simulate-button-1 0.5s ease-out;
+    }
+
+    .picker-labels{
+        font-size: 28px;
+        font-family: "Madimi One", sans-serif;
+    }
+
+    .quantity-input{
+        width: 60%;
+        height: 30px;
+        border-radius: 20px;
+        background-color: white;
+        padding-left: 10px;
+    }
+
+    .picker-searcher{
+        background-color: white;
+        width: 80%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding-left: 5px;
+    }
+
+    .picker-search-btn{
+        width: 15%;
+        background-color: #9ADAFF;
+        color: rgb(31, 36, 69);
+        font-weight: 500;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .picker-search-btn:hover{
+        background-color: #5fc4ff;
+    }
+
+    .card-picker-labels{
+        font-family: "Madimi One", sans-serif;
+    }
+
+    .card-picker-inputs{
+        accent-color: #5fc4ff;
+    }
+
+    .simulator-errmsg{
+        color: rgb(255, 0, 0);
+        font-size: 20px;
+        font-weight: 700;
     }
 </style>
