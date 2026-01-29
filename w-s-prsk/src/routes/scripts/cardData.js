@@ -200,9 +200,9 @@ export const cards = {
         group: "Virtual Singer",
         groupId: 1
     },
-    S91E055S:{
+    S91E055:{
         name: "Be My Rival",
-        photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E055S.png",
+        photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E055.png",
         rarity: "RR",
         rarityId: 6,
         character: "Hatsune Miku",
@@ -223,6 +223,16 @@ export const cards = {
     S91E032S:{
         name: "To The Stage!",
         photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E032S.png",
+        rarity: "SR",
+        rarityId: 7,
+        character: "Hatsune Miku",
+        characterId: 1,
+        group: "Virtual Singer",
+        groupId: 1
+    },
+    S91E055S:{
+        name: "Be My Rival",
+        photo: "https://en.ws-tcg.com/wordpress/wp-content/images/cardimages/PJS/S91-E055S.png",
         rarity: "SR",
         rarityId: 7,
         character: "Hatsune Miku",
