@@ -3,6 +3,13 @@
     import {onMount} from "svelte";
     import {cards} from "./../scripts/cardData"; 
 
+    import vsLogo from "$lib/assets/vsLogo.png";
+    import lnLogo from "$lib/assets/lnLogo.png";
+    import mmjLogo from "$lib/assets/mmjLogo.png";
+    import vbsLogo from "$lib/assets/vbsLogo.png";
+    import wxsLogo from "$lib/assets/wxsLogo.png";
+    import n25Logo from "$lib/assets/n25Logo.png";
+
     function randint(max){
         const array = new Uint16Array(1);
         crypto.getRandomValues(array);
@@ -727,33 +734,43 @@
 
 <div class="web-container">
     <div class="navbar">
-        <button onclick={showInventory}>Inventory</button>
-        <button onclick={showSimulator}>Pack Simulator</button>
+        <button onclick={showInventory} class="navbuttons">Inventory</button>
+        <button onclick={showSimulator} class="navbuttons">Pack Simulator</button>
     </div>
+    <br>
     <div class="page card-inventory" id="cardInventory">
         <div class="nav-flex">
-            <div>
-                <button onclick={cardsDisplay}>Cards</button>
-                <button onclick={favoritesDisplay}>Favorites</button>
-                <button onclick={wishlistDisplay}>Wishlist</button>
+            <div class="inventoryNav">
+                <button onclick={cardsDisplay} class="inventoryNavButtons cardsNav">Cards</button>
+                <button onclick={favoritesDisplay} class="inventoryNavButtons favoritesNav">Favorites</button>
+                <button onclick={wishlistDisplay} class="inventoryNavButtons wishlistNav">Wishlist</button>
             </div>
             <div>
                 <button onclick={toggleFilter} class="nav-flex">Filter</button>
             </div>
         </div>
         <div class="grid-container allCards" id="allCardsDiv">
+            <img class="logo" src={vsLogo} alt="Virtual Singer logo">
             <div bind:this={vs_container} class="grid vs-grid">
             </div>
+            <img class="logo" src={lnLogo} alt="Leo/need logo">
             <div bind:this={ln_container} id="Leo/need" class="grid ln-grid">
             </div>
+            <img class="logo" src={mmjLogo} alt="More More Jump! logo">
             <div bind:this={mmj_container} id="MORE MORE JUMP!" class="grid mmj-grid">
             </div>
+            <img class="logo" src={vbsLogo} alt="Vivid Bad Squad logo">
             <div bind:this={vbs_container} id="Vivid Bad Squad" class="grid vbs-grid">
             </div>
+            <img class="logo" src={wxsLogo} alt="Wonderlands X Showtime logo">
             <div bind:this={wxs_container} id="Wonderlands x Showtime" class="grid wxs-grid">
             </div>
+            <img class="logo" src={n25Logo} alt="Nightcord at 25:00 logo">
             <div bind:this={n25_container} id="Nightcord at 25:00" class="grid n25-grid">
             </div>
+            <br>
+            <br>
+            <br>
         </div>
         <div class="grid-container grid favorites" id="favoritesDiv">
         </div>
@@ -905,7 +922,7 @@
             <button onclick={stopAuto}>Stop early</button>
         </div>
         <br>
-        <div class="grid" id="pulledCards">
+        <div class="grid pulled-cards" id="pulledCards">
         </div>
         <div class="simulator-results" id="simulatorResults">
             <h1>Results</h1>
@@ -934,8 +951,32 @@
 </div>
 
 <style>
+    @keyframes card-1{
+        from{
+            width: 18vw;
+        }
+        to{
+            width: 19vw;
+        }
+    }
+
+    @keyframes card-2{
+        to{
+            width: 18vw;
+        }
+        from{
+            width: 19vw;
+        }
+    }
+
     :global(.card){
         width: 18vw;
+        animation: card-2 0.5s ease-out;
+    }
+
+    :global(.card):hover{
+        width: 19vw;
+        animation: card-1 0.5s ease-out;
     }
 
     :global(.card-check){
@@ -945,11 +986,148 @@
     :global(.card-grayscale){
         filter: grayscale(100%);
     }
+
+    @keyframes navbuttons-1{
+        to{
+            width: 21vw;
+            height: 52px;
+        }
+        from{
+            width: 20vw;
+            height: 50px;
+        }
+    }
+
+    @keyframes navbuttons-2{
+        from{
+            width: 21vw;
+            height: 52px;
+        }
+        to{
+            width: 20vw;
+            height: 50px;
+        }
+    }
+
+    .web-container{
+        background-color: #EAF1FF;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .navbar{
+        width: 43vw;
+        margin: auto;
+        box-sizing: border-box;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around
+    }
+
+    .navbuttons{
+        background-color: #F49D9D;
+        border: white 2px solid;
+        color: white;
+        font-family: "Madimi One", sans-serif;
+        font-size: 22px;
+        width: 20vw;
+        height: 50px;
+        border-radius: 20px;
+        animation: navbuttons-2 0.5s ease-out;
+    }
+
+    .navbuttons:hover{
+        background-color: #f08a8a;
+        height: 52px;
+        width: 21vw;
+        animation: navbuttons-1 0.5s ease-out;
+    }
+
+    .inventoryNav{
+        width: 40vw;
+        height: 45px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .inventoryNavButtons{
+        height: 100%;
+        width: 35%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        font-size: 23px;
+        font-family: "Madimi One", sans-serif;
+        font-weight: 500;
+    }
+    
+    .cardsNav{
+        background-color: #9ADAFF;
+        z-index: 3;
+        color: #2874D7;
+    }
+
+    .favoritesNav{
+        background-color: #FF9A9C;
+        position: relative;
+        right: 0.5vw;
+        z-index: 2;
+        color: #D72851;
+    }
+
+    .wishlistNav{
+        background-color: #FFE69A;
+        position: relative;
+        right: 1vw;
+        z-index: 1;
+        color: #D7A328;
+    }
+
+    .allCards{
+        background-color: #AFD0F6;
+        padding-top: 20px;
+    }
+
+    .favorites{
+        background-color: #FFB9BA;
+    }
+
+    .wishlist{
+        background-color: #FFEEBA;
+    }
+
+    @keyframes logo-1{
+        from{
+            width: 20vw;
+        }
+        to{
+            width: 21vw;
+        }
+    }
+
+    @keyframes logo-2{
+        to{
+            width: 20vw;
+        }
+        from{
+            width: 21vw;
+        }
+    }
+
+    .logo{
+        width: 20vw;
+        margin: auto;
+        animation: logo-2 0.5s ease-out;
+    }
+
+    .logo:hover{
+        width: 21vw;
+        animation: logo-1 0.5s ease-out;
+    }
     
     .grid{
         display: grid;
         width: 100%;
-        background-color: rgb(152, 152, 227);
         grid-template-columns: auto auto auto auto;
         row-gap: 5vw;
         box-sizing: border-box;
@@ -980,6 +1158,7 @@
         display: none;
         box-sizing: border-box;
         padding: 15px;
+        z-index: 5;
     }
 
     .option-holder{
@@ -1012,6 +1191,8 @@
 
     .pack-simulator{
         display: none;
+        overflow: auto;
+        height: 90vh;
     }
 
     .manual-controls{
@@ -1054,5 +1235,9 @@
 
     .card-picker-container{
         display: none;
+    }
+
+    .pulled-cards{
+        background: rgb(189, 209, 252);
     }
 </style>
