@@ -10,6 +10,33 @@
     import wxsLogo from "$lib/assets/wxsLogo.png";
     import n25Logo from "$lib/assets/n25Logo.png";
 
+    import miku from "$lib/assets/mikuIcon.png";
+    import rin from "$lib/assets/rinIcon.png";
+    import len from "$lib/assets/lenIcon.png";
+    import luka from "$lib/assets/lukaIcon.png";
+    import meiko from "$lib/assets/meikoIcon.png";
+    import kaito from "$lib/assets/kaitoIcon.png";
+    import ichika from "$lib/assets/ichikaIcon.png";
+    import saki from "$lib/assets/sakiIcon.png";
+    import honami from "$lib/assets/honamiIcon.png";
+    import shiho from "$lib/assets/shihoIcon.png";
+    import minori from "$lib/assets/minoriIcon.png";
+    import haruka from "$lib/assets/harukaIcon.png";
+    import airi from "$lib/assets/airiIcon.png";
+    import shizuku from "$lib/assets/shizukuIcon.png";
+    import kohane from "$lib/assets/kohaneIcon.png";
+    import an from "$lib/assets/anIcon.png";
+    import akito from "$lib/assets/akitoIcon.png";
+    import toya from "$lib/assets/toyaIcon.png";
+    import tsukasa from "$lib/assets/tsukasaIcon.png";
+    import emu from "$lib/assets/emuIcon.png";
+    import nene from "$lib/assets/neneIcon.png";
+    import bbg from "$lib/assets/bbgIcon.png";
+    import kanade from "$lib/assets/kanadeIcon.png";
+    import mafuyu from "$lib/assets/mafuyuIcon.png";
+    import ena from "$lib/assets/enaIcon.png";
+    import mizuki from "$lib/assets/mizukiIcon.png";
+
     function randint(max){
         const array = new Uint16Array(1);
         crypto.getRandomValues(array);
@@ -779,96 +806,172 @@
 
         <div class="filter-options" id="filterOptions">
             <div class="option-holder">
-                <h3>Status</h3>
-                <input type="radio" name="obtained-or-not" id="all" value="all" checked="true">
-                <label for="all">All</label>
+                <h3 class="filter-div-titles">Status</h3>
+                <input type="radio" name="obtained-or-not" id="all" value="all" checked="true" class="filter-radio">
+                <label for="all" class="filter-div-labels">All</label>
                 <br>
-                <input type="radio" name="obtained-or-not" id="obtained" value="obtained">
-                <label for="obtained">Obtained only</label>
+                <input type="radio" name="obtained-or-not" id="obtained" value="obtained" class="filter-radio">
+                <label for="obtained" class="filter-div-labels">Obtained only</label>
                 <br>
-                <input type="radio" name="obtained-or-not" id="unobtained" value="unobtained">
-                <label for="obtained">Unobtained only</label>
-                <br>
-                <br>
-                <h3>Characters</h3>
-                <input type="checkbox" id="allSelected" checked="true" value="all" onclick={selectAll}>
-                <label for="allSelected">Select All</label>
+                <input type="radio" name="obtained-or-not" id="unobtained" value="unobtained" class="filter-radio">
+                <label for="obtained" class="filter-div-labels">Unobtained only</label>
                 <br>
                 <br>
-                <input type="checkbox" name="character-group" id="vs" value="Virtual Singer" checked="true" onchange={checkAllVS}>
-                <label for="vs">Virtual Singer</label>
-                <input type="checkbox" name="character-group" id="miku" value="Hatsune Miku" checked="true">
-                <label for="miku">Hatsune Miku</label>
-                <input type="checkbox" name="character-group" id="rin" value="Kagamine Rin" checked="true">
-                <label for="rin">Kagamine Rin</label>
-                <input type="checkbox" name="character-group" id="len" value="Kagamine Len" checked="true">
-                <label for="len">Kagamine Len</label>
-                <input type="checkbox" name="character-group" id="luka" value="Megurine Luka" checked="true">
-                <label for="luka">Megurine Luka</label>
-                <input type="checkbox" name="character-group" id="meiko" value="MEIKO" checked="true">
-                <label for="meiko">MEIKO</label>
-                <input type="checkbox" name="character-group" id="kaito" value="KAITO" checked="true">
-                <label for="kaito">KAITO</label>
+                <h3 class="filter-div-titles">Characters</h3>
+                <input type="checkbox" id="allSelected" checked="true" value="all" onclick={selectAll} class="filter-checkbox">
+                <label for="allSelected" class="filter-div-labels">Select All</label>
                 <br>
                 <br>
-                <input type="checkbox" name="character-group" id="ln" value="Leo/need" onchange={checkAllLn} checked="true">
-                <label for="ln">Leo/need</label>
-                <input type="checkbox" name="character-group" id="ichika" value="Hoshino Ichika" checked="true">
-                <label for="ichika">Hoshino Ichika</label>
-                <input type="checkbox" name="character-group" id="saki" value="Tenma Saki" checked="true">
-                <label for="saki">Tenma Saki</label>
-                <input type="checkbox" name="character-group" id="honami" value="Mochizuki Honami" checked="true">
-                <label for="honami">Mochizuki Honami</label>
-                <input type="checkbox" name="character-group" id="shiho" value="Hinomori Shiho" checked="true">
-                <label for="shiho">Hinomori Shiho</label>
+                <input type="checkbox" name="character-group" id="vs" value="Virtual Singer" checked="true" onchange={checkAllVS} class="filter-checkbox">
+                <label for="vs">
+                    <img src={vsLogo} alt="virtual singer logo" class="filter-label-group">
+                </label>
+                <div class="char-checkboxes char-checkboxes-vs">
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="miku" value="Hatsune Miku" checked="true">
+                    <label for="miku">
+                        <img src={miku} alt="hatsune miku" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="rin" value="Kagamine Rin" checked="true">
+                    <label for="rin">
+                        <img src={rin} alt="kagamine rin" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="len" value="Kagamine Len" checked="true">
+                    <label for="len">
+                        <img src={len} alt="kagamine len" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="luka" value="Megurine Luka" checked="true">
+                    <label for="luka">
+                        <img src={luka} alt="megurine luka" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="meiko" value="MEIKO" checked="true">
+                    <label for="meiko">
+                        <img src={meiko} alt="meiko" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="kaito" value="KAITO" checked="true">
+                    <label for="kaito">
+                        <img src={kaito} alt="kaito" class="filter-label-character">
+                    </label>
+                </div>
                 <br>
                 <br>
-                <input type="checkbox" name="character-group" id="mmj" value="MORE MORE JUMP!" onchange={checkAllMMJ} checked="true">
-                <label for="mmj">MORE MORE JUMP!</label>
-                <input type="checkbox" name="character-group" id="minori" value="Hanasato Minori" checked="true">
-                <label for="ichika">Hanasato Minori</label>
-                <input type="checkbox" name="character-group" id="haruka" value="Kiritani Haruka" checked="true">
-                <label for="haruka">Kiritani Haruka</label>
-                <input type="checkbox" name="character-group" id="airi" value="Momoi Airi" checked="true">
-                <label for="airi">Momoi Airi</label>
-                <input type="checkbox" name="character-group" id="shizuku" value="Hinomori Shizuku" checked="true">
-                <label for="shizuku">Hinomori Shizuku</label>
+                <input type="checkbox" class="filter-checkbox" name="character-group" id="ln" value="Leo/need" onchange={checkAllLn} checked="true">
+                <label for="ln">
+                    <img src={lnLogo} alt="leo/need logo" class="filter-label-group">
+                </label>
+                <div class="char-checkboxes char-checkboxes-others">
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="ichika" value="Hoshino Ichika" checked="true">
+                    <label for="ichika">
+                        <img src={ichika} alt="ichika" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="saki" value="Tenma Saki" checked="true">
+                    <label for="saki">
+                        <img src={saki} alt="saki" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="honami" value="Mochizuki Honami" checked="true">
+                    <label for="honami">
+                        <img src={honami} alt="honami" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="shiho" value="Hinomori Shiho" checked="true">
+                    <label for="shiho">
+                        <img src={shiho} alt="shiho" class="filter-label-character">
+                    </label>
+                </div>
                 <br>
                 <br>
-                <input type="checkbox" name="character-group" id="vbs" value="Vivid Bad Squad"  onchange={checkAllVBS} checked="true">
-                <label for="vbs">Vivid Bad Squad</label>
-                <input type="checkbox" name="character-group" id="kohane" value="Azusawa Kohane" checked="true">
-                <label for="kohane">Azusawa Kohane</label>
-                <input type="checkbox" name="character-group" id="an" value="Shiraishi An" checked="true">
-                <label for="an">Shiraishi An</label>
-                <input type="checkbox" name="character-group" id="akito" value="Shinonome Akito" checked="true">
-                <label for="akito">Shinonome Akito</label>
-                <input type="checkbox" name="character-group" id="toya" value="Aoyagi Toya" checked="true">
-                <label for="toya">Aoyagi Toya</label>
+                <input type="checkbox" class="filter-checkbox" name="character-group" id="mmj" value="MORE MORE JUMP!" onchange={checkAllMMJ} checked="true">
+                <label for="mmj">
+                    <img src={mmjLogo} alt="more more jump logo" class="filter-label-group">
+                </label>
+                <div class="char-checkboxes char-checkboxes-others">
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="minori" value="Hanasato Minori" checked="true">
+                    <label for="minori">
+                        <img src={minori} alt="minori" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="haruka" value="Kiritani Haruka" checked="true">
+                    <label for="haruka">
+                        <img src={haruka} alt="haruka" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="airi" value="Momoi Airi" checked="true">
+                    <label for="airi">
+                        <img src={airi} alt="airi" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="shizuku" value="Hinomori Shizuku" checked="true">
+                    <label for="shizuku">
+                        <img src={shizuku} alt="shizuku" class="filter-label-character">
+                    </label>
+                </div>
                 <br>
                 <br>
-                <input type="checkbox" name="character-group" id="wxs" value="Wonderlands X Showtime"  onchange={checkAllWxS} checked="true">
-                <label for="wxs">Wonderlands X Showtime</label>
-                <input type="checkbox" name="character-group" id="tsukasa" value="Tenma Tsukasa" checked="true">
-                <label for="tsukasa">Tenma Tsukasa</label>
-                <input type="checkbox" name="character-group" id="emu" value="Otori Emu" checked="true">
-                <label for="emu">Otori Emu</label>
-                <input type="checkbox" name="character-group" id="nene" value="Kusanagi Nene" checked="true">
-                <label for="nene">Kusanagi Nene</label>
-                <input type="checkbox" name="character-group" id="mybbg" value="Kamishiro Rui" checked="true">
-                <label for="mybbg">Kamishiro Rui</label>
+                <input type="checkbox" class="filter-checkbox" name="character-group" id="vbs" value="Vivid Bad Squad"  onchange={checkAllVBS} checked="true">
+                <label for="vbs">
+                    <img src={vbsLogo} alt="vivid bad squad logo" class="filter-label-group">
+                </label>
+                <div class="char-checkboxes char-checkboxes-others">
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="kohane" value="Azusawa Kohane" checked="true">
+                    <label for="kohane">
+                        <img src={kohane} alt="kohane" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="an" value="Shiraishi An" checked="true">
+                    <label for="an">
+                        <img src={an} alt="an" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="akito" value="Shinonome Akito" checked="true">
+                    <label for="akito">
+                        <img src={akito} alt="akito" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="toya" value="Aoyagi Toya" checked="true">
+                    <label for="toya">
+                        <img src={toya} alt="toya" class="filter-label-character">
+                    </label>
+                </div>
                 <br>
                 <br>
-                <input type="checkbox" name="character-group" id="n25" value="Nightcord at 25:00"  onchange={checkAllN25} checked="true">
-                <label for="n25">Nightcord at 25:00</label>
-                <input type="checkbox" name="character-group" id="kanade" value="Yoisaki Kanade" checked="true">
-                <label for="kanade">Yoisaki Kanade</label>
-                <input type="checkbox" name="character-group" id="mafuyu" value="Asahina Mafuyu" checked="true">
-                <label for="mafuyu">Asahina Mafuyu</label>
-                <input type="checkbox" name="character-group" id="ena" value="Shinonome Ena" checked="true">
-                <label for="ena">Shinonome Ena</label>
-                <input type="checkbox" name="character-group" id="mizuki" value="Akiyama Mizuki" checked="true">
-                <label for="mizuki">Akiyama Mizuki</label>
+                <input type="checkbox" class="filter-checkbox" name="character-group" id="wxs" value="Wonderlands X Showtime"  onchange={checkAllWxS} checked="true">
+                <label for="wxs">
+                    <img src={wxsLogo} alt="wonderlandsxshowtime logo" class="filter-label-group">
+                </label>
+                <div class="char-checkboxes char-checkboxes-others">
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="tsukasa" value="Tenma Tsukasa" checked="true">
+                    <label for="tsukasa">
+                        <img src={tsukasa} alt="tsukasa" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="emu" value="Otori Emu" checked="true">
+                    <label for="emu">
+                        <img src={emu} alt="emu" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="nene" value="Kusanagi Nene" checked="true">
+                    <label for="nene">
+                        <img src={nene} alt="nene" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="mybbg" value="Kamishiro Rui" checked="true">
+                    <label for="mybbg">
+                        <img src={bbg} alt="bbg" class="filter-label-character">
+                    </label>
+                </div>
+                <br>
+                <br>
+                <input type="checkbox" class="filter-checkbox" name="character-group" id="n25" value="Nightcord at 25:00"  onchange={checkAllN25} checked="true">
+                <label for="n25">
+                    <img src={n25Logo} alt="nightcord at 25:00 logo" class="filter-label-group">
+                </label>
+                <div class="char-checkboxes char-checkboxes-others">
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="kanade" value="Yoisaki Kanade" checked="true">
+                    <label for="kanade">
+                        <img src={kanade} alt="kanade" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="mafuyu" value="Asahina Mafuyu" checked="true">
+                    <label for="mafuyu">
+                        <img src={mafuyu} alt="mafuyu" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="ena" value="Shinonome Ena" checked="true">
+                    <label for="ena">
+                        <img src={ena} alt="ena" class="filter-label-character">
+                    </label>
+                    <input type="checkbox" class="filter-checkbox" name="character-group" id="mizuki" value="Akiyama Mizuki" checked="true">
+                    <label for="mizuki">
+                        <img src={mizuki} alt="mizuki" class="filter-label-character">
+                    </label>
+                </div>
             </div>
             <div class="select-cancel">
                 <button class="select-btn" onclick={selectFilter}>Select</button>
@@ -1124,7 +1227,57 @@
         width: 21vw;
         animation: logo-1 0.5s ease-out;
     }
+
+    .filter-label-group{
+        width: 12vw;
+    }
+
+    .filter-label-character{
+        width: 5vw;
+        height: 5vw;
+        background-color: white;
+        border-radius: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .filter-checkbox{
+        accent-color: rgb(255, 111, 111);
+        width: 20px;
+        height: 20px;
+    }
+
+    .filter-radio{
+        accent-color: rgb(255, 111, 111);
+    }
     
+    .char-checkboxes{
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .char-checkboxes-vs{
+        width: 80%;
+    }
+
+    .char-checkboxes-others{
+        width: 60%;
+    }
+
+    .filter-div-titles{
+        font-family: "Madimi One", sans-serif;
+        font-size: 30px;
+        text-align: center;
+        color: rgb(44, 44, 79);
+    }
+
+    .filter-div-labels{
+        font-family: "Madimi One", sans-serif;
+        font-size: 18px;
+        font-weight: 100;
+        color: rgb(51, 51, 90);
+    }
+
     .grid{
         display: grid;
         width: 100%;
@@ -1151,14 +1304,16 @@
         width: 60vw;
         height: 70vh;
         position: absolute;
-        background-color: rgb(234, 154, 154);
+        background-color: rgb(188, 230, 248);
+        border-radius: 30px;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         display: none;
         box-sizing: border-box;
-        padding: 15px;
+        padding: 18px;
         z-index: 5;
+        border:rgb(255, 111, 111) 5px double;
     }
 
     .option-holder{
@@ -1169,16 +1324,45 @@
     .select-cancel{
         display: flex;
         width: 90%;
+        margin: auto;
         position: sticky;
         justify-content: space-between;
         box-sizing: border-box;
         padding: 15px;
-        height: 15%;
+        height: 20%;
+    }
+
+    @keyframes select-btn-1{
+        from{
+            width: 48%;
+        }
+        to{
+            width: 50%;
+        }
+    }
+
+    @keyframes select-btn-2{
+        to{
+            width: 48%;
+        }
+        from{
+            width: 50%;
+        }
     }
 
     .select-btn{
         width: 48%;
+        border-radius: 20px;
         background-color: white;
+        font-family: "Madimi One", sans-serif;
+        font-size: 18px;
+        animation: select-btn-2 0.5s ease-out;
+    }
+
+    .select-btn:hover{
+        width: 50%;
+        background-color: rgb(234, 234, 234);
+        animation: select-btn-1 0.5s ease-out;
     }
 
     .page{
