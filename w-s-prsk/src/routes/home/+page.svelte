@@ -488,6 +488,7 @@
     }
 
     async function simulate(){
+        errmsg = "";
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
             document.getElementById("manualControls").style.display = "flex";
@@ -539,6 +540,7 @@
                 document.getElementById("pulledCardsContainer").style.display = "block";
                 if(document.querySelector("input[name='oneOrAll']:checked").value=="one"){
                     if(document.getElementById("skipOpening2").checked){
+                        console.log(wantedCards);
                         load();
                         await sleep(1000);
                         let oneObtained = false;
@@ -573,6 +575,7 @@
                     }
                 }else if(document.querySelector("input[name='oneOrAll']:checked").value=="all"){
                     if(document.getElementById("skipOpening2").checked){
+                        console.log(wantedCards);
                         let allObtaineds = [];
                         load();
                         await sleep(1000);
@@ -656,7 +659,12 @@
 
     function pullCard(R){
         if(R){
-            return Rs[randint(Rs.length)];
+            let chosenIndex = randint(Rs.length);
+            if(!rObtained.includes(Rs[chosenIndex])){
+                rObtained.push(Rs[chosenIndex]);
+                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true, false, true));
+            }
+            return Rs[chosenIndex];
         }
         let cardChosen = randint(2304);
         if(cardChosen<1 && sspCount!=1){ //SSP
@@ -682,7 +690,7 @@
                 srObtained.push(SRs[chosenIndex]);
                 document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true, false, true));
             }
-            return SRs[randint(SRs.length)];
+            return SRs[chosenIndex];
         }else if(cardChosen<113){ //RR
             let chosenIndex = randint(RRs.length);
             if(!rrObtained.includes(RRs[chosenIndex])){
@@ -722,6 +730,8 @@
     }
 
     function stopSimulate(){
+        wantedCards = [];
+
         document.getElementById("pulledCards").replaceChildren();
         document.getElementById("manualControls").style.display = "none";
         document.getElementById("autoControls").style.display = "none";
@@ -771,7 +781,6 @@
 
         packCount = 0;
 
-        wantedCards = [];
         document.getElementById("cardPicker").replaceChildren();
         Object.keys(cards).forEach(i=>{
             createCheckboxCard(i);
@@ -791,7 +800,7 @@
             });
         }else{
             Object.keys(cards).forEach(i=>{
-                if(cards[i].rarity.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].character.toLowerCase().includes(searchParam.toLowerCase() + " ") || cards[i].character.toLowerCase().includes(" " + searchParam.toLowerCase()) || cards[i].group.toLowerCase().includes(searchParam.toLowerCase())){
+                if(cards[i].rarity.toLowerCase().includes(searchParam.toLowerCase()) || cards[i].character.toLowerCase().includes(searchParam.toLowerCase() + " ") || cards[i].character.toLowerCase().includes(" " + searchParam.toLowerCase()) || (cards[i].group.toLowerCase().includes(searchParam.toLowerCase()) && searchParam.length>3)){
                     createCheckboxCard(i);
                 }else if(cards[i].character.toLowerCase().includes(searchParam.toLowerCase()) && !cards[i].character.includes(" ")){
                     createCheckboxCard(i);
