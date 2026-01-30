@@ -458,14 +458,16 @@
     async function simulate(){
         let value = document.querySelector("input[name='openUntil']:checked").value;
         if(value=="manual"){
-            document.getElementById("manualControls").style.display = "block";
+            document.getElementById("manualControls").style.display = "flex";
             document.getElementById("openingOptions").style.display = "none";
+            document.getElementById("pulledCardsContainer").style.display = "block";
             openPack(false);
         }else if(value=="quantityMet"){
             if(document.getElementById("quantity").value<3 || document.getElementById("quantity").value==null){
                 errmsg = "Select a quantity (at least 3)";
             }else{
                 document.getElementById("openingOptions").style.display = "none";
+                document.getElementById("pulledCardsContainer").style.display = "block";
                 errmsg = "";
                 let value = document.getElementById("quantity").value;
                 if(document.getElementById("skipOpening").checked){
@@ -478,7 +480,7 @@
                     for(let i = 0; i < value; i++){
                         if(!stopEarly){
                             openPack(false);
-                            await sleep(2000);
+                            await sleep(4000);
                         }else{
                             break;
                         }
@@ -491,6 +493,7 @@
                 errmsg = "Please select at least one card";
             }else{
                 document.getElementById("openingOptions").style.display = "none";
+                document.getElementById("pulledCardsContainer").style.display = "block";
                 if(document.querySelector("input[name='oneOrAll']:checked").value=="one"){
                     if(document.getElementById("skipOpening2").checked){
                         let oneObtained = false;
@@ -509,7 +512,7 @@
                         while(!oneObtained){
                             if(!stopEarly){
                                 let obtaineds = await openPack(false);
-                                await sleep(2000);
+                                await sleep(4000);
                                 obtaineds.forEach(i=>{
                                     if(wantedCards.includes(i)){
                                         oneObtained = true;
@@ -540,7 +543,7 @@
                         while(allObtaineds.length!=wantedCards.length){
                             if(!stopEarly){
                                 let obtaineds = await openPack(false);
-                                await sleep(2000);
+                                await sleep(4000);
                                 obtaineds.forEach(i=>{
                                     if(wantedCards.includes(i) && !allObtaineds.includes(i)){
                                         allObtaineds.push(i);
@@ -675,6 +678,7 @@
         document.getElementById("autoControls").style.display = "none";
         document.getElementById("openingOptions").style.display = "flex";
         document.getElementById("simulatorResults").style.display = "block";
+        document.getElementById("pulledCardsContainer").style.display = "none";
     }
 
     function quantityPickerUI(){
@@ -1032,39 +1036,42 @@
             </div>
         </div>
         <br>
-        <div class="manual-controls" id="manualControls">
-            <button onclick={simulate}>Open Another</button>
-            <button onclick={stopSimulate}>Stop</button>
-            <h3>Pack count: {packCount}</h3>
-        </div>
-        <div class="auto-controls" id="autoControls">
-            <button onclick={stopAuto}>Stop early</button>
-        </div>
         <br>
-        <div class="grid pulled-cards" id="pulledCards">
+        <div class="pulled-cards-container" id="pulledCardsContainer">
+            <div class="manual-controls" id="manualControls">
+                <h3 class="pack-count-display">Pack count: {packCount}</h3>
+                <div class="manual-buttons-container">
+                    <button onclick={simulate} class="manual-buttons">Open Another</button>
+                    <button onclick={stopSimulate} class="manual-buttons">Stop</button>
+                </div>
+            </div>
+            <div class="auto-controls" id="autoControls">
+                <button onclick={stopAuto} class="stop-early-button">Stop early</button>
+            </div>
+            <div class="grid pulled-cards" id="pulledCards"></div>
         </div>
         <div class="simulator-results" id="simulatorResults">
-            <h1>Results</h1>
-            <h3>Packs opened: {packCount}</h3>
+            <h1 class="results-title">Results</h1>
+            <h3 class="results-subtitle">Packs opened: {packCount}</h3>
             <div class="results-cards">
-                <h3>SSP</h3>
+                <h3 class="results-rarity">SSP</h3>
                 <div id="sspResults" class="grid"></div>
-                <h3>RRR</h3>
+                <h3 class="results-rarity">RRR</h3>
                 <div id="rrrResults" class="grid"></div>
-                <h3>SR</h3>
+                <h3 class="results-rarity">SR</h3>
                 <div id="srResults" class="grid"></div>
-                <h3>RR</h3>
+                <h3 class="results-rarity">RR</h3>
                 <div id="rrResults" class="grid"></div>
-                <h3>R</h3>
+                <h3 class="results-rarity">R</h3>
                 <div id="rResults" class="grid"></div>
-                <h3>U</h3>
+                <h3 class="results-rarity">U</h3>
                 <div id="uResults" class="grid"></div>
-                <h3>CC</h3>
+                <h3 class="results-rarity">CC</h3>
                 <div id="ccResults" class="grid"></div>
-                <h3>C</h3>
+                <h3 class="results-rarity">C</h3>
                 <div id="cResults" class="grid"></div>
             </div>
-            <button class="close-results" onclick={closeResults}>Close and Continue</button>
+            <button class="close-results" onclick={closeResults}>X</button>
         </div>
     </div>
 </div>
@@ -1436,6 +1443,9 @@
 
     .manual-controls{
         display: none;
+        justify-content: space-between;
+        width: 80%;
+        margin: auto;
     }
 
     .simulator-results{
@@ -1447,15 +1457,49 @@
         left: 50%;
         transform: translate(-50%, -50%);
         display: none;
+        border-radius: 25px;
+        box-sizing: border-box;
+        padding: 20px;
+    }
+
+    .results-title{
+        font-size: 40px;
+        font-family: "Madimi One", sans-serif;
+        text-align: center;
+        color: rgb(51, 51, 90);
+    }
+
+    .results-subtitle{
+        font-size: 25px;
+        font-family: "Madimi One", sans-serif;
+        text-align: center;
+        color: rgb(73, 73, 123);
+    }
+
+    .results-rarity{
+        color: rgb(51, 51, 90);
+        font-weight: 500;
+        font-size: 20px;
     }
 
     .close-results{
-        position: fixed;
-        bottom: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        background-color: #ffebae;
+        font-size: 20px;
+        color: #645015;
+        font-weight: 600;
+    }
+
+    .close-results:hover{
+        background-color: #ffde7b;
     }
 
     .results-cards{
-        height: 85%;
+        height: 80%;
         overflow: auto;
     }
 
@@ -1594,5 +1638,101 @@
         color: rgb(255, 0, 0);
         font-size: 20px;
         font-weight: 700;
+    }
+
+    .pack-count-display{
+        font-family: "Madimi One", sans-serif;
+        font-size: 30px;
+    }
+
+    .manual-buttons-container{
+        display: flex;
+        justify-content: space-around;
+        width: 60%;
+    }
+
+    @keyframes manual-button-1{
+        from{
+            width: 49%;
+        }
+        to{
+            width: 51%;
+        }
+    }
+
+    @keyframes manual-button-2{
+        to{
+            width: 49%;
+        }
+        from{
+            width: 51%;
+        }
+    }
+
+    .manual-buttons{
+        width: 49%;
+        background-color: #f08a8a;
+        border-radius: 20px;
+        font-family: "Madimi One", sans-serif;
+        font-size: 20px;
+        animation: manual-button-2 0.5s ease-out;
+    }
+    
+    .manual-buttons:hover{
+        background-color: rgb(245, 122, 122);
+        width: 51%;
+        animation: manual-button-1 0.5s ease-out;
+    }
+
+    @keyframes stop-early-button-1{
+        from{
+            width: 20%;
+        }
+        to{
+            width: 22%;
+        }
+    }
+
+    @keyframes stop-early-button-2{
+        to{
+            width: 20%;
+        }
+        from{
+            width: 22%;
+        }
+    }
+
+    .stop-early-button{
+        background-color: rgb(245, 122, 122);
+        width: 20%;
+        height: 40px;
+        border-radius: 15px;
+        font-family: "Madimi One", sans-serif;
+        font-size: 20px;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: stop-early-button-2 0.5s ease-out;
+    }
+
+    .stop-early-button:hover{
+        width: 22%;
+        background-color: rgb(245, 106, 106);
+        animation: stop-early-button-1 0.5s ease-out;
+    }
+
+    .pulled-cards-container{
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #EAF1FF;
+        display: none;
+        box-sizing: border-box;
+        padding: 25px;
+        overflow: auto;
     }
 </style>
