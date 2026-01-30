@@ -50,13 +50,13 @@
 
     function changeDisplays(isObtained){
         if(!isObtained){
-            document.getElementById("card-img").classList.add("card-grayscale");
+            document.getElementById("cardImg").classList.add("card-grayscale");
             obtainedText = "Not Obtained";
             addToInventory = "Add to Inventory";
             wishlistDisplay="block";
             favoriteDisplay="none";
         }else{
-            document.getElementById("card-img").classList.remove("card-grayscale");
+            document.getElementById("cardImg").classList.remove("card-grayscale");
             obtainedText = "Obtained";
             addToInventory = "Remove from Inventory";
             wishlistDisplay="none";
@@ -126,21 +126,29 @@
     }
 </script>
 
-<button onclick={goHome}>Back to Home</button>
+<div class="bg"></div>
+
+<button class="home-btn" onclick={goHome}>Back to Home</button>
 
 <div class="flex-container">
-    <div class="inner-flex">
-        <h1>{cardName}</h1>
-        <img src={cardPhoto} alt={cardName} id="card-img"/>
-        <h2>{cardChar} - {cardGroup}</h2>
-        <h2>Rarity: {cardRarity}</h2>
+    <div class="inner-flex-left">
+        <img src={cardPhoto} alt={cardName} id="cardImg" class="card-img"/>
     </div>
-    <div class="inner-flex">
-        <h1>{obtainedText}</h1>
-        <button onclick={update}>{addToInventory}</button>
+    <div class="inner-flex-right">
+        <h1 class="card-name">{cardName}</h1>
+        <h2 class="subtitle">{cardChar} • {cardGroup}</h2>
+        <h2 class="subtitle">Rarity: {cardRarity}</h2>
         <br>
-        <button onclick={setFavorite} style={`display:${favoriteDisplay}`}>{favoriteText}</button>
-        <button onclick={addWishlist} style={`display:${wishlistDisplay}`}>{wishlistText}</button>
+        <br>
+        <hr class="card-info-divider">
+        <br>
+        <h1 class="subtitle">{obtainedText}</h1>
+        <br>
+        <div class="buttons-flex">
+            <button onclick={update} class="ctrl-btn">{addToInventory}</button>
+            <button onclick={setFavorite} style={`display:${favoriteDisplay}`} class="ctrl-btn">{favoriteText}</button>
+            <button onclick={addWishlist} style={`display:${wishlistDisplay}`} class="ctrl-btn">{wishlistText}</button>
+        </div>
     </div>
 </div>
 
@@ -149,15 +157,139 @@
         filter: grayscale(100%);
     }
 
+    .home-btn{
+        background-color: #FFA1A1;
+        width: 15%;
+        height: 30px;
+        border-radius: 10px;
+        margin: 5px;
+        color: #3a1818;
+        font-weight: 500;
+    }
+
+    .home-btn:hover{
+        background-color: #ff8181;
+    }
+
+    .bg{
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        position: absolute;
+        background-image: linear-gradient(to bottom, #E9FEFF, #9bdffe);
+    }
+
     .flex-container{
         display: flex;
         width: 98%;
         justify-content: space-around;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .inner-flex-left{
+        width: 39%;
+    }
+
+    @keyframes inner-flex-right-1{
+        from{
+            width: 69%;
+        }
+        to{
+            width: 72%;
+        }
+    }
+
+    @keyframes inner-flex-right-2{
+        to{
+            width: 69%;
+        }
+        from{
+            width: 72%;
+        }
+    }
+
+    .inner-flex-right{
+        width: 69%;
+        background-color: #FFA1A1;
+        border-radius: 25px;
+        box-sizing: border-box;
+        padding: 25px;
+        position: relative;
+        border: #A0C9FF 8px solid;
+        animation: inner-flex-right-2 0.5s ease-out;
+    }
+
+    .inner-flex-right:hover{
+        width: 72%;
+        animation: inner-flex-right-1 0.5s ease-out;
+    }
+
+    .card-name{
+        font-family: "Madimi One", sans-serif;
+        font-size: 40px;
+        color: #312D45;
+        text-align: center;
+    }
+
+    .subtitle{
+        font-family: "Madimi One", sans-serif;
+        font-size: 28px;
+        color: #3a3552;
+        text-align: center;
+    }
+
+    .buttons-flex{
+        display: flex;
+        width: 90%;
+        justify-content: space-around;
         margin: auto;
     }
 
-    .inner-flex{
-        background-color: rgb(169, 238, 238);
+    @keyframes ctrl-btn-1{
+        from{
+            width: 47%;
+            height: 70px;
+        }
+        to{
+            width: 49%;
+            height: 73px;
+        }
+    }
+
+    @keyframes ctrl-btn-2{
+        to{
+            width: 47%;
+            height: 70px;
+        }
+        from{
+            width: 49%;
+            height: 73px;
+        }
+    }
+
+    .ctrl-btn{
+        background-color: #ffebae;
+        width: 47%;
+        height: 70px;
+        border-radius: 12px;
+        font-family: "Madimi One", sans-serif;
+        font-size: 20px;
+        color: #725e20;
+        animation: ctrl-btn-2 0.5s ease-out;
+    }
+
+    .ctrl-btn:hover{
+        background-color: #ffe494;
         width: 49%;
+        height: 73px;
+        animation: ctrl-btn-1 0.5s ease-out;
+    }
+
+    .card-info-divider{
+        border: #ffe494 1.5px solid;
     }
 </style>
