@@ -37,6 +37,7 @@
     import ena from "$lib/assets/enaIcon.png";
     import mizuki from "$lib/assets/mizukiIcon.png";
 
+
     function randint(max){
         const array = new Uint16Array(1);
         crypto.getRandomValues(array);
@@ -59,6 +60,37 @@
     let wishlistIsEmpty=true;
 
     let cardStatus = {};
+
+    let ellipse = $state(".");
+    
+    let ellipses = [".", "..", "..."];
+
+    let loading = false;
+
+    let index=0;
+    async function cycle(){
+        while(loading){
+            ellipse = ellipses[index];
+            index+=1;
+            if(index>=3){
+                index=0;
+            }
+            await sleep(500);
+        }
+    }
+
+    async function load(){
+        document.getElementById("loadingScreen").style.display = "block";
+        loading = true;
+        cycle();
+        return true;
+    }
+
+    async function stopLoad(){
+        document.getElementById("loadingScreen").style.display = "none";
+        loading = false;
+        return true;
+    }
 
     let SSPs = [];
     let RRRs = [];
@@ -471,9 +503,20 @@
                 errmsg = "";
                 let value = document.getElementById("quantity").value;
                 if(document.getElementById("skipOpening").checked){
-                    for(let i = 0; i < value; i++){
+                    load();
+                    await sleep(1000);
+                    let leftover = (value-(Math.floor(value/1000)*1000));
+                    for(let i = 0; i < Math.floor(value/1000); i++){
+                        for(let i = 0; i < 1000; i++){
+                            await openPack(true);
+                        }
+                        await sleep(0.5);
+                    }
+                    for(let i = 0; i < leftover; i++){
                         openPack(true);
                     }
+                    await sleep(0.1);
+                    stopLoad();
                     stopSimulate();
                 }else{
                     document.getElementById("autoControls").style.display = "block";
@@ -496,6 +539,8 @@
                 document.getElementById("pulledCardsContainer").style.display = "block";
                 if(document.querySelector("input[name='oneOrAll']:checked").value=="one"){
                     if(document.getElementById("skipOpening2").checked){
+                        load();
+                        await sleep(1000);
                         let oneObtained = false;
                         while(!oneObtained){
                             let obtaineds = await openPack(true);
@@ -505,6 +550,7 @@
                                 }
                             });
                         }
+                        stopLoad();
                         stopSimulate();
                     }else{
                         document.getElementById("autoControls").style.display = "block";
@@ -528,6 +574,8 @@
                 }else if(document.querySelector("input[name='oneOrAll']:checked").value=="all"){
                     if(document.getElementById("skipOpening2").checked){
                         let allObtaineds = [];
+                        load();
+                        await sleep(1000);
                         while(allObtaineds.length!=wantedCards.length){
                             let obtaineds = await openPack(true);
                             obtaineds.forEach(i=>{
@@ -536,6 +584,7 @@
                                 }
                             });
                         }
+                        stopLoad();
                         stopSimulate();
                     }else{
                         document.getElementById("autoControls").style.display = "block";
@@ -769,6 +818,11 @@
         }
     }
 </script>
+
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-stars"></div>
+    <h1 class="loading-text">Loading{ellipse}</h1>
+</div>
 
 <div class="web-container">
     <div class="navbar">
@@ -1164,6 +1218,39 @@
         overflow: hidden;
         width: 100vw;
         height: 100vh;
+    }
+
+    @keyframes slide{
+        from{background-position-x: 0px; background-position-y: 0px;}
+        to{background-position-x: -500px; background-position-y: -300px;}
+    }
+    
+    .loading-screen{
+        background-image: linear-gradient(to bottom, #E9FEFF, #9bdffe);
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 10;
+        display: none;
+    }
+
+    .loading-stars{
+        background-image: url("$lib/assets/seamlessStars.png");
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        opacity: 0.25;
+        animation: slide 15s linear infinite;
+    }
+
+    .loading-text{
+        font-size: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "Madimi One", sans-serif;
+        color: rgb(30, 35, 62);
     }
 
     .navbar{
