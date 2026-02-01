@@ -22,7 +22,7 @@ Please keep in mind that the pulling simulation rates won't be 100% accurate! Th
 ## Demo/installation
 Demo link can be found [here](https://ws-prsk.vercel.app/).
 
-To run locally, clone the repo, change directory to w-s-prsk, then simply run with npm.
+To run locally, you'll need your own MongoDB uri. Clone the repo, change directory to w-s-prsk, then simply run with npm. Make sure to replace all placeholder values in +server.js files with your Mongo uri and db/collection name.
 
 ## Notes!
 First time using Sveltekit!
