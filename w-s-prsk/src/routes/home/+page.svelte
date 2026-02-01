@@ -463,7 +463,7 @@
             document.getElementById("pulledCardsContainer").style.display = "block";
             openPack(false);
         }else if(value=="quantityMet"){
-            if(document.getElementById("quantity").value<3 || document.getElementById("quantity").value==null){
+            if(document.getElementById("quantity").value==null){
                 errmsg = "Select a quantity (at least 3)";
             }else{
                 document.getElementById("openingOptions").style.display = "none";
@@ -563,14 +563,26 @@
     async function openPack(skip){
         packCount++;
         let cardsOpened = [];
+        let raritiesOpened = [];
+
+        let rPlusObtained = 0;
+        let uObtainedNum = 0;
+
         for(let i = 0; i < 7; i++){
-            cardsOpened.push(pullCard());
+            let packOpenedResults = pullCard(false, rPlusObtained, uObtainedNum);
+            cardsOpened.push(packOpenedResults[0]);
+            raritiesOpened.push(packOpenedResults[1]);
+            rPlusObtained = packOpenedResults[2];
+            uObtainedNum = packOpenedResults[3];
         }
             
-        if(!cardsOpened.includes("R") && !cardsOpened.includes("RR") && !cardsOpened.includes("SR") && !cardsOpened.includes("RRR") && !cardsOpened.includes("SSP")){
-            cardsOpened.push(pullCard(true));
+        if(rPlusObtained==0){
+            cardsOpened.push(pullCard(true)[0]);
+            raritiesOpened.push("R");
         }else{
-            cardsOpened.push(pullCard());
+            let packOpenedResults = pullCard(false, rPlusObtained, uObtainedNum);
+            cardsOpened.push(packOpenedResults[0]);
+            raritiesOpened.push(packOpenedResults[1]);
         }
 
         totalOpened+=8;
@@ -605,70 +617,75 @@
         return cardsOpened;
     }
 
-    function pullCard(R){
+    function pullCard(R, rPlusObtained, uObtainedNum){
         if(R){
-            return Rs[randint(Rs.length)];
+            let chosenIndex = randint(Rs.length);
+            if(!rObtained.includes(Rs[chosenIndex])){
+                rObtained.push(Rs[chosenIndex]);
+                document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true, false, true));
+            }
+            return [Rs[chosenIndex], "R"];
         }
         let cardChosen = randint(2304);
-        if(cardChosen<1 && sspCount!=1){ //SSP
+        if(cardChosen<1 && sspCount!=1 && rPlusObtained<2){ //SSP
             sspCount+=1;
             let chosenIndex = randint(SSPs.length);
             if(!sspObtained.includes(SSPs[chosenIndex])){
                 sspObtained.push(SSPs[chosenIndex]);
                 document.getElementById("sspResults").appendChild(createCard(SSPs[chosenIndex], true, false, true));
             }
-            return SSPs[chosenIndex];
-        }else if(cardChosen<7 && rrrCount!=4){ //RRR
+            return [SSPs[chosenIndex], "SSP", rPlusObtained+1, uObtainedNum];
+        }else if(cardChosen<7 && rrrCount!=4 && rPlusObtained<2){ //RRR
             rrrCount+=1;
             let chosenIndex = randint(RRRs.length);
             if(!rrrObtained.includes(RRRs[chosenIndex])){
                 rrrObtained.push(RRRs[chosenIndex]);
                 document.getElementById("rrrResults").appendChild(createCard(RRRs[chosenIndex], true, false, true));
             }
-            return RRRs[chosenIndex];
-        }else if(cardChosen<17 && srCount!=10){ //SR
+            return [RRRs[chosenIndex], "RRR", rPlusObtained+1, uObtainedNum];
+        }else if(cardChosen<17 && srCount!=10  && rPlusObtained<2){ //SR
             srCount+=1;
             let chosenIndex = randint(SRs.length);
             if(!srObtained.includes(SRs[chosenIndex])){
                 srObtained.push(SRs[chosenIndex]);
                 document.getElementById("srResults").appendChild(createCard(SRs[chosenIndex], true, false, true));
             }
-            return SRs[randint(SRs.length)];
-        }else if(cardChosen<113){ //RR
+            return [SRs[chosenIndex], "SR", rPlusObtained+1, uObtainedNum];
+        }else if(cardChosen<113  && rPlusObtained<2){ //RR
             let chosenIndex = randint(RRs.length);
             if(!rrObtained.includes(RRs[chosenIndex])){
                 rrObtained.push(RRs[chosenIndex]);
                 document.getElementById("rrResults").appendChild(createCard(RRs[chosenIndex], true, false, true));
             }
-            return RRs[chosenIndex];
-        }else if(cardChosen<473){ //R
+            return [RRs[chosenIndex], "RR", rPlusObtained+1, uObtainedNum];
+        }else if(cardChosen<473 && rPlusObtained<2){ //R
             let chosenIndex = randint(Rs.length);
             if(!rObtained.includes(Rs[chosenIndex])){
                 rObtained.push(Rs[chosenIndex]);
                 document.getElementById("rResults").appendChild(createCard(Rs[chosenIndex], true, false, true));
             }
-            return Rs[chosenIndex];
-        }else if(cardChosen<1049){ //U
+            return [Rs[chosenIndex], "R", rPlusObtained+1, uObtainedNum];
+        }else if(cardChosen<1049 && uObtainedNum < 2){ //U
             let chosenIndex = randint(Us.length);
             if(!uObtained.includes(Us[chosenIndex])){
                 uObtained.push(Us[chosenIndex]);
                 document.getElementById("uResults").appendChild(createCard(Us[chosenIndex], true, false, true));
             }
-            return Us[chosenIndex];
+            return [Us[chosenIndex], "U", rPlusObtained, uObtainedNum+1];
         }else if(cardChosen<2201){ //C
             let chosenIndex = randint(Cs.length);
             if(!cObtained.includes(Cs[chosenIndex])){
                 cObtained.push(Cs[chosenIndex]);
                 document.getElementById("cResults").appendChild(createCard(Cs[chosenIndex], true, false, true));
             }
-            return Cs[chosenIndex];
+            return [Cs[chosenIndex], "C", rPlusObtained, uObtainedNum];
         }else{ //CC
             let chosenIndex = randint(CCs.length);
             if(!ccObtained.includes(CCs[chosenIndex])){
                 ccObtained.push(CCs[chosenIndex]);
                 document.getElementById("ccResults").appendChild(createCard(CCs[chosenIndex], true, false, true));
             }
-            return CCs[chosenIndex];
+            return [CCs[chosenIndex], "CC", rPlusObtained, uObtainedNum];
         }
     }
 
