@@ -173,7 +173,20 @@
         let userInventory;
         let userWishlist;
 
-        await axios.get("/getData")
+        let userToSend;
+
+        if(document.cookie.includes(";")){
+            let arrCookie = document.cookie.split(";").sort((a,b)=>{
+                return a.localeCompare(b);
+            });
+            userToSend = arrCookie[arrCookie.length-1].split("=")[1];
+        }else{
+            userToSend = document.cookie.split(",")[document.cookie.split(",").length-1].split("=")[1]
+        }
+
+        await axios.post("/api/getData", {
+            username:userToSend
+        })
         .then((response)=>{
             userInventory=response.data.inventory;
             userWishlist=response.data.wishlist;

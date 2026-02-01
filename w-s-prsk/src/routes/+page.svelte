@@ -53,6 +53,7 @@
     async function signup(){
         tryMsgSignup = await signupLogic(document.getElementById("signupuser").value, document.getElementById("signuppassword").value);
         if(tryMsgSignup=="Success! Loading..."){
+            document.cookie = `username=${document.getElementById("signupuser").value}`;
             await sleep(2000);
             goto("/home");
         }
@@ -61,6 +62,7 @@
     async function login(){
         tryMsgLogin = await loginLogic(document.getElementById("loginuser").value, document.getElementById("loginpassword").value);
         if(tryMsgLogin=="Success! Loading..."){
+            document.cookie = `username=${document.getElementById("loginuser").value}`;
             await sleep(2000);
             goto("/home");
         }
