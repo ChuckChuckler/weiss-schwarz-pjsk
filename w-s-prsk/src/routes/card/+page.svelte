@@ -23,7 +23,23 @@
     let isFavorite;
     let onWishlist;
 
+    let userToSend;
+
     onMount(async ()=>{
+        if(document.cookie.includes(";")){
+            let arrCookie = document.cookie.split(";").sort((a,b)=>{
+                return a.localeCompare(b);
+            });
+
+            arrCookie.forEach(i=>{
+                if(i.split("=")[0].includes("username")){
+                    userToSend = i.split("=")[1].trim();
+                }
+            });
+        }else{
+            userToSend = document.cookie.split(",")[document.cookie.split(",").length-1].split("=")[1].trim();
+        }
+
         let searchParams = new URLSearchParams(window.location.search);
         cardId = searchParams.get("id");
 
@@ -33,7 +49,8 @@
         cardChar = cards[cardId].character;
         cardGroup = cards[cardId].group;
 
-        await axios.post("/fetchCardData",{
+        await axios.post("/api/fetchCardData",{
+            username: userToSend,
             cardId:cardId
         })
         .then((response)=>{
@@ -81,7 +98,8 @@
     }
 
     function update(){
-        axios.post("/addCard", {
+        axios.post("/api/addCard", {
+            username: userToSend,
             cardId:cardId,
             add:!isObtained
         });
@@ -98,8 +116,9 @@
             isFavorite=true;
         }
 
-        await axios.post("/setFavorite", {
-            id:cardId,
+        await axios.post("/api/setFavorite", {
+            username: userToSend,
+            cardId:cardId,
             favorite:isFavorite
         })
         .catch((e)=>{
@@ -108,8 +127,9 @@
     }
 
     async function addWishlist(){
-        await axios.post("/addToWishlist", {
-            id:cardId,
+        await axios.post("/api/addToWishlist", {
+            username: userToSend,
+            cardId:cardId,
             onWishlist:onWishlist
         })
         .catch((e)=>{

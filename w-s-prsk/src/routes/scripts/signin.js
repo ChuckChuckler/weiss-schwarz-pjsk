@@ -14,7 +14,7 @@ export async function loginLogic(username, password){
 
         let returnval = "";
 
-        let userdata = await axios.post("/login", {
+        let userdata = await axios.post("/api/login", {
             user:username,
             pass:password
         })
@@ -44,7 +44,7 @@ export async function signupLogic(username, password){
         
         let returnval = "";
 
-        let userdata = await axios.post("/signup", {
+        let userdata = await axios.post("/api/signup", {
             user:username,
             pass:password
         })

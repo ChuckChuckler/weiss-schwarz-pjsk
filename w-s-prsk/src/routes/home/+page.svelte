@@ -141,7 +141,25 @@
         let userInventory;
         let userWishlist;
 
-        await axios.get("/getData")
+        let userToSend;
+
+        if(document.cookie.includes(";")){
+            let arrCookie = document.cookie.split(";").sort((a,b)=>{
+                return a.localeCompare(b);
+            });
+
+            arrCookie.forEach(i=>{
+                if(i.split("=")[0].includes("username")){
+                    userToSend = i.split("=")[1].trim();
+                }
+            });
+        }else{
+            userToSend = document.cookie.split(",")[document.cookie.split(",").length-1].split("=")[1].trim();
+        }
+
+        await axios.post("/api/getData",{
+            username: userToSend
+        })
         .then((response)=>{
             userInventory=response.data.inventory;
             userWishlist=response.data.wishlist;
@@ -214,22 +232,33 @@
             let arrCookie = document.cookie.split(";").sort((a,b)=>{
                 return a.localeCompare(b);
             });
-            let isObtained = arrCookie[1].split("=")[1];
-            let characters = arrCookie[0].split("=")[1].split(",");
-            document.getElementById("filterOptions").querySelector(`input[value='${isObtained}']`).checked = true;
+            if(arrCookie.length > 1){
+                let isObtained;
+                let characters;
+                arrCookie.forEach(i=>{
+                    if(i.split("=")[0].includes("obtainedOrNot")){
+                        isObtained = i.split("=")[1].trim();
+                    }
+                    if(i.split("=")[0].includes("includedCharacters")){
+                        characters = i.split("=")[1].split(",");
+                    }
+                })
+                
+                document.getElementById("filterOptions").querySelector(`input[value='${isObtained}']`).checked = true;
 
-            document.getElementById("filterOptions").querySelectorAll("input[name='character-group']").forEach(i=>{
-                if(!characters.includes(i.value)){
-                    i.checked = false;
-                    allSelected = false;
+                document.getElementById("filterOptions").querySelectorAll("input[name='character-group']").forEach(i=>{
+                    if(!characters.includes(i.value)){
+                        i.checked = false;
+                        allSelected = false;
+                    }
+                });
+
+                if(!allSelected){
+                        document.getElementById("allSelected").checked = false;
                 }
-            });
 
-            if(!allSelected){
-                    document.getElementById("allSelected").checked = false;
+                selectFilter();
             }
-
-            selectFilter();
         }
     });
 
