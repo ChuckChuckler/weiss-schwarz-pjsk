@@ -145,6 +145,8 @@
             </div>
         </div>
     </div>
+
+    <p style="text-align: center;">v1.0.0</p>
 </div>
 
 <style>

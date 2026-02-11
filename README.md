@@ -1,3 +1,5 @@
+## v1.0.0
+
 # Weiss Schwarz Simulator
 This is an online Weiss Schwarz simulator for Project Sekai EN Vol1 packs! Featuring:
 - An inventory to store which cards you have (IRL), your favorites, and your wishlist
